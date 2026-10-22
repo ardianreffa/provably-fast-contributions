@@ -1,0 +1,85 @@
+diff --git a/crates/ml_dsa_44/src/ct.cairo b/crates/ml_dsa_44/src/ct.cairo
+index 37bf017..1eb683a 100644
+--- a/crates/ml_dsa_44/src/ct.cairo
++++ b/crates/ml_dsa_44/src/ct.cairo
+@@ -1,6 +1,6 @@
+ use crate::k2::Ap;
+ use corelib_imports::bounded_int::{BoundedInt as ZB,DivRemHelper as ZD,MulHelper,UnitInt as ZU,bounded_int as zq,upcast as zu,downcast};
+-const BIAS:ZF=0x400000008000000100000002000000004000000080000001000000020000000;
++const BIAS:ZF=0x2702408e4e04811c9c0902393812047027415b444e82b6889d056d113a0ada2;
+ const CORR:ZU<329395863341713845130488713415819972>=329395863341713845130488713415819972;
+ const N18:NonZero<ZU<0x80000000>>=0x80000000;
+ impl S18a of ZD<u128,ZU<0x80000000>>{type DivT=ZB<0,0x1ffffffffffffffffffffffff>;type RemT=ZB<0,0x7fffffff>;}
+@@ -419,25 +419,23 @@ out.p(bias+vbb+vcd+vdf+veh+vfj+vgl+vhn+vip+vjr+vkt+vlv+vmx+vnz+voB+vpD+vqF+vrH+v
+ }
+ out
+ }
+-pub(crate)type Correction=ZB<329395863341713845130488679056081605,329395863341713845130488713415819972>;
++pub(crate)type Correction=ZB<0,0x7ffffffff>;
+ type Digit18=ZB<0,0x7fffffff>;
+-impl CS of zq::SubHelper<ZU<329395863341713845130488713415819972>,Digit18>{type Result=ZB<329395863341713845130488711268336325,329395863341713845130488713415819972>;}
+-impl CU of zq::SubHelper<ZU<329395863341713845130488713415819972>,DigitTop>{type Result=Correction;}
+ #[inline(always)]
+-fn correction(v:Digit18,cc:ZU<329395863341713845130488713415819972>)->Correction{zu(zq::sub(cc,v))}
++fn correction(v:Digit18,cc:ZU<329395863341713845130488713415819972>)->Correction{zu(v)}
+ type DigitTop=ZB<0,0x7ffffffff>;
+ trait CorrectionOutput<T>{fn digit(v:Digit18,cc:ZU<329395863341713845130488713415819972>)->T;fn top(v:DigitTop,cc:ZU<329395863341713845130488713415819972>)->T;}
+ impl FeltCorrection of CorrectionOutput<ZF>{
+ #[inline(always)]
+-fn digit(v:Digit18,cc:ZU<329395863341713845130488713415819972>)->ZF{1618039936-zu::<_,ZF>(v)}
++fn digit(v:Digit18,cc:ZU<329395863341713845130488713415819972>)->ZF{0-zu::<_,ZF>(v)}
+ #[inline(always)]
+-fn top(v:DigitTop,cc:ZU<329395863341713845130488713415819972>)->ZF{1618039936-zu::<_,ZF>(v)}
++fn top(v:DigitTop,cc:ZU<329395863341713845130488713415819972>)->ZF{0-zu::<_,ZF>(v)}
+ }
+ impl TypedCorrection of CorrectionOutput<Correction>{
+ #[inline(always)]
+ fn digit(v:Digit18,cc:ZU<329395863341713845130488713415819972>)->Correction{correction(v,cc)}
+ #[inline(always)]
+-fn top(v:DigitTop,cc:ZU<329395863341713845130488713415819972>)->Correction{zq::sub(cc,v)}
++fn top(v:DigitTop,cc:ZU<329395863341713845130488713415819972>)->Correction{v}
+ }
+ #[inline(always)]
+ pub fn corrections(sums:Span<ZF>)->Array<Array<ZF>>{extract_corrections(sums)}
+diff --git a/crates/ml_dsa_44/src/nttu.cairo b/crates/ml_dsa_44/src/nttu.cairo
+index aca97e0..c3cdad3 100644
+--- a/crates/ml_dsa_44/src/nttu.cairo
++++ b/crates/ml_dsa_44/src/nttu.cairo
+@@ -51,20 +51,22 @@ let diff:ZB<-2354272465607599325184,2354272465607599325184>=stage_sub(a,b);
+ let product:ZB<-19729782639137375106361196544,19729782639137375106361196544>=stage_mul(diff,z);
+ (zu(sum),zu(product))
+ }
+-type IFinal=ZB<-329395863341713845130488679055228928,329395863341713845130488679055228928>;
++type IFinal=ZB<34359824660,658791726683427690260983501285773290>;
+ #[inline(always)]
+ fn ib4(a:IL3,b:IL3)->(IFinal,IFinal){
+-let sum:ZB<-39459565278274750212722393088,39459565278274750212722393088>=stage_add(a,b);
++let dl:ZU<39459565278274750212723129002>=39459565278274750212723129002;
++let a:ZB<19729782639137375106361932458,59189347917412125319084325546>=stage_add(a,dl);
++let sum:ZB<735914,78919130556549500425445522090>=stage_add(a,b);
+ let ni:ZU<8347681>=8347681;
+-let scaled:ZB<-329395863341713845130488679055228928,329395863341713845130488679055228928>=stage_mul(sum,ni);
+-let diff:ZB<-39459565278274750212722393088,39459565278274750212722393088>=stage_sub(a,b);
++let scaled:ZB<6143175315434,658791726683427690260983501285773290>=stage_mul(sum,ni);
++let diff:ZB<735914,78919130556549500425445522090>=stage_sub(a,b);
+ let nz:ZU<46690>=46690;
+-let product:ZB<-1842367102842648087432008533278720,1842367102842648087432008533278720>=stage_mul(nz,diff);
++let product:ZB<34359824660,3684734205685296174864051426382100>=stage_mul(nz,diff);
+ (zu(scaled),zu(product))
+ }
+ #[inline(always)]
+ fn correct_residue(v:IFinal,c:crate::ct::Correction,qn:NonZero<ZU<8380417>>)->Residue{
+-let corrected:ZB<852677,658791726683427690260977392471048900>=stage_add(v,c);
++let corrected:ZB<86293,658791726683427690260983501285773290>=stage_sub(v,c);
+ let raw:u128=zu(corrected);let(_,r)=zq::div_rem(raw,qn);r
+ }
+ trait CorrectResidue<C>{fn reduce<const BIAS:ZF>(v:IFinal,c:C,qn:NonZero<ZU<8380417>>)->Residue;}
+@@ -76,7 +78,7 @@ impl FeltCorrectResidue of CorrectResidue<ZF>{
+ #[inline(always)]
+ fn reduce<const BIAS:ZF>(v:IFinal,c:ZF,qn:NonZero<ZU<8380417>>)->Residue{rd_residue(zu::<_,ZF>(v)+BIAS+c,qn)}
+ }
+-fn i2_residue<C,+Copy<C>,+Drop<C>,impl CR:CorrectResidue<C>>(a0:Residue,a1:Residue,a2:Residue,a3:Residue,a4:Residue,a5:Residue,a6:Residue,a7:Residue,a8:Residue,a9:Residue,a10:Residue,a11:Residue,a12:Residue,a13:Residue,a14:Residue,a15:Residue,c0:C,c1:C,c2:C,c3:C,c4:C,c5:C,c6:C,c7:C,c8:C,c9:C,c10:C,c11:C,c12:C,c13:C,c14:C,c15:C,qn:NonZero<ZU<8380417>>)->T16Residue{let(t1,t2)=ib1(a0,a1,1221177);let(t3,t4)=ib1(a2,a3,7822959);let(t5,t6)=ib1(a4,a5,1005239);let(t7,t8)=ib1(a6,a7,4615550);let(t9,t10)=ib1(a8,a9,6250525);let(t11,t12)=ib1(a10,a11,5698129);let(t13,t14)=ib1(a12,a13,4837932);let(t15,t16)=ib1(a14,a15,601683);let(t17,t18)=ib2(t1,t3,3201430);let(t19,t20)=ib2(t2,t4,3201430);let(t21,t22)=ib2(t5,t7,3145678);let(t23,t24)=ib2(t6,t8,3145678);let(t25,t26)=ib2(t9,t11,2883726);let(t27,t28)=ib2(t10,t12,2883726);let(t29,t30)=ib2(t13,t15,3201494);let(t31,t32)=ib2(t14,t16,3201494);let(t33,t34)=ib3(t17,t21,4618904);let(t35,t36)=ib3(t19,t23,4618904);let(t37,t38)=ib3(t18,t22,4618904);let(t39,t40)=ib3(t20,t24,4618904);let(t41,t42)=ib3(t25,t29,4614810);let(t43,t44)=ib3(t27,t31,4614810);let(t45,t46)=ib3(t26,t30,4614810);let(t47,t48)=ib3(t28,t32,4614810);let(t49,t50)=ib4(t33,t41);let(t51,t52)=ib4(t35,t43);let(t53,t54)=ib4(t37,t45);let(t55,t56)=ib4(t39,t47);let(t57,t58)=ib4(t34,t42);let(t59,t60)=ib4(t36,t44);let(t61,t62)=ib4(t38,t46);let(t63,t64)=ib4(t40,t48);(CR::reduce::<0>(t49,c0,qn),CR::reduce::<2242346823613967798538>(t51,c1,qn),CR::reduce::<14577381046126497559781179392>(t53,c2,qn),CR::reduce::<13364554291707269048939695560>(t55,c3,qn),CR::reduce::<181467570767477515824257497645599602>(t57,c4,qn),CR::reduce::<181467573975014411265454924564070208>(t59,c5,qn),CR::reduce::<180050058925473555747173390957300594>(t61,c6,qn),CR::reduce::<173026285171199310030325808873148278>(t63,c7,qn),CR::reduce::<1842367267724120216261009835786240>(t50,c8,qn),CR::reduce::<1842367267724119150666422266609120>(t52,c9,qn),CR::reduce::<1842367269441635755880227170385920>(t54,c10,qn),CR::reduce::<1842367250798119363455738435343320>(t56,c11,qn),CR::reduce::<1842817284262324438352453301973820>(t58,c12,qn),CR::reduce::<1842817278696003399885219306927360>(t60,c13,qn),CR::reduce::<1854123317707027939053202561053500>(t62,c14,qn),CR::reduce::<1858064102396990362117121278556660>(t64,c15,qn))}
++fn i2_residue<C,+Copy<C>,+Drop<C>,impl CR:CorrectResidue<C>>(a0:Residue,a1:Residue,a2:Residue,a3:Residue,a4:Residue,a5:Residue,a6:Residue,a7:Residue,a8:Residue,a9:Residue,a10:Residue,a11:Residue,a12:Residue,a13:Residue,a14:Residue,a15:Residue,c0:C,c1:C,c2:C,c3:C,c4:C,c5:C,c6:C,c7:C,c8:C,c9:C,c10:C,c11:C,c12:C,c13:C,c14:C,c15:C,qn:NonZero<ZU<8380417>>)->T16Residue{let(t1,t2)=ib1(a0,a1,1221177);let(t3,t4)=ib1(a2,a3,7822959);let(t5,t6)=ib1(a4,a5,1005239);let(t7,t8)=ib1(a6,a7,4615550);let(t9,t10)=ib1(a8,a9,6250525);let(t11,t12)=ib1(a10,a11,5698129);let(t13,t14)=ib1(a12,a13,4837932);let(t15,t16)=ib1(a14,a15,601683);let(t17,t18)=ib2(t1,t3,3201430);let(t19,t20)=ib2(t2,t4,3201430);let(t21,t22)=ib2(t5,t7,3145678);let(t23,t24)=ib2(t6,t8,3145678);let(t25,t26)=ib2(t9,t11,2883726);let(t27,t28)=ib2(t10,t12,2883726);let(t29,t30)=ib2(t13,t15,3201494);let(t31,t32)=ib2(t14,t16,3201494);let(t33,t34)=ib3(t17,t21,4618904);let(t35,t36)=ib3(t19,t23,4618904);let(t37,t38)=ib3(t18,t22,4618904);let(t39,t40)=ib3(t20,t24,4618904);let(t41,t42)=ib3(t25,t29,4614810);let(t43,t44)=ib3(t27,t31,4614810);let(t45,t46)=ib3(t26,t30,4614810);let(t47,t48)=ib3(t28,t32,4614810);let(t49,t50)=ib4(t33,t41);let(t51,t52)=ib4(t35,t43);let(t53,t54)=ib4(t37,t45);let(t55,t56)=ib4(t39,t47);let(t57,t58)=ib4(t34,t42);let(t59,t60)=ib4(t36,t44);let(t61,t62)=ib4(t38,t46);let(t63,t64)=ib4(t40,t48);(CR::reduce::<8380416>(t49,c0,qn),CR::reduce::<8380416>(t51,c1,qn),CR::reduce::<8380416>(t53,c2,qn),CR::reduce::<8380416>(t55,c3,qn),CR::reduce::<8380416>(t57,c4,qn),CR::reduce::<8380416>(t59,c5,qn),CR::reduce::<8380416>(t61,c6,qn),CR::reduce::<8380416>(t63,c7,qn),CR::reduce::<8380416>(t50,c8,qn),CR::reduce::<8380416>(t52,c9,qn),CR::reduce::<8380416>(t54,c10,qn),CR::reduce::<8380416>(t56,c11,qn),CR::reduce::<8380416>(t58,c12,qn),CR::reduce::<8380416>(t60,c13,qn),CR::reduce::<8380416>(t62,c14,qn),CR::reduce::<8380416>(t64,c15,qn))}
+ pub(crate)fn intt_row<C,+Copy<C>,+Drop<C>,impl CR:CorrectResidue<C>>(a:Span<Span<crate::sa0::C24>>,z:Span<Span<Residue>>,corr:Span<C>)->Array<Residue>{let qn=QN;let mut corr=corr;
+ let cq0=corr.multi_pop_front::<64>().unwrap();
+ let cq1=corr.multi_pop_front::<64>().unwrap();

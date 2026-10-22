@@ -16,7 +16,9 @@ Documentation of my accepted contributions to the **ML-DSA-44** season on
 2. `mj_a27318a1`: lane-complemented two-state Keccak (184,696,268 gas, record at the time).
 3. `mj_db11da30`: pruned final SHAKE-128 round in ExpandA (183,682,111 gas, record at the time).
 4. `mj_24fb2836`: UseHint HighBits by multiply-shift, two residues per u128 (176,144,759 gas, record at the time).
-5. `mj_0d051868`: z range flags per 3 digits as one constant minus three products (172,877,140 gas, current ML-DSA-44 record).
+5. `mj_0d051868`: z range flags per 3 digits as one constant minus three products (172,877,140 gas, record at the time).
+6. `mj_29ea4ca5`: **combination, not my idea**: @saniksin's sibling patch `mj_d95817f8` merged on top of @odinfree's record `mj_a93adef3` (172,535,524 gas).
+7. `mj_7b791824`: z range flags, six digits per AND with a +78 offset in the division chain (172,230,687 gas, current ML-DSA-44 record).
 
 ---
 
@@ -197,7 +199,7 @@ Python for **all 2^18 digit values at every digit position**, plus **200,000 ran
 | | Gas |
 |---|---:|
 | Parent `mj_345e4640` (by @saniksin) | 172,982,140 |
-| **This job (accepted, current ML-DSA-44 record)** | **172,877,140** |
+| **This job (accepted, record at the time)** | **172,877,140** |
 | Saved vs parent | 105,000 |
 
 Still above Starknet's 100M validation gas cap.
@@ -212,6 +214,83 @@ Official diff page: https://falcon.provably.fast/diff?job=mj_0d051868bea64a1d9e1
   tree with `git apply`. Verified: the parent patch (downloaded with `pvfast remote mldsa patch`) on the baseline,
   plus this delta, gives a tree identical (file by file, compared by content) to the baseline plus the official
   patch of job `mj_0d051868`.
+
+### Note on later work
+**@saniksin** built `mj_163dedb1` on top of this contribution (`mj_0d051868`). Thanks!
+
+### Disclosure
+This patch was produced by the AI agent **Claude Code** (model **Opus**), which I (**@ardianreffa**) ran and supervised.
+
+---
+
+## Contribution 6: combination of @saniksin's sibling patch onto @odinfree's record (job `mj_29ea4ca514c84d08a4ae1dfa56199170`)
+
+> **This is a combination, not an original idea of mine.** The idea belongs to **@saniksin**
+> (sibling patch `mj_d95817f8`, accepted but not yet part of the record). My contribution is only the merge.
+
+### What I did
+`mj_d95817f8` by @saniksin was accepted but had not made it into the record. I merged its patch on top of
+the record `mj_a93adef3` by **@odinfree**. The merge touches `ct.cairo` and `nttu.cairo`.
+
+### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mj_a93adef3` (by @odinfree) | 172,586,724 |
+| **This job (accepted, not a record)** | **172,535,524** |
+| Saved vs parent | 51,200 |
+
+It did not become a record: **@saniksin** later merged their own idea again, with a slightly better result
+(`mj_b44c9049`, 172,528,874 gas). Still above Starknet's 100M validation gas cap.
+
+Official diff page: https://falcon.provably.fast/diff?job=mj_29ea4ca514c84d08a4ae1dfa56199170
+
+### Files
+- `mldsa-44-mj_29ea4ca5.patch`: the official accepted patch (`pvfast remote mldsa patch`), identical to the one
+  I submitted. Cumulative against the baseline (`78c83599f57e`).
+- `our-delta-on-mj_a93adef3.patch`: only the merged change on top of the parent (`ct.cairo`, `nttu.cairo`).
+  Verified: the parent patch (downloaded with `pvfast remote mldsa patch`) on the baseline, plus this delta,
+  gives a tree identical (`diff -r`, by content) to the baseline plus the official patch of job `mj_29ea4ca5`.
+  The delta applies cleanly (`git apply --check`).
+
+### Disclosure
+This patch was produced by the AI agent **Claude Code** (model **Opus**), which I (**@ardianreffa**) ran and supervised.
+
+---
+
+## Contribution 7: z range flags, six digits per AND (job `mj_7b79182442cc43d6a00143c1b3519897`)
+
+### The idea
+In `zread`, the range flags of z digits were computed three digits per AND. My change computes them
+**six per AND**. An **offset of +78** in the division chain makes one test per digit enough; a digit that
+crosses a felt boundary is still tested on both sides. The number of ANDs drops from 336 to about 200.
+
+Evidence of correctness:
+- an exhaustive Python differential test: 1,024 positions x 262,144 digit values, **zero differences**;
+- mutation tests;
+- 124 edge-case tests in Cairo;
+- the package's 117 built-in tests.
+
+### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mj_bf48924d` (by @saniksin) | 172,335,271 |
+| **This job (accepted, current ML-DSA-44 record)** | **172,230,687** |
+| Saved vs parent | 104,584 |
+
+Still above Starknet's 100M validation gas cap.
+
+Official diff page: https://falcon.provably.fast/diff?job=mj_7b79182442cc43d6a00143c1b3519897
+
+### Files
+- `mldsa-44-mj_7b791824.patch`: the official accepted patch (`pvfast remote mldsa patch`), identical to the one
+  I submitted. Cumulative against the baseline (`78c83599f57e`), so it contains the work of many earlier
+  contributors, not only mine.
+- `our-delta-on-mj_bf48924d.patch`: only my change on top of the parent (`zread.cairo`, `nttu.cairo`).
+  Verified: the parent patch (downloaded with `pvfast remote mldsa patch`) on the baseline, plus this delta,
+  gives a tree identical (`diff -r`, by content) to the baseline plus the official patch of job `mj_7b791824`.
+  The delta applies cleanly (`git apply --check`).
 
 ### Disclosure
 This patch was produced by the AI agent **Claude Code** (model **Opus**), which I (**@ardianreffa**) ran and supervised.
@@ -356,7 +435,7 @@ di tiap posisi**, ditambah **200 ribu kombinasi acak**.
 
 ### Hasil resmi
 - Parent `mj_345e4640` (oleh @saniksin): 172.982.140 gas.
-- **Job ini (diterima, rekor ML-DSA-44 saat ini): 172.877.140 gas**, hemat 105.000 gas.
+- **Job ini (diterima, rekor pada waktunya): 172.877.140 gas**, hemat 105.000 gas.
 - Masih di atas batas 100 juta gas.
 
 Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_0d051868bea64a1d9e1b606d78ceb6da
@@ -367,6 +446,69 @@ Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_0d051868bea64a1d9e1
 - `our-delta-on-mj_345e4640.patch`: hanya perubahan saya di atas parent (`zread.cairo`). Terbukti: patch parent
   (diunduh dengan `pvfast remote mldsa patch`) + delta ini sama persis isinya dengan baseline + patch resmi job
   `mj_0d051868` (dibandingkan per berkas berdasarkan isi).
+
+### Catatan
+**@saniksin** membangun `mj_163dedb1` di atas kontribusi ini (`mj_0d051868`). Terima kasih!
+
+### Pernyataan jujur
+Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
+## Kontribusi 6: gabungan patch saudara @saniksin di atas rekor @odinfree (job `mj_29ea4ca514c84d08a4ae1dfa56199170`)
+
+> **Ini gabungan, bukan ide asli saya.** Idenya milik **@saniksin** (patch saudara `mj_d95817f8`, diterima
+> tetapi belum masuk rekor). Kontribusi saya hanya menggabungkannya.
+
+### Yang saya lakukan
+`mj_d95817f8` milik @saniksin diterima tetapi belum masuk rekor. Saya menggabungkan patch itu di atas rekor
+`mj_a93adef3` milik **@odinfree**. Penggabungan ini menyentuh `ct.cairo` dan `nttu.cairo`.
+
+### Hasil resmi
+- Parent `mj_a93adef3` (oleh @odinfree): 172.586.724 gas.
+- **Job ini (diterima, bukan rekor): 172.535.524 gas**, hemat 51.200 gas.
+- Tidak jadi rekor karena **@saniksin** kemudian menggabungkan ulang idenya sendiri dengan hasil sedikit lebih
+  baik (`mj_b44c9049`, 172.528.874 gas). Masih di atas batas 100 juta gas.
+
+Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_29ea4ca514c84d08a4ae1dfa56199170
+
+### Berkas
+- `mldsa-44-mj_29ea4ca5.patch`: patch resmi yang diterima, sama dengan yang saya kirim. Bersifat kumulatif.
+- `our-delta-on-mj_a93adef3.patch`: hanya perubahan gabungan di atas parent (`ct.cairo`, `nttu.cairo`). Terbukti:
+  patch parent (diunduh dengan `pvfast remote mldsa patch`) + delta ini sama persis isinya (`diff -r`) dengan
+  baseline + patch resmi job `mj_29ea4ca5`. Delta dapat diterapkan dengan bersih.
+
+### Pernyataan jujur
+Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
+## Kontribusi 7: flag rentang z, enam digit per AND (job `mj_7b79182442cc43d6a00143c1b3519897`)
+
+### Ide
+Di `zread`, flag rentang digit z sebelumnya dihitung tiga digit per AND. Perubahan saya menghitungnya
+**enam per AND**. **Offset +78** di rantai pembagian membuat satu uji per digit sudah cukup; digit yang
+melintasi batas felt tetap diuji dari dua sisi. Jumlah AND turun dari 336 menjadi sekitar 200.
+
+Bukti kebenaran:
+- uji diferensial Python menyeluruh: 1.024 posisi x 262.144 nilai digit, **tanpa selisih**;
+- uji mutasi;
+- 124 uji tepi di Cairo;
+- 117 tes bawaan paket.
+
+### Hasil resmi
+- Parent `mj_bf48924d` (oleh @saniksin): 172.335.271 gas.
+- **Job ini (diterima, rekor ML-DSA-44 saat ini): 172.230.687 gas**, hemat 104.584 gas.
+- Masih di atas batas 100 juta gas.
+
+Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_7b79182442cc43d6a00143c1b3519897
+
+### Berkas
+- `mldsa-44-mj_7b791824.patch`: patch resmi yang diterima, sama dengan yang saya kirim. **Bersifat kumulatif**
+  (berisi kerja banyak kontributor sebelumnya, bukan hanya saya).
+- `our-delta-on-mj_bf48924d.patch`: hanya perubahan saya di atas parent (`zread.cairo`, `nttu.cairo`). Terbukti:
+  patch parent (diunduh dengan `pvfast remote mldsa patch`) + delta ini sama persis isinya (`diff -r`) dengan
+  baseline + patch resmi job `mj_7b791824`. Delta dapat diterapkan dengan bersih.
 
 ### Pernyataan jujur
 Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
