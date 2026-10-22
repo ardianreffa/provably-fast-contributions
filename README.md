@@ -13,7 +13,8 @@ Documentation of my accepted contributions to the **ML-DSA-44** season on
 ## Contributions
 
 1. `mj_7279e4f3`: zero-lane first round + shared round loop (196,910,723 gas).
-2. `mj_a27318a1`: lane-complemented two-state Keccak (184,696,268 gas, current record).
+2. `mj_a27318a1`: lane-complemented two-state Keccak (184,696,268 gas, record at the time).
+3. `mj_db11da30`: pruned final SHAKE-128 round in ExpandA (183,682,111 gas, record at the time).
 
 ---
 
@@ -100,6 +101,41 @@ Official diff page: https://falcon.provably.fast/diff?job=mj_a27318a1de724764963
 
 ### Note on later work
 **@saniksin** built their record `mj_4d7fd14e` on top of my first patch (`mj_7279e4f3`). Thanks!
+Later, **@rukafe0x** (`mj_54f1c987`) and **@saniksin** (`mj_3d773ce6`) built records on top of my second
+contribution (`mj_a27318a1`). Thanks again!
+
+### Disclosure
+This patch was produced by the AI agent **Claude Code**, which I (**@ardianreffa**) ran and supervised.
+
+---
+
+## Contribution 3: pruned final SHAKE-128 round in ExpandA (job `mj_db11da30c33b4e3c8dfcfd4f69519232`)
+
+### The idea
+ExpandA samples matrix coefficients from SHAKE-128. The last SHAKE-128 block of each stream needs only
+**40 candidates**, so the last Keccak round only has to produce the lanes that those 40 candidates read.
+The final round is pruned to **15 lanes**. If the 40 candidates are not enough (rejection sampling
+rejected too many), the code falls back to a full permutation, so the result stays exactly the same as the
+standard. The round body is also shared across the unrolled rounds to keep the contract class small.
+
+### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mj_14156814` (by @odinfree) | 183,792,260 |
+| **This job (accepted, record at the time)** | **183,682,111** |
+| Saved vs parent | 110,149 |
+
+Still above Starknet's 100M validation gas cap. It was later passed by `mj_0b73e40b` (by @odinfree, 183,310,334 gas).
+
+Official diff page: https://falcon.provably.fast/diff?job=mj_db11da30c33b4e3c8dfcfd4f69519232
+
+### Files
+- `mldsa-44-mj_db11da30.patch`: the patch as submitted. Like the others, it is **cumulative** against the
+  baseline (`78c83599f57ecb28847ba3ebc4528598318129b8`) and contains the work of many earlier contributors.
+- `our-delta-on-mj_14156814.patch`: only my change on top of the parent (`k2.cairo`, `x2.cairo`). Apply to the
+  parent's tree with `git apply`. Verified: the parent patch (downloaded with `pvfast remote mldsa patch`) on the
+  baseline, plus this delta, gives a tree byte-identical to the baseline plus the official patch of job `mj_db11da30`.
 
 ### Disclosure
 This patch was produced by the AI agent **Claude Code**, which I (**@ardianreffa**) ran and supervised.
@@ -164,6 +200,36 @@ Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_a27318a1de724764963
 
 ### Catatan
 **@saniksin** membangun rekor `mj_4d7fd14e` di atas patch pertama saya (`mj_7279e4f3`). Terima kasih!
+Kemudian, **@rukafe0x** (`mj_54f1c987`) dan **@saniksin** (`mj_3d773ce6`) membangun rekor di atas kontribusi
+kedua saya (`mj_a27318a1`). Terima kasih lagi!
+
+### Pernyataan jujur
+Patch ini dikerjakan oleh agent **Claude Code** yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
+## Kontribusi 3: putaran terakhir SHAKE-128 dipangkas di ExpandA (job `mj_db11da30c33b4e3c8dfcfd4f69519232`)
+
+### Ide
+ExpandA mengambil koefisien matriks dari SHAKE-128. Blok SHAKE-128 terakhir di tiap aliran hanya butuh
+**40 kandidat**, jadi putaran Keccak terakhir cukup menghitung lane yang dibaca 40 kandidat itu. Putaran
+terakhir dipangkas ke **15 lane**. Kalau 40 kandidat tidak cukup (terlalu banyak yang ditolak), kode memakai
+jalur cadangan permutasi penuh, jadi hasilnya tetap sama persis dengan standar. Badan putaran juga dipakai
+bersama oleh putaran-putaran yang di-unroll agar ukuran kontrak tetap kecil.
+
+### Hasil resmi
+- Parent `mj_14156814` (oleh @odinfree): 183.792.260 gas.
+- **Job ini (diterima, rekor pada waktunya): 183.682.111 gas**, hemat 110.149 gas.
+- Masih di atas batas 100 juta gas. Kemudian dilewati oleh `mj_0b73e40b` (oleh @odinfree, 183.310.334 gas).
+
+Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_db11da30c33b4e3c8dfcfd4f69519232
+
+### Berkas
+- `mldsa-44-mj_db11da30.patch`: patch yang dikirim. **Bersifat kumulatif** (berisi kerja banyak kontributor
+  sebelumnya, bukan hanya saya).
+- `our-delta-on-mj_14156814.patch`: hanya perubahan saya di atas parent (`k2.cairo`, `x2.cairo`). Terbukti:
+  patch parent (diunduh dengan `pvfast remote mldsa patch`) + delta ini sama persis dengan baseline + patch resmi
+  job `mj_db11da30`.
 
 ### Pernyataan jujur
 Patch ini dikerjakan oleh agent **Claude Code** yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
