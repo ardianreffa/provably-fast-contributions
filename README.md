@@ -16,6 +16,7 @@ Documentation of my accepted contributions to the **ML-DSA-44** season on
 2. `mj_a27318a1`: lane-complemented two-state Keccak (184,696,268 gas, record at the time).
 3. `mj_db11da30`: pruned final SHAKE-128 round in ExpandA (183,682,111 gas, record at the time).
 4. `mj_24fb2836`: UseHint HighBits by multiply-shift, two residues per u128 (176,144,759 gas, record at the time).
+5. `mj_0d051868`: z range flags per 3 digits as one constant minus three products (172,877,140 gas, current ML-DSA-44 record).
 
 ---
 
@@ -183,6 +184,40 @@ idea was found with the **Opus** model, and the patch was written with **Sonnet*
 
 ---
 
+## Contribution 5: cheaper z range flags, "dg3" fold (job `mj_0d051868bea64a1d9e1b606d78ceb6da`)
+
+### The idea
+In `zread`, the range flag of each z digit is computed for groups of 3 digits. The parent used 10 operations
+per group. My change (`dg3`) computes the flags of 3 digits as **one constant minus three products**, which is
+6 operations instead of 10, and removes a parameter `k` that was no longer used. Correctness was tested in
+Python for **all 2^18 digit values at every digit position**, plus **200,000 random combinations**.
+
+### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mj_345e4640` (by @saniksin) | 172,982,140 |
+| **This job (accepted, current ML-DSA-44 record)** | **172,877,140** |
+| Saved vs parent | 105,000 |
+
+Still above Starknet's 100M validation gas cap.
+
+Official diff page: https://falcon.provably.fast/diff?job=mj_0d051868bea64a1d9e1b606d78ceb6da
+
+### Files
+- `mldsa-44-mj_0d051868.patch`: the official accepted patch (`pvfast remote mldsa patch`), identical to the one
+  I submitted. Like the others, it is **cumulative** against the baseline (`78c83599f57e`) and contains the work
+  of many earlier contributors, not only mine.
+- `our-delta-on-mj_345e4640.patch`: only my change on top of the parent (`zread.cairo`). Apply to the parent's
+  tree with `git apply`. Verified: the parent patch (downloaded with `pvfast remote mldsa patch`) on the baseline,
+  plus this delta, gives a tree identical (file by file, compared by content) to the baseline plus the official
+  patch of job `mj_0d051868`.
+
+### Disclosure
+This patch was produced by the AI agent **Claude Code** (model **Opus**), which I (**@ardianreffa**) ran and supervised.
+
+---
+
 ## Bahasa Indonesia (sederhana)
 
 ### Apa challenge-nya?
@@ -308,6 +343,33 @@ atasnya. Terima kasih!
 ### Pernyataan jujur
 Patch ini dikerjakan oleh agent **Claude Code** yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 Idenya dicari dengan model **Opus**, dan patch-nya dikerjakan dengan **Sonnet** (`claude-sonnet-5-5`).
+
+---
+
+## Kontribusi 5: flag rentang z yang lebih murah, lipatan "dg3" (job `mj_0d051868bea64a1d9e1b606d78ceb6da`)
+
+### Ide
+Di `zread`, flag rentang tiap digit z dihitung per 3 digit. Parent memakai 10 operasi per kelompok. Perubahan
+saya (`dg3`) menghitung flag 3 digit sebagai **satu konstanta dikurangi tiga hasil kali**, yaitu 6 operasi, bukan
+10, dan membuang parameter `k` yang tidak terpakai lagi. Kebenaran diuji di Python untuk **semua 2^18 nilai digit
+di tiap posisi**, ditambah **200 ribu kombinasi acak**.
+
+### Hasil resmi
+- Parent `mj_345e4640` (oleh @saniksin): 172.982.140 gas.
+- **Job ini (diterima, rekor ML-DSA-44 saat ini): 172.877.140 gas**, hemat 105.000 gas.
+- Masih di atas batas 100 juta gas.
+
+Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_0d051868bea64a1d9e1b606d78ceb6da
+
+### Berkas
+- `mldsa-44-mj_0d051868.patch`: patch resmi yang diterima, sama dengan yang saya kirim. **Bersifat kumulatif**
+  (berisi kerja banyak kontributor sebelumnya, bukan hanya saya).
+- `our-delta-on-mj_345e4640.patch`: hanya perubahan saya di atas parent (`zread.cairo`). Terbukti: patch parent
+  (diunduh dengan `pvfast remote mldsa patch`) + delta ini sama persis isinya dengan baseline + patch resmi job
+  `mj_0d051868` (dibandingkan per berkas berdasarkan isi).
+
+### Pernyataan jujur
+Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
 ## License
 MIT. See `LICENSE`. The baseline is OpenZeppelin's cairo-pq-verifiers; accepted patches are MIT.
