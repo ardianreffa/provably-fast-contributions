@@ -1,0 +1,151 @@
+diff --git a/crates/ml_dsa_87/src/nttu.cairo b/crates/ml_dsa_87/src/nttu.cairo
+index cb640f4..52beb7f 100644
+--- a/crates/ml_dsa_87/src/nttu.cairo
++++ b/crates/ml_dsa_87/src/nttu.cairo
+@@ -117,9 +117,9 @@ pub(crate)fn ntt_z(w:Span<ZC87>)->Array<Residue>{ntt_inner(w)}
+ 
+ /// The inverse transform's outputs need only a constant multiple of q (no c * t1 correction here):
+ /// typed, so the reduction is one bounded division with no felt conversion.
+-pub(crate)type OffT=UnitInt<329395863341713845130488679055490816>;
+-type OffSum=BoundedInt<261888,658791726683427690260977358110719744>;
+-impl OffSumD of DivRemHelper<OffSum,UnitInt<8380417>>{type DivT=BoundedInt<0,78610852739598481825066384895>;type RemT=Residue;}
++pub(crate)type OffT=UnitInt<329395863341713845130488679055752704>;
++type OffSum=BoundedInt<523776,658791726683427690260977358110981632>;
++impl OffSumD of DivRemHelper<OffSum,UnitInt<8380417>>{type DivT=BoundedInt<0,78610852739598481825066384896>;type RemT=Residue;}
+ impl OffCorrectResidue of CorrectResidue<OffT>{
+ #[inline(always)]
+ fn reduce(v:IFinal,c:OffT,qn:NonZero<UnitInt<8380417>>)->Residue{let x:OffSum=stage_add(v,c);let(_,r)=bounded_int::div_rem(x,qn);r}
+diff --git a/crates/ml_dsa_87/src/packing.cairo b/crates/ml_dsa_87/src/packing.cairo
+index 187a0b7..1967961 100644
+--- a/crates/ml_dsa_87/src/packing.cairo
++++ b/crates/ml_dsa_87/src/packing.cairo
+@@ -169,6 +169,37 @@ const TWO_G2: NonZero<u128> = 523776;
+ /// `lanes`. r1 = floor((r + GAMMA2 - 1) / (2 GAMMA2)), r0 > 0 iff the remainder exceeds GAMMA2 - 1,
+ /// and r1 = 16 (r - r0 = q - 1) is 0 with r0 <= 0. Each lane is built without hints, then the
+ /// block's hinted coefficients (positions strictly increasing) are corrected in place.
++
++const UM: corelib_imports::bounded_int::UnitInt<1049601> = 1049601;
++const UM64: corelib_imports::bounded_int::UnitInt<19361721026509619085705216> = 19361721026509619085705216;
++const UMASK: u128 = 152118072027387528187850721853440;
++type PA = corelib_imports::bounded_int::BoundedInt<0, 8796093014016>;
++type PB = corelib_imports::bounded_int::BoundedInt<0, 162259276678097635939749363449856>;
++type PS = corelib_imports::bounded_int::BoundedInt<0, 162259276678097635948545456463872>;
++impl PaMul of corelib_imports::bounded_int::MulHelper<crate::nttu::Residue, corelib_imports::bounded_int::UnitInt<1049601>> {
++    type Result = PA;
++}
++impl PbMul of corelib_imports::bounded_int::MulHelper<crate::nttu::Residue, corelib_imports::bounded_int::UnitInt<19361721026509619085705216>> {
++    type Result = PB;
++}
++impl PsAdd of corelib_imports::bounded_int::AddHelper<PA, PB> {
++    type Result = PS;
++}
++
++/// Residues i and i + 16 of a 32-block as nibble fields i and i + 16 (0x10^i and 0x10^(i+16) after
++/// the scale c): u = (r + GAMMA2) mod q, HighBits(r) = (u * 1049601) >> 39 exactly for all r, and
++/// u * M < 2^43, so one AND takes both nibbles at bits 39 and 103.
++#[inline(always)]
++fn pr(a: crate::nttu::Residue, b: crate::nttu::Residue, c: felt252) -> felt252 {
++    let x: PS = corelib_imports::bounded_int::bounded_int::add(
++        corelib_imports::bounded_int::bounded_int::mul(a, UM), corelib_imports::bounded_int::bounded_int::mul(b, UM64),
++    );
++    let x: u128 = corelib_imports::bounded_int::upcast(x);
++    let y: u128 = x & UMASK;
++    let y: felt252 = y.into();
++    y * c
++}
++
+ pub fn w1_lanes(w: Span<crate::nttu::Residue>, positions: Span<u8>, ref lanes: Array<u128>) {
+     let mut rest = positions;
+     let mut next: u32 = match rest.pop_front() {
+@@ -180,30 +211,47 @@ pub fn w1_lanes(w: Span<crate::nttu::Residue>, positions: Span<u8>, ref lanes: A
+     let mut w = w;
+     let pw = NIB.span();
+     let k = g2cells();
+-    while let Some(blk) = w.multi_pop_front::<16>() {
+-        let [r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15] = (*blk).unbox();
+-        let mut lane = hb(r0, k) + hb(r1, k) * 0x10 + hb(r2, k) * 0x100 + hb(r3, k) * 0x1000 + hb(r4, k) * 0x10000
+-            + hb(r5, k) * 0x100000 + hb(r6, k) * 0x1000000 + hb(r7, k) * 0x10000000 + hb(r8, k) * 0x100000000
+-            + hb(r9, k) * 0x1000000000 + hb(r10, k) * 0x10000000000 + hb(r11, k) * 0x100000000000
+-            + hb(r12, k) * 0x1000000000000 + hb(r13, k) * 0x10000000000000 + hb(r14, k) * 0x100000000000000
+-            + hb(r15, k) * 0x1000000000000000;
+-        base += 16;
++    while let Some(blk) = w.multi_pop_front::<32>() {
++        let [r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31] = (*blk).unbox();
++        let mut lane = pr(r0, r16, 3618502788659549195468037958732344542684867269487738864665426398134424043521)
++            + pr(r1, r17, 3618502788560818922028765593291461098611268081829871335050441528112704389121)
++            + pr(r2, r18, 3618502786981134547000407746237325993433681079303990861210683607765189918721)
++            + pr(r3, r19, 3618502761706184546546682193371164310592289038889903279774556882204958392321)
++            + pr(r4, r20, 3618502357306984539287073347512577385130016392264501976796529273241253969921)
++            + pr(r5, r21, 3618495886919784423133331813775186577733654046258081129148087529821983211521)
++            + pr(r6, r22, 3618392360724582564673467273976933659391856510155347566773019635113651077121)
++            + pr(r7, r23, 3616735941601352829315634637204886965923095932511610568771933319780336926721)
++            + pr(r8, r24, 3590233235629677063590312448852139870422926690211818600754552274447310520321)
++            + pr(r9, r25, 3166189940082864811985157435208186342420218813415147112476455549118888017921)
++            + pr(r10, r26, 2)
++            + pr(r11, r27, 32)
++            + pr(r12, r28, 512)
++            + pr(r13, r29, 8192)
++            + pr(r14, r30, 131072)
++            + pr(r15, r31, 2097152);
++        base += 32;
+         while next < base {
+-            lane += hint_delta(*all[next], k) * *pw[next % 16];
++            lane += hint_delta(urec(*all[next]), k) * *pw[next % 32];
+             next = match rest.pop_front() {
+                 Some(p) => (*p).into(),
+                 None => 256,
+             };
+         }
+-        lanes.append(lane.try_into().unwrap());
++        let (hi, lo) = core::traits::DivRem::div_rem(lane.try_into().unwrap(), TWO64);
++        lanes.append(lo);
++        lanes.append(hi);
+     }
+ }
++const TWO64: NonZero<u128> = 0x10000000000000000;
+ 
+-const NIB: [felt252; 16] = [
+-    0x1, 0x10, 0x100, 0x1000, 0x10000, 0x100000, 0x1000000, 0x10000000, 0x100000000, 0x1000000000,
+-    0x10000000000, 0x100000000000, 0x1000000000000, 0x10000000000000, 0x100000000000000,
+-    0x1000000000000000,
+-];
++/// The residue r behind u = (r + GAMMA2) mod q (hinted positions only).
++fn urec(u: crate::nttu::Residue) -> crate::nttu::Residue {
++    let u: u32 = corelib_imports::bounded_int::upcast(u);
++    let r: u32 = if u >= GAMMA2 { u - GAMMA2 } else { u + 8380417 - GAMMA2 };
++    corelib_imports::bounded_int::downcast(r).unwrap()
++}
++
++const NIB: [felt252; 32] = [0x1, 0x10, 0x100, 0x1000, 0x10000, 0x100000, 0x1000000, 0x10000000, 0x100000000, 0x1000000000, 0x10000000000, 0x100000000000, 0x1000000000000, 0x10000000000000, 0x100000000000000, 0x1000000000000000, 0x10000000000000000, 0x100000000000000000, 0x1000000000000000000, 0x10000000000000000000, 0x100000000000000000000, 0x1000000000000000000000, 0x10000000000000000000000, 0x100000000000000000000000, 0x1000000000000000000000000, 0x10000000000000000000000000, 0x100000000000000000000000000, 0x1000000000000000000000000000, 0x10000000000000000000000000000, 0x100000000000000000000000000000, 0x1000000000000000000000000000000, 0x10000000000000000000000000000000];
+ 
+ type RG = corelib_imports::bounded_int::BoundedInt<261887, 8642303>;
+ type G2U = corelib_imports::bounded_int::UnitInt<523776>;
+@@ -225,17 +273,6 @@ fn dr(r: crate::nttu::Residue, k: G2C) -> (felt252, felt252) {
+     (corelib_imports::bounded_int::upcast(d), corelib_imports::bounded_int::upcast(rem))
+ }
+ 
+-/// HighBits(r) without a hint.
+-#[inline(always)]
+-fn hb(r: crate::nttu::Residue, k: G2C) -> felt252 {
+-    let (d, _) = dr(r, k);
+-    if d == 16 {
+-        0
+-    } else {
+-        d
+-    }
+-}
+-
+ /// UseHint(1, r) - HighBits(r): the hinted nibble's change (as a felt, possibly negative).
+ fn hint_delta(r: crate::nttu::Residue, k: G2C) -> felt252 {
+     let (d, rem) = dr(r, k);
+diff --git a/crates/ml_dsa_87/src/verify.cairo b/crates/ml_dsa_87/src/verify.cairo
+index 6de4992..a9f2730 100644
+--- a/crates/ml_dsa_87/src/verify.cairo
++++ b/crates/ml_dsa_87/src/verify.cairo
+@@ -145,5 +145,5 @@ pub fn verify_decoded(
+ 
+ /// A multiple of q above the typed inverse transform's negative bound: the "correction" that makes
+ /// every output non-negative before its reduction.
+-const OFF: crate::nttu::OffT = 329395863341713845130488679055490816;
++const OFF: crate::nttu::OffT = 329395863341713845130488679055752704;
+ const OFFS: [crate::nttu::OffT; 256] = [OFF; 256];

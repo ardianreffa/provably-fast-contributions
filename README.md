@@ -1,7 +1,7 @@
 # provably-fast-contributions
 
-Documentation of my accepted contributions to the **ML-DSA-44** season on
-[falcon.provably.fast](https://falcon.provably.fast/mldsa).
+Documentation of my accepted contributions to the **ML-DSA-44** and **ML-DSA-87** seasons on
+[falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87 is in its own section near the end).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
 > (model `claude-sonnet-5-5`), which I (**@ardianreffa**) ran and supervised.
@@ -19,6 +19,11 @@ Documentation of my accepted contributions to the **ML-DSA-44** season on
 5. `mj_0d051868`: z range flags per 3 digits as one constant minus three products (172,877,140 gas, record at the time).
 6. `mj_29ea4ca5`: **combination, not my idea**: @saniksin's sibling patch `mj_d95817f8` merged on top of @odinfree's record `mj_a93adef3` (172,535,524 gas).
 7. `mj_7b791824`: z range flags, six digits per AND with a +78 offset in the division chain (172,230,687 gas, current ML-DSA-44 record).
+
+ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
+
+8. `mk_3691ffe9`: UseHint HighBits by multiply-shift, pairs `(i, i+16)` per u128 (110,867,290 gas, record at the time).
+9. `mk_469c1cb9`: mu and the first SampleInBall block in one two-state Keccak permutation (109,484,394 gas, ML-DSA-87 record when submitted). The two-state technique is **@rukafe0x's**; porting it to ML-DSA-87 is my work.
 
 ---
 
@@ -512,6 +517,152 @@ Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_7b79182442cc43d6a00
 
 ### Pernyataan jujur
 Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+## ML-DSA-87
+
+Two accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
+[falcon.provably.fast](https://falcon.provably.fast/mldsa87). Here a transaction's validation is scored in
+Sierra gas, mean over the held-out set; the season baseline (`23d05d6a2412`) costs 401,296,683 gas. For both
+jobs, the official patch is the accepted one saved with `pvfast remote mldsa87 patch` (client 1.38.0). Like
+before, official patches are **cumulative** against the baseline and contain the work of many earlier
+contributors, mainly **@nadai2010**'s long record line, not only mine.
+
+> **Disclosure / Pernyataan:** both ML-DSA-87 patches were produced by an AI agent, **Claude Code**, which I
+> (**@ardianreffa**) ran and supervised. Both job titles on the board say so.
+> Kedua patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** yang saya (**@ardianreffa**) jalankan
+> dan awasi. Judul kedua job di papan skor juga menyebutkannya.
+
+### English
+
+#### Contribution 8: UseHint by multiply-shift for ML-DSA-87 (job `mk_3691ffe9c59140c3a9a6ac1c1ea3272a`)
+
+##### The idea
+This is the same technique as contribution 4, rebuilt for ML-DSA-87's parameters (`gamma2 = (q-1)/32`, so 16
+HighBits values instead of 44). UseHint needs HighBits of every residue. Instead of a division, it is computed as
+`HighBits(r) = (((r + gamma2) mod q) * 1049601) >> 39`. Two coefficients, `i` and `i+16`, share one `u128`, so one AND
+handles the pair. The `gamma2` bias is not added per coefficient: it is folded into the constant `OFF` of the
+inverse NTT.
+
+Correctness: the formula was tested in Python for **every r from 0 to q-1**, together with the hint rule against
+FIPS 204, plus **200,000 random blocks**.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mk_610ffcb9` (by @nadai2010) | 112,803,840 |
+| **This job (accepted, record at the time)** | **110,867,290** |
+| Saved vs parent | 1,936,550 |
+
+Still above Starknet's 100M validation gas cap.
+
+##### Files
+- `mldsa-87-mk_3691ffe9.patch`: the official accepted patch, cumulative against baseline `23d05d6a2412`.
+- `our-delta-on-mk_610ffcb9.patch`: only my change on top of the parent (`nttu.cairo`, `packing.cairo`,
+  `verify.cairo`). Verified: the parent patch (downloaded with `pvfast remote mldsa87 patch`) on the baseline, plus this
+  delta, gives a tree identical (`diff -r`, by content) to the baseline plus the official patch of job `mk_3691ffe9`.
+  The delta applies cleanly (`git apply --check`). The patch I originally submitted gives the same tree as the
+  official one.
+
+#### Contribution 9: mu and the first SampleInBall block in one two-state permutation (job `mk_469c1cb9a18e4f3793a7e2e0c7a3d172`)
+
+> **The two-state technique is not my invention.** It comes from **@rukafe0x**, who introduced it in the
+> ML-DSA-44 line as `mj_366ff85e` ("92 Keccak-f as 46 two-state permutations", two sponges per `u128`,
+> including "mu with SampleInBall"). Later ML-DSA-44 records developed it further (for example
+> @saniksin's `mj_97f98218` and my own lane-complemented version, contribution 2). **What is mine is the
+> port to ML-DSA-87**, where the record had no two-state Keccak.
+
+##### What I did
+In ML-DSA-87 the two Keccak calls for `mu` and for the first SampleInBall block are independent, so they run as
+**one two-state permutation**: `mu` in the low 64 bits of each lane word, SampleInBall in the high 64 bits.
+I took the plain two-state permutation from the ML-DSA-44 code (`k2.cairo`, trimmed to the permutation only).
+The 24 rounds are a **loop of 6 iterations x 4 rounds**, because a 12-round unroll made the compiled contract
+too big for the CASM limit (95,163 felts against 81,920 allowed); the loop costs only about 27k gas. Lane words are packed
+with felt arithmetic and unpacked in a loop to save size.
+
+Correctness: **400 random inputs** compared against the ordinary permutation, for `mu` and for **all 25 lanes**
+of the second state, and all the package's tests.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mk_3691ffe9` (my contribution 8) | 110,867,290 |
+| **This job (accepted, ML-DSA-87 record when submitted)** | **109,484,394** |
+| Saved vs parent | 1,382,896 |
+
+Still above Starknet's 100M validation gas cap (about 9.5M gas to go).
+
+##### Files
+- `mldsa-87-mk_469c1cb9.patch`: the official accepted patch, cumulative against baseline `23d05d6a2412`.
+- `our-delta-on-mk_3691ffe9.patch`: only my change on top of the parent (new `k2.cairo`, plus `keccak.cairo`,
+  `lib.cairo`, `sampling.cairo`, `verify.cairo`). Verified: the parent patch (downloaded with
+  `pvfast remote mldsa87 patch`) on the baseline, plus this delta, gives a tree identical (`diff -r`, by content) to
+  the baseline plus the official patch of job `mk_469c1cb9`. The delta applies cleanly (`git apply --check`).
+  The patch I originally submitted gives the same tree as the official one.
+
+### Bahasa Indonesia (sederhana)
+
+#### Kontribusi 8: UseHint dengan kali-lalu-geser untuk ML-DSA-87 (job `mk_3691ffe9c59140c3a9a6ac1c1ea3272a`)
+
+##### Ide
+Ini teknik yang sama dengan kontribusi 4, dibuat ulang untuk parameter ML-DSA-87 (`gamma2 = (q-1)/32`, jadi
+ada 16 nilai HighBits, bukan 44). UseHint butuh HighBits dari setiap residu. Alih-alih membagi, HighBits dihitung
+dengan `HighBits(r) = (((r + gamma2) mod q) * 1049601) >> 39`. Dua koefisien, `i` dan `i+16`, dimasukkan ke satu
+`u128`, jadi satu AND mengurus sepasang. Bias `gamma2` tidak ditambahkan per koefisien, tetapi dimasukkan ke
+konstanta `OFF` di INTT.
+
+Bukti kebenaran: rumus diuji di Python untuk **semua r dari 0 sampai q-1**, bersama aturan hint terhadap
+FIPS 204, ditambah **200 ribu blok acak**.
+
+##### Hasil resmi
+- Parent `mk_610ffcb9` (oleh @nadai2010): 112.803.840 gas.
+- **Job ini (diterima, rekor pada waktunya): 110.867.290 gas**, hemat 1.936.550 gas.
+- Masih di atas batas 100 juta gas.
+
+##### Berkas
+- `mldsa-87-mk_3691ffe9.patch`: patch resmi yang diterima, kumulatif terhadap baseline `23d05d6a2412`.
+- `our-delta-on-mk_610ffcb9.patch`: hanya perubahan saya di atas parent (`nttu.cairo`, `packing.cairo`,
+  `verify.cairo`). Terbukti: patch parent (diunduh dengan `pvfast remote mldsa87 patch`) + delta ini sama persis
+  isinya (`diff -r`) dengan baseline + patch resmi job `mk_3691ffe9`. Delta dapat diterapkan dengan bersih.
+  Patch yang dulu saya kirim menghasilkan isi yang sama dengan patch resmi.
+
+#### Kontribusi 9: mu dan blok pertama SampleInBall dalam satu permutasi dua-state (job `mk_469c1cb9a18e4f3793a7e2e0c7a3d172`)
+
+> **Teknik dua-state bukan ciptaan saya.** Teknik ini berasal dari **@rukafe0x**, yang memperkenalkannya di
+> jalur ML-DSA-44 lewat `mj_366ff85e` ("92 Keccak-f menjadi 46 permutasi dua-state", dua sponge dalam satu
+> `u128`, termasuk "mu dengan SampleInBall"). Rekor ML-DSA-44 berikutnya mengembangkannya lagi (misalnya
+> `mj_97f98218` milik @saniksin dan versi lane-komplemen saya, kontribusi 2). **Yang merupakan kerja saya
+> adalah penerapannya ke ML-DSA-87**, yang rekornya belum punya Keccak dua-state.
+
+##### Yang saya kerjakan
+Di ML-DSA-87, dua panggilan Keccak untuk `mu` dan untuk blok pertama SampleInBall saling bebas, jadi
+dijalankan dalam **satu permutasi dua-state**: `mu` di 64 bit bawah tiap kata lane, SampleInBall di 64 bit atas.
+Saya mengambil permutasi dua-state biasa dari kode ML-DSA-44 (`k2.cairo`, dipangkas jadi permutasinya saja).
+24 ronde dibuat sebagai **loop 6 iterasi x 4 ronde**, karena unroll 12 ronde membuat kontrak hasil kompilasi
+terlalu besar untuk batas CASM (95.163 felt, batasnya 81.920); loop hanya menambah sekitar 27 ribu gas. Kata lane
+dikemas dengan aritmetika felt dan dibongkar dalam loop agar ukurannya kecil.
+
+Bukti kebenaran: **400 input acak** dibandingkan dengan permutasi biasa, untuk `mu` dan untuk **semua 25 lane**
+state kedua, serta semua tes bawaan paket.
+
+##### Hasil resmi
+- Parent `mk_3691ffe9` (kontribusi 8 saya): 110.867.290 gas.
+- **Job ini (diterima, rekor ML-DSA-87 saat dikirim): 109.484.394 gas**, hemat 1.382.896 gas.
+- Masih di atas batas 100 juta gas (kurang sekitar 9,5 juta gas).
+
+##### Berkas
+- `mldsa-87-mk_469c1cb9.patch`: patch resmi yang diterima, kumulatif terhadap baseline `23d05d6a2412`.
+- `our-delta-on-mk_3691ffe9.patch`: hanya perubahan saya di atas parent (`k2.cairo` baru, serta `keccak.cairo`,
+  `lib.cairo`, `sampling.cairo`, `verify.cairo`). Terbukti: patch parent (diunduh dengan
+  `pvfast remote mldsa87 patch`) + delta ini sama persis isinya (`diff -r`) dengan baseline + patch resmi job
+  `mk_469c1cb9`. Delta dapat diterapkan dengan bersih. Patch yang dulu saya kirim menghasilkan isi yang sama
+  dengan patch resmi.
+
+### Pernyataan jujur
+Kedua patch ML-DSA-87 dikerjakan oleh agent **Claude Code** yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
 
 ## License
 MIT. See `LICENSE`. The baseline is OpenZeppelin's cairo-pq-verifiers; accepted patches are MIT.

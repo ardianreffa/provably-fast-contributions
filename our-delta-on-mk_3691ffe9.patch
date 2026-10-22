@@ -1,0 +1,484 @@
+diff --git a/crates/ml_dsa_87/src/k2.cairo b/crates/ml_dsa_87/src/k2.cairo
+new file mode 100644
+index 0000000..b6b2987
+--- /dev/null
++++ b/crates/ml_dsa_87/src/k2.cairo
+@@ -0,0 +1,375 @@
++use corelib_imports::bounded_int::{BoundedInt as ZB,bounded_int as zq,upcast as zu};
++use corelib_imports::bounded_int::bounded_int::SubHelper;
++#[inline(always)]
++fn rt(w:u128,mask:u128,pow:ZF,_k:ZF)->u128{
++let t:ZF=(w&mask).into();
++let wf:ZF=w.into();
++((wf-t*0x80000000000001100000000000000000000000000000001)*pow).try_into().unwrap()
++}
++#[inline(always)]
++fn notw(w:u128,all:ALL)->u128{
++zu(zq::sub::<ALL,u128,NotHelper>(all,w))
++}
++#[inline(always)]
++fn flipc(s:[u128;25],all:ALL)->[u128;25]{
++let[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]=s;
++[a0,a1,a2,a3,a4,a5,a6,a7,notw(a8,all),a9,a10,a11,a12,a13,notw(a14,all),a15,notw(a16,all),a17,a18,a19,a20,a21,notw(a22,all),a23,a24]
++}
++type ALL=ZB<0xffffffffffffffffffffffffffffffff,0xffffffffffffffffffffffffffffffff>;
++const ALL_ONES:ALL=0xffffffffffffffffffffffffffffffff;
++impl NotHelper of SubHelper<ALL,u128>{
++type Result=ZB<0,0xffffffffffffffffffffffffffffffff>;
++}
++#[inline(always)]
++pub fn keccak_f1600_x2(s:[u128;25])->[u128;25]{
++flipc(keccak_rounds(flipc(s,ALL_ONES)),ALL_ONES)
++}
++pub(crate) type AllW=ALL;
++pub(crate) const ALLW:ALL=ALL_ONES;
++#[derive(Copy)]
++struct MG0{m0:u128}
++impl MG0Destruct of Destruct<MG0>{
++#[inline(always)]
++fn destruct(self:MG0) nopanic{let MG0{m0:_}=self;}
++}
++#[derive(Copy)]
++struct PG0{p0:ZF}
++impl PG0Destruct of Destruct<PG0>{
++#[inline(always)]
++fn destruct(self:PG0) nopanic{let PG0{p0:_}=self;}
++}
++#[derive(Copy)]
++struct MG1{m1:u128,m2:u128,m3:u128,m4:u128,m5:u128,m6:u128}
++impl MG1Destruct of Destruct<MG1>{
++#[inline(always)]
++fn destruct(self:MG1) nopanic{let MG1{m1:_,m2:_,m3:_,m4:_,m5:_,m6:_}=self;}
++}
++#[derive(Copy)]
++struct PG1{p1:ZF,p2:ZF,p3:ZF,p4:ZF,p5:ZF,p6:ZF}
++impl PG1Destruct of Destruct<PG1>{
++#[inline(always)]
++fn destruct(self:PG1) nopanic{let PG1{p1:_,p2:_,p3:_,p4:_,p5:_,p6:_}=self;}
++}
++#[derive(Copy)]
++struct MG2{m7:u128,m8:u128,m9:u128,m10:u128,m11:u128,m12:u128}
++impl MG2Destruct of Destruct<MG2>{
++#[inline(always)]
++fn destruct(self:MG2) nopanic{let MG2{m7:_,m8:_,m9:_,m10:_,m11:_,m12:_}=self;}
++}
++#[derive(Copy)]
++struct PG2{p7:ZF,p8:ZF,p9:ZF,p10:ZF,p11:ZF,p12:ZF}
++impl PG2Destruct of Destruct<PG2>{
++#[inline(always)]
++fn destruct(self:PG2) nopanic{let PG2{p7:_,p8:_,p9:_,p10:_,p11:_,p12:_}=self;}
++}
++#[derive(Copy)]
++struct MG3{m13:u128,m14:u128,m15:u128,m16:u128,m17:u128,m18:u128}
++impl MG3Destruct of Destruct<MG3>{
++#[inline(always)]
++fn destruct(self:MG3) nopanic{let MG3{m13:_,m14:_,m15:_,m16:_,m17:_,m18:_}=self;}
++}
++#[derive(Copy)]
++struct PG3{p13:ZF,p14:ZF,p15:ZF,p16:ZF,p17:ZF,p18:ZF}
++impl PG3Destruct of Destruct<PG3>{
++#[inline(always)]
++fn destruct(self:PG3) nopanic{let PG3{p13:_,p14:_,p15:_,p16:_,p17:_,p18:_}=self;}
++}
++#[derive(Copy)]
++struct MG4{m19:u128,m20:u128,m21:u128,m22:u128,m23:u128}
++impl MG4Destruct of Destruct<MG4>{
++#[inline(always)]
++fn destruct(self:MG4) nopanic{let MG4{m19:_,m20:_,m21:_,m22:_,m23:_}=self;}
++}
++#[derive(Copy)]
++struct PG4{p19:ZF,p20:ZF,p21:ZF,p22:ZF,p23:ZF}
++impl PG4Destruct of Destruct<PG4>{
++#[inline(always)]
++fn destruct(self:PG4) nopanic{let PG4{p19:_,p20:_,p21:_,p22:_,p23:_}=self;}
++}
++#[derive(Copy)]
++struct MK{g0:MG0,g1:MG1,g2:MG2,g3:MG3,g4:MG4,al:ALL}
++impl MKDestruct of Destruct<MK>{
++#[inline(always)]
++fn destruct(self:MK) nopanic{let MK{g0:_,g1:_,g2:_,g3:_,g4:_,al:_}=self;}
++}
++#[derive(Copy)]
++struct PW{g0:PG0,g1:PG1,g2:PG2,g3:PG3,g4:PG4}
++impl PWDestruct of Destruct<PW>{
++#[inline(always)]
++fn destruct(self:PW) nopanic{let PW{g0:_,g1:_,g2:_,g3:_,g4:_}=self;}
++}
++const MKC:MK=MK{g0:MG0{m0:0x80000000000000008000000000000000},g1:MG1{m1:0xfffffffff0000000fffffffff0000000,m2:0xe000000000000000e000000000000000,m3:0xffffffffff800000ffffffffff800000,m4:0xffffc00000000000ffffc00000000000,m5:0xfffffffffff00000fffffffffff00000,m6:0xffc0000000000000ffc0000000000000},g2:MG2{m7:0xfffffffffff80000fffffffffff80000,m8:0xc000000000000000c000000000000000,m9:0xfffffffffffffffcfffffffffffffffc,m10:0xfc00000000000000fc00000000000000,m11:0xffffffffffe00000ffffffffffe00000,m12:0xfffe000000000000fffe000000000000},g3:MG3{m13:0xfffffffffffffff8fffffffffffffff8,m14:0xfffffff000000000fffffff000000000,m15:0xfffffffffffffe00fffffffffffffe00,m16:0xffffff8000000000ffffff8000000000,m17:0xfffff80000000000fffff80000000000,m18:0xffffffffffffff00ffffffffffffff00},g4:MG4{m19:0xffffffe000000000ffffffe000000000,m20:0xfffff00000000000fffff00000000000,m21:0xfffffffffe000000fffffffffe000000,m22:0xff00000000000000ff00000000000000,m23:0xfffc000000000000fffc000000000000},al:ALL_ONES};
++const PWC:PW=PW{g0:PG0{p0:2},g1:PG1{p1:68719476736,p2:8,p3:2199023255552,p4:262144,p5:17592186044416,p6:1024},g2:PG2{p7:35184372088832,p8:4,p9:4611686018427387904,p10:64,p11:8796093022208,p12:32768},g3:PG3{p13:2305843009213693952,p14:268435456,p15:36028797018963968,p16:33554432,p17:2097152,p18:72057594037927936},g4:PG4{p19:134217728,p20:1048576,p21:549755813888,p22:256,p23:16384}};
++#[inline(always)]
++fn tp(s:[u128;25],mk:MK)->[u128;25]{
++let[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]=s;
++let pw=PWC;
++let c0=a0^a5^a10^a15^a20;
++let c1=a1^a6^a11^a16^a21;
++let c2=a2^a7^a12^a17^a22;
++let c3=a3^a8^a13^a18^a23;
++let c4=a4^a9^a14^a19^a24;
++let d0=c4^rt(c1,mk.g0.m0,pw.g0.p0,0x100000000000002200000000000000000000000000000002);
++let d1=c0^rt(c2,mk.g0.m0,pw.g0.p0,0x100000000000002200000000000000000000000000000002);
++let d2=c1^rt(c3,mk.g0.m0,pw.g0.p0,0x100000000000002200000000000000000000000000000002);
++let d3=c2^rt(c4,mk.g0.m0,pw.g0.p0,0x100000000000002200000000000000000000000000000002);
++let d4=c3^rt(c0,mk.g0.m0,pw.g0.p0,0x100000000000002200000000000000000000000000000002);
++let e0=a0^d0;
++let e1=a1^d1;
++let e2=a2^d2;
++let e3=a3^d3;
++let e4=a4^d4;
++let e5=a5^d0;
++let e6=a6^d1;
++let e7=a7^d2;
++let e8=a8^d3;
++let e9=a9^d4;
++let e10=a10^d0;
++let e11=a11^d1;
++let e12=a12^d2;
++let e13=a13^d3;
++let e14=a14^d4;
++let e15=a15^d0;
++let e16=a16^d1;
++let e17=a17^d2;
++let e18=a18^d3;
++let e19=a19^d4;
++let e20=a20^d0;
++let e21=a21^d1;
++let e22=a22^d2;
++let e23=a23^d3;
++let e24=a24^d4;
++let b0=e0;
++let b16=rt(e5,mk.g1.m1,pw.g1.p1,0x80000000000001100000000000000000000000000000001000000000);
++let b7=rt(e10,mk.g1.m2,pw.g1.p2,0x400000000000008800000000000000000000000000000008);
++let b23=rt(e15,mk.g1.m3,pw.g1.p3,0x1000000000000022000000000000000000000000000000020000000000);
++let b14=rt(e20,mk.g1.m4,pw.g1.p4,0x2000000000000044000000000000000000000000000000040000);
++let b10=rt(e1,mk.g0.m0,pw.g0.p0,0x100000000000002200000000000000000000000000000002);
++let b1=rt(e6,mk.g1.m5,pw.g1.p5,0x8000000000000110000000000000000000000000000000100000000000);
++let b17=rt(e11,mk.g1.m6,pw.g1.p6,0x20000000000000440000000000000000000000000000000400);
++let b8=rt(e16,mk.g2.m7,pw.g2.p7,0x10000000000000220000000000000000000000000000000200000000000);
++let b24=rt(e21,mk.g2.m8,pw.g2.p8,0x200000000000004400000000000000000000000000000004);
++let b20=rt(e2,mk.g2.m9,pw.g2.p9,0x200000000000004400000000000000000000000000000004000000000000000);
++let b11=rt(e7,mk.g2.m10,pw.g2.p10,0x2000000000000044000000000000000000000000000000040);
++let b2=rt(e12,mk.g2.m11,pw.g2.p11,0x4000000000000088000000000000000000000000000000080000000000);
++let b18=rt(e17,mk.g2.m12,pw.g2.p12,0x400000000000008800000000000000000000000000000008000);
++let b9=rt(e22,mk.g3.m13,pw.g3.p13,0x100000000000002200000000000000000000000000000002000000000000000);
++let b5=rt(e3,mk.g3.m14,pw.g3.p14,0x800000000000011000000000000000000000000000000010000000);
++let b21=rt(e8,mk.g3.m15,pw.g3.p15,0x4000000000000088000000000000000000000000000000080000000000000);
++let b12=rt(e13,mk.g3.m16,pw.g3.p16,0x100000000000002200000000000000000000000000000002000000);
++let b3=rt(e18,mk.g3.m17,pw.g3.p17,0x10000000000000220000000000000000000000000000000200000);
++let b19=rt(e23,mk.g3.m18,pw.g3.p18,0x8000000000000110000000000000000000000000000000100000000000000);
++let b15=rt(e4,mk.g4.m19,pw.g4.p19,0x400000000000008800000000000000000000000000000008000000);
++let b6=rt(e9,mk.g4.m20,pw.g4.p20,0x8000000000000110000000000000000000000000000000100000);
++let b22=rt(e14,mk.g4.m21,pw.g4.p21,0x400000000000008800000000000000000000000000000008000000000);
++let b13=rt(e19,mk.g4.m22,pw.g4.p22,0x8000000000000110000000000000000000000000000000100);
++let b4=rt(e24,mk.g4.m23,pw.g4.p23,0x200000000000004400000000000000000000000000000004000);
++[b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24]
++}
++#[inline(always)]
++fn rnd0(s:[u128;25],rc:u128,mk:MK)->[u128;25]{
++let[b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24]=tp(s,mk);
++let n3=notw(b3,mk.al);
++let a0=b0^(b1&b2)^rc;
++let a1=b1^(b2|n3);
++let a2=b2^(b3|b4);
++let a3=b3^(b4&b0);
++let a4=b4^(b0|b1);
++let n8=notw(b8,mk.al);
++let a5=b5^(b6&b7);
++let a6=b6^(b7|n8);
++let a7=b7^(b8|b9);
++let a8=b8^(b9&b5);
++let a9=b9^(b5|b6);
++let n12=notw(b12,mk.al);
++let a10=b10^(b11|n12);
++let a11=b11^(b12|b13);
++let a12=n12^(b13&b14);
++let a13=b13^(b14|b10);
++let a14=b14^(b10&b11);
++let n18=notw(b18,mk.al);
++let a15=b15^(b16|b17);
++let a16=b16^(b17&b18);
++let a17=b17^(n18&b19);
++let a18=n18^(b19|b15);
++let a19=b19^(b15&b16);
++let n23=notw(b23,mk.al);
++let a20=b20^(b21&b22);
++let a21=b21^(b22|n23);
++let a22=b22^(b23|b24);
++let a23=b23^(b24&b20);
++let a24=b24^(b20|b21);
++[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]
++}
++#[inline(always)]
++fn rnd1(s:[u128;25],rc:u128,mk:MK)->[u128;25]{
++let[b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24]=tp(s,mk);
++let n1=notw(b1,mk.al);
++let a0=b0^(b1&b2)^rc;
++let a1=b1^(b2|b3);
++let a2=b2^(b3&b4);
++let a3=b3^(b4|b0);
++let a4=b4^(b0&n1);
++let n7=notw(b7,mk.al);
++let a5=b5^(b6|b7);
++let a6=b6^(n7|b8);
++let a7=b7^(b8&b9);
++let a8=b8^(b9|b5);
++let a9=b9^(b5&b6);
++let n14=notw(b14,mk.al);
++let a10=b10^(b11|b12);
++let a11=b11^(b12&b13);
++let a12=b12^(b13|b14);
++let a13=b13^(n14|b10);
++let a14=n14^(b10&b11);
++let n18=notw(b18,mk.al);
++let a15=b15^(b16&b17);
++let a16=b16^(b17|n18);
++let a17=b17^(b18|b19);
++let a18=b18^(b19&b15);
++let a19=b19^(b15|b16);
++let n23=notw(b23,mk.al);
++let a20=b20^(b21&b22);
++let a21=b21^(b22|b23);
++let a22=b22^(n23|b24);
++let a23=n23^(b24&b20);
++let a24=b24^(b20|b21);
++[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]
++}
++#[inline(always)]
++fn rnd2(s:[u128;25],rc:u128,mk:MK)->[u128;25]{
++let[b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24]=tp(s,mk);
++let n4=notw(b4,mk.al);
++let a0=b0^(b1&b2)^rc;
++let a1=b1^(b2|b3);
++let a2=b2^(b3&b4);
++let a3=b3^(n4&b0);
++let a4=n4^(b0|b1);
++let n5=notw(b5,mk.al);
++let a5=n5^(b6|b7);
++let a6=b6^(b7&b8);
++let a7=b7^(b8|b9);
++let a8=b8^(b9&n5);
++let a9=b9^(b5&b6);
++let n13=notw(b13,mk.al);
++let a10=b10^(b11&b12);
++let a11=b11^(b12|n13);
++let a12=b12^(b13|b14);
++let a13=b13^(b14&b10);
++let a14=b14^(b10|b11);
++let n19=notw(b19,mk.al);
++let a15=b15^(b16&b17);
++let a16=b16^(b17|b18);
++let a17=b17^(b18&n19);
++let a18=b18^(b19&b15);
++let a19=b19^(b15|b16);
++let n20=notw(b20,mk.al);
++let a20=n20^(b21&b22);
++let a21=b21^(b22|b23);
++let a22=b22^(b23&b24);
++let a23=b23^(b24|n20);
++let a24=b24^(b20|b21);
++[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]
++}
++#[inline(always)]
++fn rnd3(s:[u128;25],rc:u128,mk:MK)->[u128;25]{
++let[b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24]=tp(s,mk);
++let n1=notw(b1,mk.al);
++let a0=b0^(n1|b2)^rc;
++let a1=n1^(b2&b3);
++let a2=b2^(b3|b4);
++let a3=b3^(b4&b0);
++let a4=b4^(b0|b1);
++let n9=notw(b9,mk.al);
++let a5=b5^(b6&b7);
++let a6=b6^(b7|b8);
++let a7=b7^(b8&b9);
++let a8=b8^(n9&b5);
++let a9=n9^(b5|b6);
++let n10=notw(b10,mk.al);
++let a10=b10^(b11|b12);
++let a11=b11^(b12&b13);
++let a12=b12^(b13|b14);
++let a13=b13^(b14&n10);
++let a14=b14^(b10&b11);
++let n17=notw(b17,mk.al);
++let a15=b15^(b16&n17);
++let a16=b16^(b17&b18);
++let a17=b17^(b18|b19);
++let a18=b18^(b19&b15);
++let a19=b19^(b15|b16);
++let n23=notw(b23,mk.al);
++let a20=b20^(b21&b22);
++let a21=b21^(b22|n23);
++let a22=b22^(b23|b24);
++let a23=b23^(b24&b20);
++let a24=b24^(b20|b21);
++[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]
++}
++#[inline(never)]
++fn rnd3q(s:[u128;25])->[u128;15]{
++let all:ALL=ALL_ONES;
++let mk=MKC;
++let[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]=s;
++let c0=a0^a5^a10^a15^a20;
++let c1=a1^a6^a11^a16^a21;
++let c2=a2^a7^a12^a17^a22;
++let c3=a3^a8^a13^a18^a23;
++let c4=a4^a9^a14^a19^a24;
++let d0=c4^rt(c1,mk.g0.m0,2,0);
++let d1=c0^rt(c2,mk.g0.m0,2,0);
++let d2=c1^rt(c3,mk.g0.m0,2,0);
++let d3=c2^rt(c4,mk.g0.m0,2,0);
++let d4=c3^rt(c0,mk.g0.m0,2,0);
++let b0=a0^d0;
++let b1=rt(a6^d1,mk.g1.m5,17592186044416,0);
++let b2=rt(a12^d2,mk.g2.m11,8796093022208,0);
++let b3=rt(a18^d3,mk.g3.m17,2097152,0);
++let b4=rt(a24^d4,mk.g4.m23,16384,0);
++let b5=rt(a3^d3,mk.g3.m14,268435456,0);
++let b6=rt(a9^d4,mk.g4.m20,1048576,0);
++let b7=rt(a10^d0,mk.g1.m2,8,0);
++let b8=rt(a16^d1,mk.g2.m7,35184372088832,0);
++let b9=rt(a22^d2,mk.g3.m13,2305843009213693952,0);
++let b10=rt(a1^d1,mk.g0.m0,2,0);
++let b11=rt(a7^d2,mk.g2.m10,64,0);
++let b12=rt(a13^d3,mk.g3.m16,33554432,0);
++let b13=rt(a19^d4,mk.g4.m22,256,0);
++let b14=rt(a20^d0,mk.g1.m4,262144,0);
++let rc:u128=0x7fffffff7fff7ff77fffffff7fff7ff7;
++let n1=notw(b1,all);
++let a0=b0^(n1|b2)^rc;
++let a1=n1^(b2&b3);
++let a2=b2^(b3|b4);
++let a3=b3^(b4&b0);
++let a4=b4^(b0|b1);
++let n9=notw(b9,all);
++let a5=b5^(b6&b7);
++let a6=b6^(b7|b8);
++let a7=b7^(b8&b9);
++let a8=b8^(n9&b5);
++let a9=n9^(b5|b6);
++let n10=notw(b10,all);
++let a10=b10^(b11|b12);
++let a11=b11^(b12&b13);
++let a12=b12^(b13|b14);
++let a13=b13^(b14&n10);
++let a14=b14^(b10&b11);
++[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14]
++}
++#[inline(always)]
++fn keccak_rounds(s:[u128;25])->[u128;25]{
++let mk=MKC;
++let mut st=s;
++let mut rc=RCS.span();
++while let Some(c)=rc.multi_pop_front::<4>(){
++let[r0,r1,r2,r3]=(*c).unbox();
++st=rnd0(st,r0,mk);
++st=rnd1(st,r1,mk);
++st=rnd2(st,r2,mk);
++st=rnd3(st,r3,mk);
++}
++st
++}
++const RCS:[u128;24]=[0x10000000000000001,0x80820000000000008082,0x800000000000808a800000000000808a,0x7fffffff7fff7fff7fffffff7fff7fff,0x808b000000000000808b,0x800000010000000080000001,0x80000000800080818000000080008081,0x7fffffffffff7ff67fffffffffff7ff6,0x8a000000000000008a,0x880000000000000088,0x800080090000000080008009,0xffffffff7ffffff5ffffffff7ffffff5,0x8000808b000000008000808b,0x800000000000008b800000000000008b,0x80000000000080898000000000008089,0x7fffffffffff7ffc7fffffffffff7ffc,0x80000000000080028000000000008002,0x80000000000000808000000000000080,0x800a000000000000800a,0x7fffffff7ffffff57fffffff7ffffff5,0x80000000800080818000000080008081,0x80000000000080808000000000008080,0x800000010000000080000001,0x7fffffff7fff7ff77fffffff7fff7ff7];
++type ZF=felt252;
+diff --git a/crates/ml_dsa_87/src/keccak.cairo b/crates/ml_dsa_87/src/keccak.cairo
+index 7258a38..6357131 100644
+--- a/crates/ml_dsa_87/src/keccak.cairo
++++ b/crates/ml_dsa_87/src/keccak.cairo
+@@ -277,6 +277,43 @@ fn lane(ref bytes: Span<u8>) -> u128 {
+     v.try_into().unwrap()
+ }
+ 
++/// mu = SHAKE-256(tr || M', 64) as lanes, and SampleInBall's first permuted block for `c_tilde`,
++/// both computed by one permutation of two states held in the halves of each lane word.
++pub(crate) fn mu_and_ball_state(tr: [u128; 8], message_hash: felt252, c_tilde: [u128; 8]) -> ([u128; 8], [u128; 25]) {
++    let m: u256 = message_hash.into();
++    let rh = core::integer::u128_byte_reverse(m.high);
++    let rl = core::integer::u128_byte_reverse(m.low);
++    let (h1, h0) = DivRem::div_rem(rh, L48);
++    let (h2, h1) = DivRem::div_rem(h1, L64);
++    let (r1, r0) = DivRem::div_rem(rl, L48);
++    let (r2, r1) = DivRem::div_rem(r1, L64);
++    let [t0, t1, t2, t3, t4, t5, t6, t7] = tr;
++    let [c0, c1, c2, c3, c4, c5, c6, c7] = c_tilde;
++    let w = crate::k2::keccak_f1600_x2([
++        pk2(t0, c0), pk2(t1, c1), pk2(t2, c2), pk2(t3, c3), pk2(t4, c4), pk2(t5, c5), pk2(t6, c6), pk2(t7, c7),
++        pk2(h0 * 0x10000, 0x1f), h1, h2 + r0 * 0x10000, r1, r2 + 0x1f0000, 0, 0, 0,
++        0x8000000000000000 * (TWO64 + 1), 0, 0, 0, 0, 0, 0, 0, 0,
++    ]);
++    let mut lo: Array<u128> = array![];
++    let mut hi: Array<u128> = array![];
++    for word in w.span() {
++        let (h, l) = DivRem::div_rem(*word, L64);
++        lo.append(l);
++        hi.append(h);
++    }
++    let mut lo = lo.span();
++    let mut hi = hi.span();
++    ((*lo.multi_pop_front::<8>().unwrap()).unbox(), (*hi.multi_pop_front::<25>().unwrap()).unbox())
++}
++const TWO64: u128 = 0x10000000000000000;
++const TWO64F: felt252 = 0x10000000000000000;
++
++/// The lane word holding `lo` in its low half and `hi` in its high half.
++#[inline(always)]
++fn pk2(lo: u128, hi: u128) -> u128 {
++    (lo.into() + hi.into() * TWO64F).try_into().unwrap()
++}
++
+ /// SHAKE-256 over whole 64-bit lanes, `lanes.len()` a multiple of the 17-lane rate, squeezed to
+ /// `out_bytes` (at most 136).
+ pub fn shake256_lanes(lanes: Span<u128>, out_bytes: u32) -> Array<u8> {
+diff --git a/crates/ml_dsa_87/src/lib.cairo b/crates/ml_dsa_87/src/lib.cairo
+index 66076ee..469037f 100644
+--- a/crates/ml_dsa_87/src/lib.cairo
++++ b/crates/ml_dsa_87/src/lib.cairo
+@@ -17,6 +17,7 @@
+ pub mod cache;
+ pub mod encoding;
+ pub mod keccak;
++mod k2;
+ mod fk;
+ pub mod ntt;
+ mod nttf;
+diff --git a/crates/ml_dsa_87/src/sampling.cairo b/crates/ml_dsa_87/src/sampling.cairo
+index 3d41f48..813eb45 100644
+--- a/crates/ml_dsa_87/src/sampling.cairo
++++ b/crates/ml_dsa_87/src/sampling.cairo
+@@ -159,9 +159,14 @@ pub fn sample_in_ball(c_tilde: Span<u8>) -> Array<felt252> {
+ 
+ pub fn sample_in_ball_lanes(c_tilde: [u128; 8]) -> Array<crate::nttu::ZC87> {
+     let [c0, c1, c2, c3, c4, c5, c6, c7] = c_tilde;
+-    let mut state = keccak_f1600([
++    sample_in_ball_state(keccak_f1600([
+         c0, c1, c2, c3, c4, c5, c6, c7, 0x1f, 0, 0, 0, 0, 0, 0, 0, 0x8000000000000000, 0, 0, 0, 0, 0, 0, 0, 0,
+-    ]);
++    ]))
++}
++
++/// SampleInBall from the sponge state after c_tilde's block has been permuted.
++pub fn sample_in_ball_state(first: [u128; 25]) -> Array<crate::nttu::ZC87> {
++    let mut state = first;
+     let mut bytes = squeeze(state, SHAKE256_RATE / 8).span();
+     let mut signs: u128 = 0;
+     let mut scale: u128 = 1;
+diff --git a/crates/ml_dsa_87/src/verify.cairo b/crates/ml_dsa_87/src/verify.cairo
+index a9f2730..054dbf7 100644
+--- a/crates/ml_dsa_87/src/verify.cairo
++++ b/crates/ml_dsa_87/src/verify.cairo
+@@ -114,7 +114,7 @@ pub fn verify_decoded(
+     if !hint_valid(hint) {
+         return false;
+     }
+-    let [m0, m1, m2, m3, m4, m5, m6, m7] = crate::keccak::mu_lanes(tr, message_hash);
++    let ([m0, m1, m2, m3, m4, m5, m6, m7], ball) = crate::keccak::mu_and_ball_state(tr, message_hash, c_tilde);
+     let mut h_lanes: Array<u128> = array![m0, m1, m2, m3, m4, m5, m6, m7];
+     let mut z_hat: Array<Span<crate::nttu::Residue>> = array![];
+     let mut j = 0;
+@@ -123,7 +123,7 @@ pub fn verify_decoded(
+         j += 1;
+     }
+     let z_hat = z_hat.span();
+-    let c_hat = crate::nttu::ntt_z(crate::sampling::sample_in_ball_lanes(c_tilde).span());
++    let c_hat = crate::nttu::ntt_z(crate::sampling::sample_in_ball_state(ball).span());
+     let mut first: u32 = 0;
+     let mut i = 0;
+     while i != 8 {
