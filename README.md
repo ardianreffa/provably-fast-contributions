@@ -1,12 +1,19 @@
 # provably-fast-contributions
 
-Documentation of my accepted contribution to the **ML-DSA-44** season on
+Documentation of my accepted contributions to the **ML-DSA-44** season on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa).
 
-> **Disclosure / Pernyataan:** this patch was produced by an AI agent, **Claude Code**
+> **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
 > (model `claude-sonnet-5-5`), which I (**@ardianreffa**) ran and supervised.
-> Patch ini dikerjakan oleh agent AI **Claude Code** (model `claude-sonnet-5-5`) yang saya
+> Patch-patch ini dikerjakan oleh agent AI **Claude Code** (model `claude-sonnet-5-5`) yang saya
 > (**@ardianreffa**) jalankan dan awasi.
+
+---
+
+## Contributions
+
+1. `mj_7279e4f3`: zero-lane first round + shared round loop (196,910,723 gas).
+2. `mj_a27318a1`: lane-complemented two-state Keccak (184,696,268 gas, current record).
 
 ---
 
@@ -64,6 +71,41 @@ Built on `mj_6541e303` by **@rukafe0x** and the contributors listed on the
 
 ---
 
+## Contribution 2: lane-complemented two-state Keccak (job `mj_a27318a1de7247649636102756032944`)
+
+### The idea
+Keccak-f[1600] is still the main cost. In the chi step, each lane needs a NOT. With the standard
+"lane complementing" transform, 8 of the 25 lanes are kept in complemented form, so each round needs only
+**6 NOT operations instead of 25**. It is applied to the record's two-state (two sponges in one permutation)
+Keccak.
+
+### Official result
+
+| | Gas |
+|---|---:|
+| Parent record `mj_97f98218` (by @saniksin) | 186,381,868 |
+| **This job (accepted, new record)** | **184,696,268** |
+| Saved vs parent | about 1.69 million (1,685,600) |
+
+Still above Starknet's 100M validation gas cap.
+
+Official diff page: https://falcon.provably.fast/diff?job=mj_a27318a1de7247649636102756032944
+
+### File
+- `mldsa-44-mj_a27318a1.patch`: the patch as submitted. Like the first one, it is **cumulative**
+  against the baseline and contains the work of many earlier contributors, not only mine.
+- `our-delta-on-mj_97f98218.patch`: only my change on top of the parent record (`k2.cairo`). Apply to the
+  parent's tree with `git apply`. Verified: parent record + this delta gives a tree byte-identical to the
+  baseline + the official patch of job `mj_a27318a1`.
+
+### Note on later work
+**@saniksin** built their record `mj_4d7fd14e` on top of my first patch (`mj_7279e4f3`). Thanks!
+
+### Disclosure
+This patch was produced by the AI agent **Claude Code**, which I (**@ardianreffa**) ran and supervised.
+
+---
+
 ## Bahasa Indonesia (sederhana)
 
 ### Apa challenge-nya?
@@ -94,6 +136,34 @@ Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_7279e4f3bc684d40a96
   kontributor sebelumnya, bukan hanya saya.
 - `our-delta-on-mj_6541e303.patch`: hanya perubahan saya di atas rekor sebelumnya.
 - `LICENSE`: MIT, sama dengan repo baseline.
+
+### Pernyataan jujur
+Patch ini dikerjakan oleh agent **Claude Code** yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
+## Kontribusi 2: Keccak dua-state dengan lane dikomplemen (job `mj_a27318a1de7247649636102756032944`)
+
+### Ide
+Keccak masih jadi biaya terbesar. Di langkah chi, tiap lane butuh operasi NOT. Dengan teknik "lane
+complementing", 8 dari 25 lane disimpan dalam bentuk terkomplemen, sehingga tiap putaran hanya butuh
+**6 NOT, bukan 25**. Teknik ini dipakai pada Keccak dua-state (dua hash dalam satu permutasi) milik rekor.
+
+### Hasil resmi
+- Rekor sebelumnya (`mj_97f98218`, oleh @saniksin): 186.381.868 gas.
+- **Job ini (diterima, jadi rekor baru): 184.696.268 gas**, hemat sekitar 1,69 juta gas (1.685.600).
+- Masih di atas batas 100 juta gas.
+
+Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_a27318a1de7247649636102756032944
+
+### Berkas
+- `mldsa-44-mj_a27318a1.patch`: patch yang dikirim. **Bersifat kumulatif** (berisi kerja banyak
+  kontributor sebelumnya, bukan hanya saya).
+- `our-delta-on-mj_97f98218.patch`: hanya perubahan saya di atas rekor sebelumnya (`k2.cairo`). Terbukti:
+  rekor sebelumnya + delta ini sama persis dengan baseline + patch resmi job `mj_a27318a1`.
+
+### Catatan
+**@saniksin** membangun rekor `mj_4d7fd14e` di atas patch pertama saya (`mj_7279e4f3`). Terima kasih!
 
 ### Pernyataan jujur
 Patch ini dikerjakan oleh agent **Claude Code** yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
