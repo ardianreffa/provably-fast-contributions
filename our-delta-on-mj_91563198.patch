@@ -1,0 +1,204 @@
+diff --git a/crates/ml_dsa_44/src/ct.cairo b/crates/ml_dsa_44/src/ct.cairo
+index 0e8d0a9..6485dfa 100644
+--- a/crates/ml_dsa_44/src/ct.cairo
++++ b/crates/ml_dsa_44/src/ct.cairo
+@@ -1,6 +1,6 @@
+ use corelib_imports::bounded_int::{BoundedInt,DivRemHelper,MulHelper,UnitInt,bounded_int,upcast,downcast};
+ const BIAS:felt252=0x80002000080002000000000000000000800020000800020000;
+-const CORR:UnitInt<329395863341713845130488681210401664>=329395863341713845130488681210401664;
++const CORR:UnitInt<329395863341713845130488681210401665>=329395863341713845130488681210401665;
+ const N18:NonZero<UnitInt<0x40000>>=0x40000;
+ impl S18a of DivRemHelper<u128,UnitInt<0x40000>>{
+ type DivT=BoundedInt<0,0x3fffffffffffffffffffffffffff>;
+@@ -266,20 +266,20 @@ out.append(bias+af+bf+cf+df+ef+ff+gf+hf+jf+kf+lf+mf+nf+pf+qf+rf+sf+tf+uf+vf+wf+x
+ }
+ out
+ }
+-pub(crate)type Correction=BoundedInt<329395863341713845130488679062926208,329395863341713845130488681210401664>;
++pub(crate)type Correction=BoundedInt<329395863341713845130488679062926209,329395863341713845130488681210401665>;
+ type Digit18=BoundedInt<0,262143>;
+ type ScaledDigit=BoundedInt<0,2147475456>;
+ impl CM of MulHelper<Digit18,UnitInt<8192>>{type Result=ScaledDigit;}
+-impl CS of bounded_int::SubHelper<UnitInt<329395863341713845130488681210401664>,ScaledDigit>{type Result=Correction;}
++impl CS of bounded_int::SubHelper<UnitInt<329395863341713845130488681210401665>,ScaledDigit>{type Result=Correction;}
+ #[inline(always)]
+ fn correction(v:Digit18)->Correction{let scale:UnitInt<8192>=8192;bounded_int::sub(CORR,bounded_int::mul(v,scale))}
+ type DigitTop=BoundedInt<0,0x3ffffffffffffffffff>;
+ trait CorrectionOutput<T>{fn digit(v:Digit18)->T;fn top(v:DigitTop)->T;}
+ impl FeltCorrection of CorrectionOutput<felt252>{
+ #[inline(always)]
+-fn digit(v:Digit18)->felt252{329395863341713845130488681210401664-upcast::<_,felt252>(v)*8192}
++fn digit(v:Digit18)->felt252{329395863341713845130488681210401665-upcast::<_,felt252>(v)*8192}
+ #[inline(always)]
+-fn top(v:DigitTop)->felt252{329395863341713845130488681210401664-upcast::<_,felt252>(v)*8192}
++fn top(v:DigitTop)->felt252{329395863341713845130488681210401665-upcast::<_,felt252>(v)*8192}
+ }
+ impl TypedCorrection of CorrectionOutput<Correction>{
+ #[inline(always)]
+diff --git a/crates/ml_dsa_44/src/nttu.cairo b/crates/ml_dsa_44/src/nttu.cairo
+index 7aaeffc..59617df 100644
+--- a/crates/ml_dsa_44/src/nttu.cairo
++++ b/crates/ml_dsa_44/src/nttu.cairo
+@@ -64,7 +64,7 @@ let product:BoundedInt<-1842367102842648087432008533278720,184236710284264808743
+ }
+ #[inline(always)]
+ fn correct_residue(v:IFinal,c:crate::ct::Correction,qn:NonZero<UnitInt<8380417>>)->Residue{
+-let corrected:BoundedInt<7697280,658791726683427690260977360265630592>=stage_add(v,c);
++let corrected:BoundedInt<7697281,658791726683427690260977360265630593>=stage_add(v,c);
+ let raw:u128=upcast(corrected);let(_,r)=bounded_int::div_rem(raw,qn);r
+ }
+ trait CorrectResidue<C>{fn reduce(v:IFinal,c:C,qn:NonZero<UnitInt<8380417>>)->Residue;}
+diff --git a/crates/ml_dsa_44/src/pk0.cairo b/crates/ml_dsa_44/src/pk0.cairo
+index 7b1acdb..ea44ab8 100644
+--- a/crates/ml_dsa_44/src/pk0.cairo
++++ b/crates/ml_dsa_44/src/pk0.cairo
+@@ -214,20 +214,6 @@ upcast::<_,felt252>(rest)==0
+ }
+ impl HG of DivRemHelper<crate::nttu::Residue,UnitInt<190464>>{type DivT=BoundedInt<0,44>;type RemT=BoundedInt<0,190463>;}
+ const N2G:NonZero<UnitInt<190464>>=190464;
+-#[inline(always)]
+-fn hq(u:crate::nttu::Residue,n2g:NonZero<UnitInt<190464>>)->felt252{
+-let(quotient,_)=bounded_int::div_rem(u,n2g);
+-upcast(quotient)
+-}
+-#[inline(always)]
+-fn hb(u:crate::nttu::Residue,n2g:NonZero<UnitInt<190464>>)->felt252{
+-let q=hq(u,n2g);
+-if q==44{
+-0
+-}else{
+-q
+-}
+-}
+ impl D18 of DivRemHelper<u128,UnitInt<0x40000>>{
+ type DivT=BoundedInt<0,0x3fffffffffffffffffffffffffff>;
+ type RemT=BoundedInt<0,0x3ffff>;
+@@ -588,16 +574,20 @@ crate::ct::copy16p(ref f,y.span());
+ crate::ct::copy16p(ref f,fx);
+ f
+ }
+-impl HintHalf of ConstrainHelper<BoundedInt<0,190463>,95232>{
+-type LowT=BoundedInt<0,95231>;
+-type HighT=BoundedInt<95232,190463>;
++impl HintHalf of ConstrainHelper<BoundedInt<0,190463>,95233>{
++type LowT=BoundedInt<0,95232>;
++type HighT=BoundedInt<95233,190463>;
+ }
+ #[inline(always)]
+ fn hint_delta(u:crate::nttu::Residue)->felt252{
+ let(quotient,rem)=bounded_int::div_rem(u,N2G);
+ let q:felt252=upcast(quotient);
+-match constrain::<BoundedInt<0,190463>,95232>(rem){
+-Ok(_)=>{if q*(q-44)==0{43}else{-1}},
++match constrain::<BoundedInt<0,190463>,95233>(rem){
++Ok(r)=>{
++if upcast::<_,felt252>(r)==0{
++if q==0{43}else if q==44{-43}else{1}
++}else if q==0{43}else{-1}
++},
+ Err(_)=>{if q==43{-43}else{1}},
+ }
+ }
+@@ -607,43 +597,25 @@ const SLOT:[felt252;16]=[
+ 0x1000000000000000000,0x40000000000000000000,0x1000000000000000000000,
+ 0x40000000000000000000000,
+ ];
+-#[inline(never)]
+-fn words_exact(g:@Box<[crate::nttu::Residue;32]>)->(felt252,felt252){
+-let n2g:NonZero<UnitInt<190464>>=N2G;
+-let[u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19,u20,u21,u22,u23,u24,u25,u26,u27,u28,u29,u30,u31]=(*g).unbox();
+-let lower:felt252=hb(u0,n2g)
+-+0x40*hb(u1,n2g)
+-+0x1000*hb(u2,n2g)
+-+0x40000*hb(u3,n2g)
+-+0x1000000*hb(u4,n2g)
+-+0x40000000*hb(u5,n2g)
+-+0x1000000000*hb(u6,n2g)
+-+0x40000000000*hb(u7,n2g)
+-+0x1000000000000*hb(u8,n2g)
+-+0x40000000000000*hb(u9,n2g)
+-+0x1000000000000000*hb(u10,n2g)
+-+0x40000000000000000*hb(u11,n2g)
+-+0x1000000000000000000*hb(u12,n2g)
+-+0x40000000000000000000*hb(u13,n2g)
+-+0x1000000000000000000000*hb(u14,n2g)
+-+0x40000000000000000000000*hb(u15,n2g);
+-let upper:felt252=hb(u16,n2g)
+-+0x40*hb(u17,n2g)
+-+0x1000*hb(u18,n2g)
+-+0x40000*hb(u19,n2g)
+-+0x1000000*hb(u20,n2g)
+-+0x40000000*hb(u21,n2g)
+-+0x1000000000*hb(u22,n2g)
+-+0x40000000000*hb(u23,n2g)
+-+0x1000000000000*hb(u24,n2g)
+-+0x40000000000000*hb(u25,n2g)
+-+0x1000000000000000*hb(u26,n2g)
+-+0x40000000000000000*hb(u27,n2g)
+-+0x1000000000000000000*hb(u28,n2g)
+-+0x40000000000000000000*hb(u29,n2g)
+-+0x1000000000000000000000*hb(u30,n2g)
+-+0x40000000000000000000000*hb(u31,n2g);
+-(lower,upper)
++const UM:UnitInt<11545610>=11545610;
++const P48:UnitInt<281474976710656>=281474976710656;
++const HMASK:u128=0x7e00000000007e0000000000;
++const HC0:felt252=0x7fffffffffc0010fffffffff780000000000000000000000000000000000001;
++const HC1:felt252=0x7ffffffff000010fffffffde000000000000000000000000000000000000001;
++const HC2:felt252=0x7ffffffc0000010ffffff780000000000000000000000000000000000000001;
++const HC3:felt252=0x7fffff000000010ffffde000000000000000000000000000000000000000001;
++const HC4:felt252=0x7fffc0000000010fff780000000000000000000000000000000000000000001;
++const HC5:felt252=0x7ff000000000010fde000000000000000000000000000000000000000000001;
++const HC6:felt252=0x7c0000000000010780000000000000000000000000000000000000000000001;
++const HC7:felt252=0x2;
++#[inline(always)]
++fn hpair(a:crate::nttu::Residue,b:crate::nttu::Residue,c:felt252)->felt252{
++let pb=tmul::<_,_,0,2358877398425608912896>(b,P48);
++let s=tadd::<_,_,0,2358877398425617293312>(a,pb);
++let x=tmul::<_,_,0,27234678480036791277835960320>(s,UM);
++let y:u128=upcast(x)&HMASK;
++let yf:felt252=y.into();
++yf*c
+ }
+ pub(crate)fn use_hints_words_residue(w:Span<crate::nttu::Residue>,positions:Span<u8>,ref out:Array<u64>){
+ let mut rest=positions;
+@@ -652,37 +624,10 @@ let mut n:u32=0;
+ let mut ws=w;
+ 
+ let sl=SLOT.span();
+-let n2g:NonZero<UnitInt<190464>>=N2G;
+ while let Some(g)=ws.multi_pop_front::<32>(){
+ let[u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19,u20,u21,u22,u23,u24,u25,u26,u27,u28,u29,u30,u31]=(*g).unbox();
+-let q0=hq(u0,n2g);let q1=hq(u1,n2g);let q2=hq(u2,n2g);let q3=hq(u3,n2g);
+-let q4=hq(u4,n2g);let q5=hq(u5,n2g);let q6=hq(u6,n2g);let q7=hq(u7,n2g);
+-let q8=hq(u8,n2g);let q9=hq(u9,n2g);let q10=hq(u10,n2g);let q11=hq(u11,n2g);
+-let q12=hq(u12,n2g);let q13=hq(u13,n2g);let q14=hq(u14,n2g);let q15=hq(u15,n2g);
+-let q16=hq(u16,n2g);let q17=hq(u17,n2g);let q18=hq(u18,n2g);let q19=hq(u19,n2g);
+-let q20=hq(u20,n2g);let q21=hq(u21,n2g);let q22=hq(u22,n2g);let q23=hq(u23,n2g);
+-let q24=hq(u24,n2g);let q25=hq(u25,n2g);let q26=hq(u26,n2g);let q27=hq(u27,n2g);
+-let q28=hq(u28,n2g);let q29=hq(u29,n2g);let q30=hq(u30,n2g);let q31=hq(u31,n2g);
+-let bad=(q0-44)*(q1-44)*(q2-44)*(q3-44)*(q4-44)*(q5-44)*(q6-44)*(q7-44)
+-*(q8-44)*(q9-44)*(q10-44)*(q11-44)*(q12-44)*(q13-44)*(q14-44)*(q15-44)
+-*(q16-44)*(q17-44)*(q18-44)*(q19-44)*(q20-44)*(q21-44)*(q22-44)*(q23-44)
+-*(q24-44)*(q25-44)*(q26-44)*(q27-44)*(q28-44)*(q29-44)*(q30-44)*(q31-44);
+-let(mut lower,mut upper)=if bad==0{
+-words_exact(g)
+-}else{
+-(
+-q0+0x40*q1+0x1000*q2+0x40000*q3+0x1000000*q4+0x40000000*q5
+-+0x1000000000*q6+0x40000000000*q7+0x1000000000000*q8
+-+0x40000000000000*q9+0x1000000000000000*q10+0x40000000000000000*q11
+-+0x1000000000000000000*q12+0x40000000000000000000*q13
+-+0x1000000000000000000000*q14+0x40000000000000000000000*q15,
+-q16+0x40*q17+0x1000*q18+0x40000*q19+0x1000000*q20+0x40000000*q21
+-+0x1000000000*q22+0x40000000000*q23+0x1000000000000*q24
+-+0x40000000000000*q25+0x1000000000000000*q26+0x40000000000000000*q27
+-+0x1000000000000000000*q28+0x40000000000000000000*q29
+-+0x1000000000000000000000*q30+0x40000000000000000000000*q31,
+-)
+-};
++let mut lower=hpair(u0,u8,HC0)+hpair(u1,u9,HC1)+hpair(u2,u10,HC2)+hpair(u3,u11,HC3)+hpair(u4,u12,HC4)+hpair(u5,u13,HC5)+hpair(u6,u14,HC6)+hpair(u7,u15,HC7);
++let mut upper=hpair(u16,u24,HC0)+hpair(u17,u25,HC1)+hpair(u18,u26,HC2)+hpair(u19,u27,HC3)+hpair(u20,u28,HC4)+hpair(u21,u29,HC5)+hpair(u22,u30,HC6)+hpair(u23,u31,HC7);
+ n+=32;
+ while next<n{
+ let k=next+32-n;

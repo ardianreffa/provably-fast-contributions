@@ -15,6 +15,7 @@ Documentation of my accepted contributions to the **ML-DSA-44** season on
 1. `mj_7279e4f3`: zero-lane first round + shared round loop (196,910,723 gas).
 2. `mj_a27318a1`: lane-complemented two-state Keccak (184,696,268 gas, record at the time).
 3. `mj_db11da30`: pruned final SHAKE-128 round in ExpandA (183,682,111 gas, record at the time).
+4. `mj_24fb2836`: UseHint HighBits by multiply-shift, two residues per u128 (176,144,759 gas, record at the time).
 
 ---
 
@@ -102,7 +103,8 @@ Official diff page: https://falcon.provably.fast/diff?job=mj_a27318a1de724764963
 ### Note on later work
 **@saniksin** built their record `mj_4d7fd14e` on top of my first patch (`mj_7279e4f3`). Thanks!
 Later, **@rukafe0x** (`mj_54f1c987`) and **@saniksin** (`mj_3d773ce6`) built records on top of my second
-contribution (`mj_a27318a1`). Thanks again!
+contribution (`mj_a27318a1`). Thanks again! Also, **@odinfree** (`mj_151471c8`) developed the lane-complementing
+form from `mj_a27318a1` further.
 
 ### Disclosure
 This patch was produced by the AI agent **Claude Code**, which I (**@ardianreffa**) ran and supervised.
@@ -139,6 +141,45 @@ Official diff page: https://falcon.provably.fast/diff?job=mj_db11da30c33b4e3c8df
 
 ### Disclosure
 This patch was produced by the AI agent **Claude Code**, which I (**@ardianreffa**) ran and supervised.
+
+---
+
+## Contribution 4: UseHint by multiply-shift, two residues per u128 (job `mj_24fb2836aff6461f8f906ae4f48ada53`)
+
+### The idea
+In signature verification, UseHint needs HighBits of each of the 1,024 residues of `w'`. The parent computed
+it with a division by `2*gamma2` for every residue. My change computes HighBits with a **multiply, then a
+shift**, which is exact over the whole residue range. Two residues are packed into one `u128`, so one AND
+handles a pair. The special case for `q = 44` is no longer needed, so that correction code is gone.
+Correctness of the hint rule was tested against FIPS 204 for **all 8,380,417 residue values**.
+
+### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mj_91563198` (by @saniksin) | 176,801,176 |
+| **This job (accepted, record at the time)** | **176,144,759** |
+| Saved vs parent | 656,417 |
+
+Still above Starknet's 100M validation gas cap.
+
+Official diff page: https://falcon.provably.fast/diff?job=mj_24fb2836aff6461f8f906ae4f48ada53
+
+### Files
+- `mldsa-44-mj_24fb2836.patch`: the patch as submitted. Like the others, it is **cumulative** against the
+  baseline (`78c83599f57e`) and contains the work of many earlier contributors, not only mine.
+- `our-delta-on-mj_91563198.patch`: only my change on top of the parent (`ct.cairo`, `nttu.cairo`, `pk0.cairo`).
+  Apply to the parent's tree with `git apply`. Verified: the parent patch (downloaded with
+  `pvfast remote mldsa patch`) on the baseline, plus this delta, gives a tree byte-identical to the baseline
+  plus the official patch of job `mj_24fb2836`.
+
+### Note on later work
+**@saniksin** built `mj_0507f878` on top of this contribution, and then **@nadai2010** built `mj_80aaca36`
+on top of that. Thanks!
+
+### Disclosure
+This patch was produced by the AI agent **Claude Code**, which I (**@ardianreffa**) ran and supervised. The
+idea was found with the **Opus** model, and the patch was written with **Sonnet** (`claude-sonnet-5-5`).
 
 ---
 
@@ -201,7 +242,8 @@ Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_a27318a1de724764963
 ### Catatan
 **@saniksin** membangun rekor `mj_4d7fd14e` di atas patch pertama saya (`mj_7279e4f3`). Terima kasih!
 Kemudian, **@rukafe0x** (`mj_54f1c987`) dan **@saniksin** (`mj_3d773ce6`) membangun rekor di atas kontribusi
-kedua saya (`mj_a27318a1`). Terima kasih lagi!
+kedua saya (`mj_a27318a1`). Terima kasih lagi! Selain itu, **@odinfree** (`mj_151471c8`) mengembangkan bentuk
+lane complementing dari `mj_a27318a1` lebih jauh.
 
 ### Pernyataan jujur
 Patch ini dikerjakan oleh agent **Claude Code** yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
@@ -233,6 +275,39 @@ Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_db11da30c33b4e3c8df
 
 ### Pernyataan jujur
 Patch ini dikerjakan oleh agent **Claude Code** yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
+## Kontribusi 4: UseHint dengan kali-lalu-geser, dua residu dalam satu u128 (job `mj_24fb2836aff6461f8f906ae4f48ada53`)
+
+### Ide
+Saat memeriksa tanda tangan, UseHint butuh HighBits dari tiap 1.024 residu `w'`. Parent menghitungnya
+dengan pembagian oleh `2*gamma2` untuk setiap residu. Perubahan saya menghitung HighBits dengan **kali,
+lalu geser**, yang hasilnya tepat untuk seluruh rentang residu. Dua residu dimasukkan ke satu `u128`, jadi
+satu operasi AND mengurus sepasang. Kasus khusus `q = 44` tidak diperlukan lagi, jadi kode koreksinya
+dihapus. Kebenaran aturan hint diuji terhadap FIPS 204 untuk **semua 8.380.417 nilai residu**.
+
+### Hasil resmi
+- Parent `mj_91563198` (oleh @saniksin): 176.801.176 gas.
+- **Job ini (diterima, rekor pada waktunya): 176.144.759 gas**, hemat 656.417 gas.
+- Masih di atas batas 100 juta gas.
+
+Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_24fb2836aff6461f8f906ae4f48ada53
+
+### Berkas
+- `mldsa-44-mj_24fb2836.patch`: patch yang dikirim. **Bersifat kumulatif** (berisi kerja banyak kontributor
+  sebelumnya, bukan hanya saya).
+- `our-delta-on-mj_91563198.patch`: hanya perubahan saya di atas parent (`ct.cairo`, `nttu.cairo`, `pk0.cairo`).
+  Terbukti: patch parent (diunduh dengan `pvfast remote mldsa patch`) + delta ini sama persis dengan baseline +
+  patch resmi job `mj_24fb2836`.
+
+### Catatan
+**@saniksin** membangun `mj_0507f878` di atas kontribusi ini, lalu **@nadai2010** membangun `mj_80aaca36` di
+atasnya. Terima kasih!
+
+### Pernyataan jujur
+Patch ini dikerjakan oleh agent **Claude Code** yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Idenya dicari dengan model **Opus**, dan patch-nya dikerjakan dengan **Sonnet** (`claude-sonnet-5-5`).
 
 ## License
 MIT. See `LICENSE`. The baseline is OpenZeppelin's cairo-pq-verifiers; accepted patches are MIT.
