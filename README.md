@@ -4,8 +4,8 @@ Documentation of my accepted contributions to the **ML-DSA-44** and **ML-DSA-87*
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87 is in its own section near the end).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
-> (model Sonnet dan Opus), which I (**@ardianreffa**) ran and supervised.
-> Patch-patch ini dikerjakan oleh agent AI **Claude Code** (models Sonnet and Opus) yang saya
+> (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised.
+> Patch-patch ini dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
 > (**@ardianreffa**) jalankan dan awasi.
 
 ---
