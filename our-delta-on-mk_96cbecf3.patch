@@ -1,0 +1,257 @@
+diff --git a/crates/ml_dsa_87/src/sampling.cairo b/crates/ml_dsa_87/src/sampling.cairo
+index d8652cc4ac7966be5cf24493ee27762ca3b6697f..5874221c2c489b31d4a8180aa8da9d9359772123 100644
+--- a/crates/ml_dsa_87/src/sampling.cairo
++++ b/crates/ml_dsa_87/src/sampling.cairo
+@@ -142,16 +142,6 @@ pub fn expand_a_row(rho: Span<u8>, r: u8) -> Array<Span<felt252>> {
+     out
+ }
+ 
+-/// The next byte of SHAKE-256 output, squeezing the next block when this one runs out.
+-#[inline(always)]
+-fn next_byte(ref bytes: Span<u8>, ref state: [u128; 25]) -> u32 {
+-    if bytes.is_empty() {
+-        state = keccak_f1600(state);
+-        bytes = squeeze(state, SHAKE256_RATE / 8).span();
+-    }
+-    (*bytes.pop_front().unwrap()).into()
+-}
+-
+ /// SampleInBall (Algorithm 29) from c_tilde: TAU coefficients of +-1, as values mod q. The first
+ /// 8 bytes of SHAKE-256(c_tilde) are the signs, least significant bit first.
+ pub fn sample_in_ball(c_tilde: Span<u8>) -> Array<felt252> {
+@@ -188,14 +178,10 @@ pub fn sample_in_ball_lanes(c_tilde: [u128; 8]) -> Array<crate::nttu::ZC87> {
+     ]))
+ }
+ 
++/// The bytes after the 8 sign bytes are read lane by lane; when the block's 17 lanes run out, the
++/// state is permuted again and the walk goes on over the next block's lanes.
+ pub fn sample_in_ball_state(first: [u128; 25]) -> Array<crate::nttu::ZC87> {
+-    match ball_lanes(first) {
+-        Some(c) => c,
+-        None => ball_stream(first),
+-    }
+-}
+-
+-fn ball_lanes(first: [u128; 25]) -> Option<Array<crate::nttu::ZC87>> {
++    let mut st = first;
+     let [l0, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15, l16, _, _, _, _, _, _, _, _] = first;
+     let mut signs: u128 = l0;
+     let lanes = array![l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15, l16];
+@@ -206,56 +192,103 @@ fn ball_lanes(first: [u128; 25]) -> Option<Array<crate::nttu::ZC87>> {
+     let mut nl: felt252 = 0;
+     let mut nh: felt252 = 0;
+     let mut i: u32 = 256 - TAU;
+-    while let Some(w) = lanes.pop_front() {
+-        let mut w: u128 = *w;
+-        let mut k = 0;
+-        while k != 8 {
+-            let (rest, b) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(w), NB256);
+-            w = corelib_imports::bounded_int::upcast(rest);
+-            let j: u32 = corelib_imports::bounded_int::upcast(b);
+-            if j <= i {
+-                let (rest, s) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(signs), NB2);
+-                signs = corelib_imports::bounded_int::upcast(rest);
+-                let sf: felt252 = corelib_imports::bounded_int::upcast(s);
+-                let bi = *pow[i - 128];
+-                if j < 128 {
+-                    let bj = *pow[j];
+-                    if ol & bj == 0 {
+-                        ol = ol | bj;
+-                        nl += sf * bj.into();
+-                    } else {
+-                        let nlu: u128 = nl.try_into().unwrap();
+-                        let old: felt252 = if nlu & bj == 0 { 0 } else { 1 };
+-                        oh = oh | bi;
+-                        nh += old * bi.into();
+-                        nl += (sf - old) * bj.into();
+-                    }
+-                } else {
+-                    let bj = *pow[j - 128];
+-                    if oh & bj == 0 {
+-                        oh = oh | bj;
+-                        nh += sf * bj.into();
+-                    } else {
+-                        let nhu: u128 = nh.try_into().unwrap();
+-                        let old: felt252 = if nhu & bj == 0 { 0 } else { 1 };
+-                        oh = oh | bi;
+-                        nh += old * bi.into() + (sf - old) * bj.into();
+-                    }
+-                }
+-                i += 1;
+-                if i == 256 {
+-                    let nlu: u128 = nl.try_into().unwrap();
+-                    let nhu: u128 = nh.try_into().unwrap();
+-                    let mut out: Array<crate::nttu::ZC87> = array![];
+-                    bits(ol - nlu, nlu, ref out);
+-                    bits(oh - nhu, nhu, ref out);
+-                    return Some(out);
+-                }
++    loop {
++        while let Some(w) = lanes.pop_front() {
++            let mut w: u128 = *w;
++            let (r, b) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(w), NB256);
++            w = corelib_imports::bounded_int::upcast(r);
++            if bstep(corelib_imports::bounded_int::upcast(b), ref signs, ref ol, ref oh, ref nl, ref nh, ref i, pow) {
++                return ball_done(ol, oh, nl, nh);
++            }
++            let (r, b) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(w), NB256);
++            w = corelib_imports::bounded_int::upcast(r);
++            if bstep(corelib_imports::bounded_int::upcast(b), ref signs, ref ol, ref oh, ref nl, ref nh, ref i, pow) {
++                return ball_done(ol, oh, nl, nh);
++            }
++            let (r, b) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(w), NB256);
++            w = corelib_imports::bounded_int::upcast(r);
++            if bstep(corelib_imports::bounded_int::upcast(b), ref signs, ref ol, ref oh, ref nl, ref nh, ref i, pow) {
++                return ball_done(ol, oh, nl, nh);
++            }
++            let (r, b) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(w), NB256);
++            w = corelib_imports::bounded_int::upcast(r);
++            if bstep(corelib_imports::bounded_int::upcast(b), ref signs, ref ol, ref oh, ref nl, ref nh, ref i, pow) {
++                return ball_done(ol, oh, nl, nh);
++            }
++            let (r, b) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(w), NB256);
++            w = corelib_imports::bounded_int::upcast(r);
++            if bstep(corelib_imports::bounded_int::upcast(b), ref signs, ref ol, ref oh, ref nl, ref nh, ref i, pow) {
++                return ball_done(ol, oh, nl, nh);
++            }
++            let (r, b) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(w), NB256);
++            w = corelib_imports::bounded_int::upcast(r);
++            if bstep(corelib_imports::bounded_int::upcast(b), ref signs, ref ol, ref oh, ref nl, ref nh, ref i, pow) {
++                return ball_done(ol, oh, nl, nh);
++            }
++            let (r, b) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(w), NB256);
++            w = corelib_imports::bounded_int::upcast(r);
++            if bstep(corelib_imports::bounded_int::upcast(b), ref signs, ref ol, ref oh, ref nl, ref nh, ref i, pow) {
++                return ball_done(ol, oh, nl, nh);
++            }
++            let (r, b) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(w), NB256);
++            w = corelib_imports::bounded_int::upcast(r);
++            if bstep(corelib_imports::bounded_int::upcast(b), ref signs, ref ol, ref oh, ref nl, ref nh, ref i, pow) {
++                return ball_done(ol, oh, nl, nh);
+             }
+-            k += 1;
+         }
++        st = keccak_f1600(st);
++        let [l0, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15, l16, _, _, _, _, _, _, _, _] = st;
++        lanes = array![l0, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15, l16].span();
+     }
+-    None
++}
++
++#[inline(never)]
++fn ball_done(ol: u128, oh: u128, nl: felt252, nh: felt252) -> Array<crate::nttu::ZC87> {
++    let nlu: u128 = nl.try_into().unwrap();
++    let nhu: u128 = nh.try_into().unwrap();
++    let mut out: Array<crate::nttu::ZC87> = array![];
++    bits(ol - nlu, nlu, ref out);
++    bits(oh - nhu, nhu, ref out);
++    out
++}
++
++/// One byte j of the lane stream: j > i is rejected, otherwise c_i and c_j as in Algorithm 29 on the
++/// occupancy (o) and negative (n) masks. True once i reaches 256.
++#[inline(always)]
++fn bstep(j: u32, ref signs: u128, ref ol: u128, ref oh: u128, ref nl: felt252, ref nh: felt252, ref i: u32, pow: Span<u128>) -> bool {
++    if j > i {
++        return false;
++    }
++    let (rest, s) = corelib_imports::bounded_int::bounded_int_div_rem(corelib_imports::bounded_int::upcast::<u128, B128>(signs), NB2);
++    signs = corelib_imports::bounded_int::upcast(rest);
++    let sf: felt252 = corelib_imports::bounded_int::upcast(s);
++    let bi = *pow[i - 128];
++    if j < 128 {
++        let bj = *pow[j];
++        if ol & bj == 0 {
++            ol = ol | bj;
++            nl += sf * bj.into();
++        } else {
++            let nlu: u128 = nl.try_into().unwrap();
++            let old: felt252 = if nlu & bj == 0 { 0 } else { 1 };
++            oh = oh | bi;
++            nh += old * bi.into();
++            nl += (sf - old) * bj.into();
++        }
++    } else {
++        let bj = *pow[j - 128];
++        if oh & bj == 0 {
++            oh = oh | bj;
++            nh += sf * bj.into();
++        } else {
++            let nhu: u128 = nh.try_into().unwrap();
++            let old: felt252 = if nhu & bj == 0 { 0 } else { 1 };
++            oh = oh | bi;
++            nh += old * bi.into() + (sf - old) * bj.into();
++        }
++    }
++    i += 1;
++    i == 256
+ }
+ const B256: NonZero<u128> = 256;
+ impl DB256 of corelib_imports::bounded_int::DivRemHelper<B128, corelib_imports::bounded_int::UnitInt<256>> {
+@@ -270,66 +303,6 @@ const NB256: NonZero<corelib_imports::bounded_int::UnitInt<256>> = 256;
+ const NB2: NonZero<corelib_imports::bounded_int::UnitInt<2>> = 2;
+ const TWO: NonZero<u128> = 2;
+ 
+-fn ball_stream(first: [u128; 25]) -> Array<crate::nttu::ZC87> {
+-    let mut state = first;
+-    let mut bytes = squeeze(state, SHAKE256_RATE / 8).span();
+-    let mut signs: u128 = 0;
+-    let mut scale: u128 = 1;
+-    let mut k = 0;
+-    while k != 8 {
+-        signs += next_byte(ref bytes, ref state).into() * scale;
+-        scale *= 256;
+-        k += 1;
+-    }
+-    let two: NonZero<u128> = 2_u128.try_into().unwrap();
+-    let pow = POW2.span();
+-    let mut pl: u128 = 0;
+-    let mut ph: u128 = 0;
+-    let mut nl: u128 = 0;
+-    let mut nh: u128 = 0;
+-    let mut i: u32 = 256 - TAU;
+-    while i != 256 {
+-        let mut j = next_byte(ref bytes, ref state);
+-        while j > i {
+-            j = next_byte(ref bytes, ref state);
+-        }
+-        let (rest, sign) = DivRem::div_rem(signs, two);
+-        signs = rest;
+-        let bi = *pow[i - 128];
+-        if j < 128 {
+-            let bj = *pow[j];
+-            if pl & bj != 0 {
+-                ph = ph | bi;
+-                pl = pl - bj;
+-            } else if nl & bj != 0 {
+-                nh = nh | bi;
+-                nl = nl - bj;
+-            }
+-            if sign == 0 {
+-                pl = pl | bj;
+-            } else {
+-                nl = nl | bj;
+-            }
+-        } else {
+-            let bj = *pow[j - 128];
+-            if ph & bj != 0 {
+-                ph = (ph - bj) | bi;
+-            } else if nh & bj != 0 {
+-                nh = (nh - bj) | bi;
+-            }
+-            if sign == 0 {
+-                ph = ph | bj;
+-            } else {
+-                nh = nh | bj;
+-            }
+-        }
+-        i += 1;
+-    }
+-    let mut out: Array<crate::nttu::ZC87> = array![];
+-    bits(pl, nl, ref out);
+-    bits(ph, nh, ref out);
+-    out
+-}
+ 
+ fn bits(p: u128, n: u128, ref out: Array<crate::nttu::ZC87>) {
+     let mut p: B128 = corelib_imports::bounded_int::upcast(p);

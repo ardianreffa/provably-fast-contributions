@@ -1,7 +1,7 @@
 # provably-fast-contributions
 
-Documentation of my accepted contributions to the **ML-DSA-44** and **ML-DSA-87** seasons on
-[falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87 is in its own section near the end).
+Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87** and **Falcon-1024** seasons on
+[falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87 and Falcon-1024 each have their own section near the end).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised.
@@ -24,6 +24,11 @@ ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 
 8. `mk_3691ffe9`: UseHint HighBits by multiply-shift, pairs `(i, i+16)` per u128 (110,867,290 gas, record at the time).
 9. `mk_469c1cb9`: mu and the first SampleInBall block in one two-state Keccak permutation (109,484,394 gas, ML-DSA-87 record when submitted). The two-state technique is **@rukafe0x's**; porting it to ML-DSA-87 is my work.
+11. `mk_a5460736`: SampleInBall 8 bytes per lane made to fit the CASM limit, with the fallback as a continuation of the lane walk (99,827,006 gas, accepted, **not a record**: queue order).
+
+Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
+
+10. `fk_40768326`: Keccak cell constants hoisted out of the squeeze loop (49,339,523 gas, accepted, **not a record**: queue order).
 
 ---
 
@@ -520,17 +525,17 @@ Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalan
 
 ## ML-DSA-87
 
-Two accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
+Three accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa87). Here a transaction's validation is scored in
 Sierra gas, mean over the held-out set; the season baseline (`23d05d6a2412`) costs 401,296,683 gas. For both
 jobs, the official patch is the accepted one saved with `pvfast remote mldsa87 patch` (client 1.38.0). Like
 before, official patches are **cumulative** against the baseline and contain the work of many earlier
 contributors, mainly **@nadai2010**'s long record line, not only mine.
 
-> **Disclosure / Pernyataan:** both ML-DSA-87 patches were produced by an AI agent, **Claude Code**, which I
-> (**@ardianreffa**) ran and supervised. Both job titles on the board say so.
-> Kedua patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** yang saya (**@ardianreffa**) jalankan
-> dan awasi. Judul kedua job di papan skor juga menyebutkannya.
+> **Disclosure / Pernyataan:** all three ML-DSA-87 patches were produced by an AI agent, **Claude Code**
+> (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised. The job titles on the board say so.
+> Ketiga patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
+> (**@ardianreffa**) jalankan dan awasi. Judul job di papan skor juga menyebutkannya.
 
 ### English
 
@@ -601,6 +606,47 @@ Still above Starknet's 100M validation gas cap (about 9.5M gas to go).
   the baseline plus the official patch of job `mk_469c1cb9`. The delta applies cleanly (`git apply --check`).
   The patch I originally submitted gives the same tree as the official one.
 
+#### Contribution 11: SampleInBall 8 bytes per lane, fallback as a lane walk (job `mk_a5460736f4cc428f9ca70cc5451da1eb`)
+
+> **Credit.** The 8-bytes-per-lane SampleInBall unroll is **@cheelax's** idea (job `mk_d8f3f635`); on its own it
+> did not fit the CASM limit on the record `mk_96cbecf3` (also @cheelax, built on **@rukafe0x's** lane
+> SampleInBall `mk_cc04a71b`). **What is mine** is making it fit: the separate byte-stream fallback is replaced by
+> continuing the same lane walk over the lanes of the re-permuted state. This is **not a record**: other jobs
+> were ahead of it in the queue.
+
+##### What I did
+`ball_lanes` reads the 8 bytes of each lane without the inner loop (one inline step per byte, keeping the bounded
+byte and sign reads of the parent). The old fallback (`ball_stream` + `next_byte`, about 3.1k CASM) is dropped; when
+the first block is not enough, the walk simply continues over the 17 lanes of `keccak_f1600(state)`. That frees the
+CASM the unroll needs. Only `sampling.cairo` differs from the parent.
+
+Correctness: **2,200 SampleInBall vectors** against the FIPS 204 Python reference (1,500 hashed, 300 fallback,
+150 edge, 200 collision-heavy, 50 extreme), run on the new code and on the record; 4 deliberately broken variants
+were caught; 8 account tests and 115 bench tests pass.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mk_96cbecf3` (by @cheelax, record at the time) | 100,045,402 |
+| **This job (accepted)** | **99,827,006** |
+| Saved vs parent | 218,396 |
+
+Worst held-out case 99,940,059, so this job fits Starknet's 100M validation gas cap (`fits_validation_cap: true`).
+CASM 81,357 of 81,920 felts.
+
+##### Files
+- `mldsa-87-mk_a5460736.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. Its SHA-256
+  (`871eceec...3dc01`) equals the `patch_sha256` the scorer reported for the job.
+- `our-delta-on-mk_96cbecf3.patch`: only my change on top of the parent (`sampling.cairo`). Verified: the parent
+  patch (downloaded with `pvfast remote mldsa87 patch`) on the baseline, plus this delta, gives a tree identical
+  (`diff -r`) to the baseline plus the submitted patch. The delta applies cleanly (`git apply --check`).
+
+##### An older job, honestly
+Job `mk_365efc2199124cd1abeea2340789635c` (the same SampleInBall idea merged on `mk_779abbe3`) finished as
+**REJECTED** (`CHECK_FAILED`): the checks `no_corpus000`-`002` and `no_zero_t1_c_tilde_32/40/48/56/63` failed. It is
+not one of my contributions and no patch of it is published here.
+
 ### Bahasa Indonesia (sederhana)
 
 #### Kontribusi 8: UseHint dengan kali-lalu-geser untuk ML-DSA-87 (job `mk_3691ffe9c59140c3a9a6ac1c1ea3272a`)
@@ -659,8 +705,119 @@ state kedua, serta semua tes bawaan paket.
   `mk_469c1cb9`. Delta dapat diterapkan dengan bersih. Patch yang dulu saya kirim menghasilkan isi yang sama
   dengan patch resmi.
 
+#### Kontribusi 11: SampleInBall 8 byte per lane, fallback sebagai lane walk (job `mk_a5460736f4cc428f9ca70cc5451da1eb`)
+
+> **Kredit.** Unroll SampleInBall 8 byte per lane adalah ide **@cheelax** (job `mk_d8f3f635`); sendirian ide itu
+> tidak muat di batas CASM pada rekor `mk_96cbecf3` (juga @cheelax, di atas SampleInBall lane milik
+> **@rukafe0x**, `mk_cc04a71b`). **Yang saya kerjakan** adalah membuatnya muat: fallback byte-stream yang terpisah
+> diganti dengan lanjutan lane walk yang sama di atas lane state hasil permutasi ulang. Ini **bukan rekor**: job lain
+> lebih dulu di antrean.
+
+##### Yang saya kerjakan
+`ball_lanes` membaca 8 byte tiap lane tanpa loop dalam (satu langkah inline per byte, dengan pembacaan byte dan
+tanda yang terbatas dari parent tetap dipertahankan). Fallback lama (`ball_stream` + `next_byte`, sekitar 3,1 ribu
+CASM) dibuang; kalau blok pertama tidak cukup, jalan lane dilanjutkan ke 17 lane dari `keccak_f1600(state)`. Itu
+membebaskan CASM yang dibutuhkan unroll. Hanya `sampling.cairo` yang berbeda dari parent.
+
+Bukti kebenaran: **2.200 vektor SampleInBall** dibandingkan dengan referensi Python FIPS 204 (1.500 hash, 300
+fallback, 150 tepi, 200 padat-tabrakan, 50 ekstrem), dijalankan pada kode baru dan pada rekor; 4 varian yang
+sengaja dirusak tertangkap; 8 tes akun dan 115 tes bench lulus.
+
+##### Hasil resmi
+- Parent `mk_96cbecf3` (oleh @cheelax, rekor pada waktunya): 100.045.402 gas.
+- **Job ini (diterima): 99.827.006 gas**, hemat 218.396 gas.
+- Kasus terburuk 99.940.059, jadi job ini muat di batas 100 juta gas validasi Starknet. CASM 81.357 dari 81.920 felt.
+
+##### Berkas
+- `mldsa-87-mk_a5460736.patch`: patch yang dikirim, kumulatif terhadap baseline `23d05d6a2412`. SHA-256-nya
+  (`871eceec...3dc01`) sama dengan `patch_sha256` yang dilaporkan penilai untuk job ini.
+- `our-delta-on-mk_96cbecf3.patch`: hanya perubahan saya di atas parent (`sampling.cairo`). Terbukti: patch parent
+  (diunduh dengan `pvfast remote mldsa87 patch`) + delta ini sama persis isinya (`diff -r`) dengan baseline + patch
+  yang dikirim. Delta dapat diterapkan dengan bersih.
+
+##### Job lama, apa adanya
+Job `mk_365efc2199124cd1abeea2340789635c` (ide SampleInBall yang sama digabung di `mk_779abbe3`) selesai dengan
+status **REJECTED** (`CHECK_FAILED`): cek `no_corpus000`-`002` dan `no_zero_t1_c_tilde_32/40/48/56/63` gagal. Job itu
+bukan salah satu kontribusi saya dan patch-nya tidak dipublikasikan di sini.
+
 ### Pernyataan jujur
-Kedua patch ML-DSA-87 dikerjakan oleh agent **Claude Code** yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Ketiga patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
+## Falcon-1024
+
+One accepted contribution to the **Falcon-1024** (NIST level 5) season on
+[falcon.provably.fast](https://falcon.provably.fast/falcon1024), baseline `bf7fd8785a18`. The official patches are
+cumulative against that baseline and contain the work of many contributors.
+
+> **Disclosure / Pernyataan:** this patch was produced by an AI agent, **Claude Code** (models Sonnet and Opus),
+> which I (**@ardianreffa**) ran and supervised. The job's model label on the board is `claude-opus-5-5`; its title
+> does not name the agent.
+> Patch ini dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
+> dan awasi. Label model job di papan skor adalah `claude-opus-5-5`; judulnya tidak menyebut agent.
+
+### English
+
+#### Contribution 10: Keccak cell constants hoisted out of the squeeze loop (job `fk_40768326d05246c09567987a2660432f`)
+
+##### The idea
+On **@cheelax's** record `fk_7eee665f`, the squeeze loop called `fk::eo()` on every permutation to rebuild its
+three cell constants (`2^64`, `2^128-1`, `2^64-1`). Now `eo()` is called **once** before absorb and the cells are
+carried through the loop and passed to `keccak_next_k` and to absorb. The word reader's `2^64` divisor, which was a
+separate `hcells` entry, is taken from the same `co.two64` cell, so the loop carries one value less.
+
+Tests: the package's tests pass (109/109 in the workspace); locally -4,300 gas at 17 blocks and -4,000 at 16 blocks.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `fk_7eee665f` (by @cheelax, record at the time) | 49,343,723 |
+| **This job (accepted, not a record)** | **49,339,523** |
+| Saved vs parent | 4,200 |
+
+The job was submitted on 2026-10-26 (UTC) but scored only on 2026-10-27, and did not become the record: while the lead reviewer was
+down (23-27 Oct), the queue order decided, and other jobs submitted earlier became the records. The same idea appears
+in **@nadai2010's** record `fk_15c54ef6`, whose `builds_on` on the board lists `@ryun1`, `@akashneelesh` and
+`@ardianreffa` (this job).
+
+##### Files
+- `falcon-1024-fk_40768326.patch`: the submitted patch, cumulative against baseline `bf7fd8785a18`. Its SHA-256
+  (`2c03bfb6...86bdc`) equals the `patch_sha256` the scorer reported for the job.
+- `our-delta-on-fk_7eee665f.patch`: only my change on top of the parent (`fk.cairo`, `hash_to_point.cairo`).
+  Verified: the parent patch (downloaded with `pvfast remote falcon1024 patch`) on the baseline, plus this delta,
+  gives a tree identical (`diff -r`) to the baseline plus the submitted patch. The delta applies cleanly.
+
+### Bahasa Indonesia (sederhana)
+
+#### Kontribusi 10: konstanta cell Keccak diangkat keluar dari loop squeeze (job `fk_40768326d05246c09567987a2660432f`)
+
+##### Ide
+Pada rekor **@cheelax** `fk_7eee665f`, loop squeeze memanggil `fk::eo()` di setiap permutasi untuk membangun ulang
+tiga konstanta cell (`2^64`, `2^128-1`, `2^64-1`). Sekarang `eo()` dipanggil **sekali** sebelum absorb, dan cell
+dibawa lewat loop serta diteruskan ke `keccak_next_k` dan ke absorb. Pembagi `2^64` milik pembaca kata, yang tadinya
+entri `hcells` tersendiri, diambil dari cell `co.two64` yang sama, jadi loop membawa satu nilai lebih sedikit.
+
+Tes: semua tes paket lulus (109/109 di workspace); lokal -4.300 gas pada 17 blok dan -4.000 pada 16 blok.
+
+##### Hasil resmi
+- Parent `fk_7eee665f` (oleh @cheelax, rekor pada waktunya): 49.343.723 gas.
+- **Job ini (diterima, bukan rekor): 49.339.523 gas**, hemat 4.200 gas.
+- Job dikirim 2026-10-26 (UTC) tetapi baru dinilai 2026-10-27, dan tidak menjadi rekor: saat penilai lead mati (23-27 Okt),
+  urutan antrean yang menentukan, dan job lain yang dikirim lebih dulu menjadi rekor. Ide yang sama dipakai di rekor
+  **@nadai2010** `fk_15c54ef6`, yang `builds_on`-nya di papan skor mencantumkan `@ryun1`, `@akashneelesh` dan
+  `@ardianreffa` (job ini).
+
+##### Berkas
+- `falcon-1024-fk_40768326.patch`: patch yang dikirim, kumulatif terhadap baseline `bf7fd8785a18`. SHA-256-nya
+  (`2c03bfb6...86bdc`) sama dengan `patch_sha256` yang dilaporkan penilai untuk job ini.
+- `our-delta-on-fk_7eee665f.patch`: hanya perubahan saya di atas parent (`fk.cairo`, `hash_to_point.cairo`).
+  Terbukti: patch parent (diunduh dengan `pvfast remote falcon1024 patch`) + delta ini sama persis isinya
+  (`diff -r`) dengan baseline + patch yang dikirim. Delta dapat diterapkan dengan bersih.
+
+### Pernyataan jujur
+Patch Falcon-1024 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
 ---
 
