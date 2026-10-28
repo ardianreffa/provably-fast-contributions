@@ -1,0 +1,50 @@
+{
+ "johnson": [
+  20,
+  65,
+  182,
+  11831
+ ],
+ "binomial_best": {
+  "members": 123,
+  "distinct_P": 123,
+  "D_s": 114,
+  "D_y1": 111,
+  "max_meet_distinct_P": 7,
+  "criterion_mismatches": 0,
+  "s": 4,
+  "c_index": 0
+ },
+ "binomial_max_distinct_P": 127,
+ "binomial_max_meet": 7,
+ "binomial_criterion_mismatches": 0,
+ "binomial_bound_violations": 0,
+ "random_trials": 40,
+ "random_criterion_mismatches": 0,
+ "random_max_meet": 7,
+ "random_max_distinct_P": 23,
+ "random_max_members": 2002,
+ "random_bound_violations": 0,
+ "random_by_kind": {
+  "trinomial": [
+   2002,
+   1,
+   1
+  ],
+  "binomial": [
+   2002,
+   1,
+   1
+  ],
+  "deg<8+2 errors": [
+   715,
+   1,
+   1
+  ],
+  "random": [
+   0,
+   0,
+   0
+  ]
+ }
+}

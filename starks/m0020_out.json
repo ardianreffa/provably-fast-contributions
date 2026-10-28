@@ -1,0 +1,313 @@
+{
+ "a": {
+  "exhaustive_F3_n3_cases": 1594323,
+  "violations": 0,
+  "tight": 660474,
+  "random_adversarial_cases": 87597,
+  "random_violations": 0
+ },
+ "b": [
+  {
+   "p": 7,
+   "n": 6,
+   "k": 2,
+   "A": 4,
+   "lines": 150,
+   "bad_total": 239,
+   "bad_not_in_union": 0,
+   "transfer_failures": 0
+  },
+  {
+   "p": 7,
+   "n": 6,
+   "k": 2,
+   "A": 3,
+   "lines": 150,
+   "bad_total": 831,
+   "bad_not_in_union": 0,
+   "transfer_failures": 0
+  },
+  {
+   "p": 11,
+   "n": 5,
+   "k": 2,
+   "A": 3,
+   "lines": 30,
+   "bad_total": 169,
+   "bad_not_in_union": 0,
+   "transfer_failures": 0
+  },
+  {
+   "p": 7,
+   "n": 7,
+   "k": 3,
+   "A": 5,
+   "lines": 4,
+   "bad_total": 9,
+   "bad_not_in_union": 0,
+   "transfer_failures": 0
+  }
+ ],
+ "c": [
+  {
+   "n": 5,
+   "k": 2,
+   "A": 3,
+   "claimed": 3,
+   "claimed_all_bad": true,
+   "total_bad": 5
+  },
+  {
+   "n": 5,
+   "k": 2,
+   "A": 4,
+   "claimed": 2,
+   "claimed_all_bad": true,
+   "total_bad": 2
+  },
+  {
+   "n": 5,
+   "k": 2,
+   "A": 5,
+   "claimed": 1,
+   "claimed_all_bad": true,
+   "total_bad": 1
+  },
+  {
+   "n": 5,
+   "k": 3,
+   "A": 4,
+   "claimed": 2,
+   "claimed_all_bad": true,
+   "total_bad": 5
+  },
+  {
+   "n": 5,
+   "k": 3,
+   "A": 5,
+   "claimed": 1,
+   "claimed_all_bad": true,
+   "total_bad": 1
+  },
+  {
+   "n": 6,
+   "k": 2,
+   "A": 3,
+   "claimed": 4,
+   "claimed_all_bad": true,
+   "total_bad": 6
+  },
+  {
+   "n": 6,
+   "k": 2,
+   "A": 4,
+   "claimed": 3,
+   "claimed_all_bad": true,
+   "total_bad": 6
+  },
+  {
+   "n": 6,
+   "k": 2,
+   "A": 5,
+   "claimed": 2,
+   "claimed_all_bad": true,
+   "total_bad": 2
+  },
+  {
+   "n": 6,
+   "k": 2,
+   "A": 6,
+   "claimed": 1,
+   "claimed_all_bad": true,
+   "total_bad": 1
+  },
+  {
+   "n": 6,
+   "k": 3,
+   "A": 4,
+   "claimed": 3,
+   "claimed_all_bad": true,
+   "total_bad": 11
+  },
+  {
+   "n": 6,
+   "k": 3,
+   "A": 5,
+   "claimed": 2,
+   "claimed_all_bad": true,
+   "total_bad": 2
+  },
+  {
+   "n": 6,
+   "k": 3,
+   "A": 6,
+   "claimed": 1,
+   "claimed_all_bad": true,
+   "total_bad": 1
+  },
+  {
+   "n": 7,
+   "k": 2,
+   "A": 3,
+   "claimed": 5,
+   "claimed_all_bad": true,
+   "total_bad": 7
+  },
+  {
+   "n": 7,
+   "k": 2,
+   "A": 4,
+   "claimed": 4,
+   "claimed_all_bad": true,
+   "total_bad": 7
+  },
+  {
+   "n": 7,
+   "k": 2,
+   "A": 5,
+   "claimed": 3,
+   "claimed_all_bad": true,
+   "total_bad": 3
+  },
+  {
+   "n": 7,
+   "k": 2,
+   "A": 6,
+   "claimed": 2,
+   "claimed_all_bad": true,
+   "total_bad": 2
+  },
+  {
+   "n": 7,
+   "k": 2,
+   "A": 7,
+   "claimed": 1,
+   "claimed_all_bad": true,
+   "total_bad": 1
+  },
+  {
+   "n": 7,
+   "k": 3,
+   "A": 4,
+   "claimed": 4,
+   "claimed_all_bad": true,
+   "total_bad": 18
+  },
+  {
+   "n": 7,
+   "k": 3,
+   "A": 5,
+   "claimed": 3,
+   "claimed_all_bad": true,
+   "total_bad": 3
+  },
+  {
+   "n": 7,
+   "k": 3,
+   "A": 6,
+   "claimed": 2,
+   "claimed_all_bad": true,
+   "total_bad": 2
+  },
+  {
+   "n": 7,
+   "k": 3,
+   "A": 7,
+   "claimed": 1,
+   "claimed_all_bad": true,
+   "total_bad": 1
+  },
+  {
+   "n": 8,
+   "k": 2,
+   "A": 3,
+   "claimed": 6,
+   "claimed_all_bad": true,
+   "total_bad": 8
+  },
+  {
+   "n": 8,
+   "k": 2,
+   "A": 4,
+   "claimed": 5,
+   "claimed_all_bad": true,
+   "total_bad": 8
+  },
+  {
+   "n": 8,
+   "k": 2,
+   "A": 5,
+   "claimed": 4,
+   "claimed_all_bad": true,
+   "total_bad": 8
+  },
+  {
+   "n": 8,
+   "k": 2,
+   "A": 6,
+   "claimed": 3,
+   "claimed_all_bad": true,
+   "total_bad": 3
+  },
+  {
+   "n": 8,
+   "k": 2,
+   "A": 7,
+   "claimed": 2,
+   "claimed_all_bad": true,
+   "total_bad": 2
+  },
+  {
+   "n": 8,
+   "k": 2,
+   "A": 8,
+   "claimed": 1,
+   "claimed_all_bad": true,
+   "total_bad": 1
+  },
+  {
+   "n": 8,
+   "k": 3,
+   "A": 4,
+   "claimed": 5,
+   "claimed_all_bad": true,
+   "total_bad": 28
+  },
+  {
+   "n": 8,
+   "k": 3,
+   "A": 5,
+   "claimed": 4,
+   "claimed_all_bad": true,
+   "total_bad": 8
+  },
+  {
+   "n": 8,
+   "k": 3,
+   "A": 6,
+   "claimed": 3,
+   "claimed_all_bad": true,
+   "total_bad": 3
+  },
+  {
+   "n": 8,
+   "k": 3,
+   "A": 7,
+   "claimed": 2,
+   "claimed_all_bad": true,
+   "total_bad": 2
+  },
+  {
+   "n": 8,
+   "k": 3,
+   "A": 8,
+   "claimed": 1,
+   "claimed_all_bad": true,
+   "total_bad": 1
+  }
+ ],
+ "d": {
+  "min_J2_over_8K3": 7.127765618685455,
+  "holds": true
+ }
+}

@@ -30,6 +30,11 @@ Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
 10. `fk_40768326`: Keccak cell constants hoisted out of the squeeze loop (49,339,523 gas, accepted, **not a record**: queue order).
 
+STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Reviews only, no new mathematics:
+
+12. `bp1_e61a7c63`: independent review of the 11,831 cap (T3, work of participant_dbbfaeddbe89). Posted, awaiting the organizers' record.
+13. `bp1_bcc0065b`: independent review of M-0020 (T2, work of odinfree). Posted, awaiting the organizers' record.
+
 ---
 
 ## English
@@ -818,6 +823,66 @@ Tes: semua tes paket lulus (109/109 di workspace); lokal -4.300 gas pada 17 blok
 
 ### Pernyataan jujur
 Patch Falcon-1024 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
+## starks.provably.fast (STARK math challenge)
+
+Two independent reviews posted on the bulletin of [starks.provably.fast](https://starks.provably.fast) (public record:
+<https://starks.provably.fast/record>). Files are in [`starks/`](starks/).
+
+> **Disclosure / Pernyataan:** these reviews were written by an AI agent, **Claude Code** (models Sonnet and Opus),
+> which I (**@ardianreffa**) ran and supervised. The posts name the agent (Claude Opus 5.5).
+> Review ini ditulis oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
+> dan awasi. Posting menyebut agent-nya (Claude Opus 5.5).
+
+> **Credit / Kredit:** the mathematics belongs to the original authors. Our contribution is review and re-checking only,
+> not new mathematical results. / Matematikanya milik penulis asli. Kontribusi kita hanya review dan pengecekan ulang,
+> bukan hasil matematika baru.
+
+### English
+
+#### Contribution 12: independent review of the 11,831 cap (T3)
+- Work under review: the 11,831 cap for level-16 kernel lifts, by **participant_dbbfaeddbe89** (post bp1_09ba872d).
+- Our post: `bp1_e61a7c63`, thread `bt1_51f872ea`. Text: `starks/review-cap-11831.md`.
+- Result: **holds within the stated accounting, with scope notes.** In my reading the argument is complete for the challenges it counts
+  (Johnson chain A(14,4,5) <= 182, giving 65*182 + 1 = 11,831). It does not bound every bad challenge of such a line,
+  and it is not shown to be tight. Checked by hand and by own code (`cap16.py`, `exh16.py`); the exhaustive h = 1 count
+  gives exactly 226.
+- Clarification (`starks/clarify-n16-flag.md`): `inst16_a.json` is participant_dbbfaeddbe89's construction. We only
+  re-certified it for the review. It is not our result.
+- Status: **posted, awaiting the organizers' record.**
+
+#### Contribution 13: independent review of M-0020 (T2)
+- Work under review: M-0020 (post bp1_2334f28d), by **odinfree**.
+- Our post: `bp1_bcc0065b`, thread `bt1_5d39cc28`. Text: `starks/review-M0020.md`.
+- Result: **holds as written.** The bucket lemma, the conditional transfer and the near-pair example are correct, and the
+  J2 remark matches the pinned ArkLib definitions. Checked by hand and by own code (`m0020.py`).
+- Status: **posted, awaiting the organizers' record.**
+
+### Bahasa Indonesia (sederhana)
+
+#### Kontribusi 12: review independen batas 11.831 (T3)
+- Karya yang direview: batas 11.831 untuk kernel lift level-16, oleh **participant_dbbfaeddbe89** (post bp1_09ba872d).
+- Post kami: `bp1_e61a7c63`, thread `bt1_51f872ea`. Teks: `starks/review-cap-11831.md`.
+- Hasil: **berlaku dalam cakupan yang dinyatakan, dengan catatan scope.** Menurut pembacaan saya, argumennya lengkap untuk tantangan yang dihitung
+  (rantai Johnson A(14,4,5) <= 182, jadi 65*182 + 1 = 11.831). Ia tidak membatasi semua tantangan buruk pada garis
+  semacam itu, dan tidak ditunjukkan ketat. Dicek dengan tangan dan dengan kode sendiri (`cap16.py`, `exh16.py`);
+  hitungan penuh h = 1 memberi tepat 226.
+- Klarifikasi (`starks/clarify-n16-flag.md`): `inst16_a.json` adalah konstruksi milik participant_dbbfaeddbe89. Kami hanya
+  mensertifikasi ulang untuk review. Itu bukan hasil kami.
+- Status: **posted, menunggu pencatatan panitia.**
+
+#### Kontribusi 13: review independen M-0020 (T2)
+- Karya yang direview: M-0020 (post bp1_2334f28d), oleh **odinfree**.
+- Post kami: `bp1_bcc0065b`, thread `bt1_5d39cc28`. Teks: `starks/review-M0020.md`.
+- Hasil: **berlaku seperti yang ditulis.** Lemma bucket, transfer bersyarat, dan contoh near-pair benar, dan catatan J2
+  sesuai dengan definisi ArkLib yang dipin. Dicek dengan tangan dan dengan kode sendiri (`m0020.py`).
+- Status: **posted, menunggu pencatatan panitia.**
+
+### Pernyataan jujur
+Review ini dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Kontribusi kami hanya review dan pengecekan ulang; hasil matematikanya milik penulis asli.
 
 ---
 
