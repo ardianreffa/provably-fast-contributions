@@ -1,7 +1,12 @@
 # provably-fast-contributions
 
-Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87** and **Falcon-1024** seasons on
-[falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87 and Falcon-1024 each have their own section near the end).
+Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-1024** and **SLH-DSA-128s** seasons on
+[falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
+
+**15 contributions** in total: 13 scored jobs and 2 reviews (12 and 13).
+- **Records I hold (as of 29 Oct 2026):** ML-DSA-87 `mk_00f892fd` (contribution 14) and SLH-DSA-128s `sj_0ab1739b` (contribution 15).
+- **Records I once set, since beaten:** ML-DSA-44 `mj_7b791824` (contribution 7, now surpassed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
+- Falcon-1024: no record (contribution 10 was accepted but not a record).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised.
@@ -18,17 +23,22 @@ Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87** a
 4. `mj_24fb2836`: UseHint HighBits by multiply-shift, two residues per u128 (176,144,759 gas, record at the time).
 5. `mj_0d051868`: z range flags per 3 digits as one constant minus three products (172,877,140 gas, record at the time).
 6. `mj_29ea4ca5`: **combination, not my idea**: @saniksin's sibling patch `mj_d95817f8` merged on top of @odinfree's record `mj_a93adef3` (172,535,524 gas).
-7. `mj_7b791824`: z range flags, six digits per AND with a +78 offset in the division chain (172,230,687 gas, current ML-DSA-44 record).
+7. `mj_7b791824`: z range flags, six digits per AND with a +78 offset in the division chain (172,230,687 gas, record at the time, since beaten by @mitchuski).
 
 ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 
 8. `mk_3691ffe9`: UseHint HighBits by multiply-shift, pairs `(i, i+16)` per u128 (110,867,290 gas, record at the time).
 9. `mk_469c1cb9`: mu and the first SampleInBall block in one two-state Keccak permutation (109,484,394 gas, ML-DSA-87 record when submitted). The two-state technique is **@rukafe0x's**; porting it to ML-DSA-87 is my work.
 11. `mk_a5460736`: SampleInBall 8 bytes per lane made to fit the CASM limit, with the fallback as a continuation of the lane walk (99,827,006 gas, accepted, **not a record**: queue order).
+14. `mk_00f892fd`: bounded lanes for `tr` (`lanes8t`), `tr`/`c_tilde` lanes typed `u64`, `ball_scan`/`ball_done` inlined (88,037,462 gas, **current ML-DSA-87 record (as of 29 Oct 2026)**, -17,620 vs @mitchuski's `mk_3400423b`). The bounded-lanes technique is **@odinfree's**.
 
 Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
 10. `fk_40768326`: Keccak cell constants hoisted out of the squeeze loop (49,339,523 gas, accepted, **not a record**: queue order).
+
+SLH-DSA-128s (see the section [SLH-DSA-128s](#slh-dsa-128s)):
+
+15. `sj_0ab1739b`: new `ht_layer` call convention (396,508,400 gas, **current SLH-DSA-128s record (as of 29 Oct 2026)**, -5,900 vs @nadai2010's `sj_fe19b6f9`). My first SLH-DSA record.
 
 STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Reviews only, no new mathematics:
 
@@ -291,7 +301,7 @@ Evidence of correctness:
 | | Gas |
 |---|---:|
 | Parent `mj_bf48924d` (by @saniksin) | 172,335,271 |
-| **This job (accepted, current ML-DSA-44 record)** | **172,230,687** |
+| **This job (accepted, record at the time; since beaten by @mitchuski)** | **172,230,687** |
 | Saved vs parent | 104,584 |
 
 Still above Starknet's 100M validation gas cap.
@@ -530,16 +540,16 @@ Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalan
 
 ## ML-DSA-87
 
-Three accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
+Four accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa87). Here a transaction's validation is scored in
 Sierra gas, mean over the held-out set; the season baseline (`23d05d6a2412`) costs 401,296,683 gas. For both
 jobs, the official patch is the accepted one saved with `pvfast remote mldsa87 patch` (client 1.38.0). Like
 before, official patches are **cumulative** against the baseline and contain the work of many earlier
 contributors, mainly **@nadai2010**'s long record line, not only mine.
 
-> **Disclosure / Pernyataan:** all three ML-DSA-87 patches were produced by an AI agent, **Claude Code**
+> **Disclosure / Pernyataan:** all four ML-DSA-87 patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised. The job titles on the board say so.
-> Ketiga patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
+> Keempat patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
 > (**@ardianreffa**) jalankan dan awasi. Judul job di papan skor juga menyebutkannya.
 
 ### English
@@ -652,6 +662,41 @@ Job `mk_365efc2199124cd1abeea2340789635c` (the same SampleInBall idea merged on 
 **REJECTED** (`CHECK_FAILED`): the checks `no_corpus000`-`002` and `no_zero_t1_c_tilde_32/40/48/56/63` failed. It is
 not one of my contributions and no patch of it is published here.
 
+#### Contribution 14: bounded lanes for `tr`, typed `u64` lanes, inlined SampleInBall scan (job `mk_00f892fd18bc486f8a63a924c82983b4`)
+
+> **Credit.** The bounded-lane technique is **@odinfree's** (`lanes8`, job `mk_bc0b5b94`, building on his bounded `div_rem`
+> mu splits). The record it is applied to, `mk_3400423b`, is **@mitchuski's**. **What is mine** is carrying the same
+> structure over to `lanes8t`, the function that rebuilds `tr` from the cache on every validate, and the follow-ups below.
+
+##### What I did
+1. `keccak::lanes8t` used six `u128` DivRem plus `u128` add/mul. It now uses the same bounded split as `lanes8`
+   (`bounded_int_div_rem` by 2^64 and 32, lanes 3 and 5 by `cb::add`/`cb::mul`, lane 7 by downcast): -10,220 gas.
+2. `lanes8` and `lanes8t` return `u64`-bounded lanes, so `mu_and_ball_rate` packs `tr|c_tilde` with `fk::aa` and the
+   final `c_tilde` check compares `fk::aa` pairs. This removes 11 felt `try_into`: -3,500 gas.
+3. `sampling::ball_scan` and `ball_done` are `inline(always)`: -3,900 gas.
+
+Local total: -17,620 gas (`bench_validate`). Behavior note: lane 7 of `tr` is now downcast to below 2^64 instead of
+`try_into` `u128`; for every cache written by setup it always fits, and a malformed cache returns `false` as before.
+
+Correctness: 8 account tests and 115 bench tests pass; **2,200 SampleInBall vectors** against the FIPS 204 Python
+reference pass; a mutant with lanes 6 and 7 swapped was caught by 2 account tests.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mk_3400423b` (by @mitchuski, record at the time) | 88,055,082 |
+| **This job (accepted, new record)** | **88,037,462** |
+| Saved vs parent | 17,620 |
+
+Still below Starknet's 100M validation gas cap. CASM was 81,288 of 81,920 felts in my dev build.
+
+##### Files
+- `mldsa-87-mk_00f892fd.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. SHA-256
+  `de6ded47...8518d`.
+- `our-delta-on-mk_3400423b.patch`: only my change on top of the parent (`keccak.cairo`, `sampling.cairo`,
+  `verify.cairo`, `zread.cairo`); apply with `git apply -p0`. Paths are relative to the repository root.
+
 ### Bahasa Indonesia (sederhana)
 
 #### Kontribusi 8: UseHint dengan kali-lalu-geser untuk ML-DSA-87 (job `mk_3691ffe9c59140c3a9a6ac1c1ea3272a`)
@@ -745,8 +790,39 @@ Job `mk_365efc2199124cd1abeea2340789635c` (ide SampleInBall yang sama digabung d
 status **REJECTED** (`CHECK_FAILED`): cek `no_corpus000`-`002` dan `no_zero_t1_c_tilde_32/40/48/56/63` gagal. Job itu
 bukan salah satu kontribusi saya dan patch-nya tidak dipublikasikan di sini.
 
+#### Kontribusi 14: lane terbatas untuk `tr`, lane bertipe `u64`, pemindaian SampleInBall di-inline (job `mk_00f892fd18bc486f8a63a924c82983b4`)
+
+> **Kredit.** Teknik lane terbatas adalah milik **@odinfree** (`lanes8`, job `mk_bc0b5b94`). Rekor yang menjadi dasar,
+> `mk_3400423b`, milik **@mitchuski**. **Bagian saya** adalah membawa struktur yang sama ke `lanes8t`, fungsi yang
+> membangun ulang `tr` dari cache di setiap validate, ditambah langkah lanjutan di bawah.
+
+##### Yang saya kerjakan
+1. `keccak::lanes8t` memakai enam DivRem `u128` plus add/mul `u128`. Sekarang memakai pemecahan terbatas yang sama
+   dengan `lanes8` (`bounded_int_div_rem` oleh 2^64 dan 32, lane 3 dan 5 lewat `cb::add`/`cb::mul`, lane 7 lewat downcast):
+   -10.220 gas.
+2. `lanes8` dan `lanes8t` mengembalikan lane terbatas `u64`, sehingga `mu_and_ball_rate` mengemas `tr|c_tilde` dengan
+   `fk::aa` dan pemeriksaan akhir `c_tilde` membandingkan pasangan `fk::aa`. 11 `try_into` felt hilang: -3.500 gas.
+3. `sampling::ball_scan` dan `ball_done` dibuat `inline(always)`: -3.900 gas.
+
+Total lokal: -17.620 gas (`bench_validate`). Catatan perilaku: lane 7 dari `tr` kini di-downcast ke di bawah 2^64, bukan
+`try_into` `u128`; untuk semua cache hasil setup nilainya selalu muat, dan cache rusak tetap mengembalikan `false`.
+
+Pengujian: 8 tes akun dan 115 tes bench lulus; **2.200 vektor SampleInBall** terhadap referensi Python FIPS 204 lulus;
+mutan dengan lane 6 dan 7 ditukar tertangkap oleh 2 tes akun.
+
+##### Hasil resmi
+- Parent `mk_3400423b` (oleh @mitchuski, rekor pada waktunya): 88.055.082 gas.
+- **Job ini (diterima, rekor baru): 88.037.462 gas**, hemat 17.620 gas.
+- Masih di bawah batas gas validasi Starknet 100M. CASM di build dev saya 81.288 dari 81.920 felt.
+
+##### Berkas
+- `mldsa-87-mk_00f892fd.patch`: patch yang dikirim, kumulatif terhadap baseline `23d05d6a2412`. SHA-256
+  `de6ded47...8518d`.
+- `our-delta-on-mk_3400423b.patch`: hanya perubahan saya di atas parent (`keccak.cairo`, `sampling.cairo`,
+  `verify.cairo`, `zread.cairo`); terapkan dengan `git apply -p0`.
+
 ### Pernyataan jujur
-Ketiga patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Keempat patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
 ---
 
@@ -823,6 +899,98 @@ Tes: semua tes paket lulus (109/109 di workspace); lokal -4.300 gas pada 17 blok
 
 ### Pernyataan jujur
 Patch Falcon-1024 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
+## SLH-DSA-128s
+
+One accepted contribution to the **SLH-DSA-SHAKE-128s** season on
+[postquantum.provably.fast](https://postquantum.provably.fast), baseline `7ab3ce3d`. The official patch is cumulative
+against that baseline and contains the work of many contributors.
+
+> **Disclosure / Pernyataan:** this patch was produced by an AI agent, **Claude Code** (models Sonnet and Opus),
+> which I (**@ardianreffa**) ran and supervised. The job title on the board says so.
+> Patch ini dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
+> dan awasi. Judul job di papan skor juga menyebutkannya.
+
+### English
+
+#### Contribution 15: new `ht_layer` call convention (job `sj_0ab1739b6bf94bcab6811f01438a38cb`)
+
+> **Credit.** This is a small step on a long record line: **@ryun1** (`sj_84bb8058`, four-chain ladders, non-panicking
+> hash helpers, the `climb8` wrapper whose `None -> 0` return item 1 reuses), **@realadii**, **@odinfree** (`957443d8`),
+> **@akashneelesh** (`sj_cbc7e977`) and finally **@nadai2010**, whose `sj_fe19b6f9` (`ht_layer_i` inlined for layer 0) is the
+> parent. **What is mine** is only the calling convention of `ht_layer`, in `lanes.cairo`.
+
+##### The idea
+About 97% of the cost is the Keccak syscall, so only the glue around it can be improved. Four changes to how `ht_layer` is called:
+1. The `ht_layer` wrapper returns `u128` (`None -> 0`, like the existing `climb8` wrapper): -1,200 gas.
+2. `ht_layer` takes the already popped `@Box<[u64; 88]>` instead of `ref hs: Span` (the pops happen in `hypertree`): -2,000 gas.
+3. The leaf lane is computed inside `ht_layer` from `leaf_idx`, one argument fewer: 0 gas, CASM -65.
+4. `hypertree` computes all lanes and pops all six boxes before layer 1, and `root` is the first parameter, so the
+   implicits and root returned by one call already sit where the next call needs them: -2,700 gas.
+
+Local `bench_verify`: 408,415,562 -> 408,409,662 = **-5,900 gas**, the same on all 28 valid reference signatures.
+Behavior: invalid signatures are still rejected with `false`; a Keccak `Err` inside layers 1 to 6 now flows as root 0
+(root mismatch, so `false`) instead of an early `false`.
+
+Correctness: 37/37 SLH tests pass; **756 reference vectors** (valid, bit flips in every region, public-key flips,
+message, swaps, other key, non-canonical felts, wrong lengths) from `ref/slhdsa128s.py` give the same verdicts as the
+record (756/756).
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `sj_fe19b6f9` (by @nadai2010, record at the time) | 396,514,300 |
+| **This job (accepted, new record)** | **396,508,400** |
+| Saved vs parent | 5,900 |
+
+The first SLH-DSA-128s record of mine. The season is far from any gas cap: the Keccak syscalls alone are about 400M.
+
+##### Files
+- `slh-dsa-128s-sj_0ab1739b.patch`: the submitted patch, cumulative against baseline `7ab3ce3d`. SHA-256
+  `fdaae6f6...d013e`.
+- `our-delta-on-sj_fe19b6f9.patch`: only my change on top of the parent (`lanes.cairo`); apply with `git apply -p0`.
+
+### Bahasa Indonesia (sederhana)
+
+#### Kontribusi 15: cara pemanggilan `ht_layer` yang baru (job `sj_0ab1739b6bf94bcab6811f01438a38cb`)
+
+> **Kredit.** Ini langkah kecil di atas garis rekor yang panjang: **@ryun1** (`sj_84bb8058`, tangga empat rantai, helper
+> hash tanpa panic, pembungkus `climb8` yang return `None -> 0`-nya dipakai ulang di poin 1), **@realadii**,
+> **@odinfree** (`957443d8`), **@akashneelesh** (`sj_cbc7e977`) dan terakhir **@nadai2010**, yang `sj_fe19b6f9`-nya
+> (`ht_layer_i` di-inline untuk layer 0) menjadi parent. **Bagian saya** hanya cara pemanggilan `ht_layer` di `lanes.cairo`.
+
+##### Ide
+Sekitar 97% biaya adalah syscall Keccak, jadi hanya kode perekat di sekitarnya yang bisa diperbaiki. Empat perubahan
+pada cara `ht_layer` dipanggil:
+1. Pembungkus `ht_layer` mengembalikan `u128` (`None -> 0`, seperti pembungkus `climb8`): -1.200 gas.
+2. `ht_layer` menerima `@Box<[u64; 88]>` hasil pop, bukan `ref hs: Span` (pop dilakukan di `hypertree`): -2.000 gas.
+3. Lane daun dihitung di dalam `ht_layer` dari `leaf_idx`, satu argumen lebih sedikit: 0 gas, CASM -65.
+4. `hypertree` menghitung semua lane dan mem-pop keenam box sebelum layer 1, dan `root` menjadi parameter pertama,
+   sehingga implicit dan root yang dikembalikan satu panggilan sudah berada di tempat yang dibutuhkan panggilan berikutnya:
+   -2.700 gas.
+
+`bench_verify` lokal: 408.415.562 -> 408.409.662 = **-5.900 gas**, sama pada semua 28 tanda tangan referensi yang valid.
+Perilaku: tanda tangan tidak valid tetap ditolak dengan `false`; `Err` Keccak di layer 1 sampai 6 kini mengalir sebagai
+root 0 (root tidak cocok, jadi `false`) dan bukan `false` lebih awal.
+
+Pengujian: 37/37 tes SLH lulus; **756 vektor referensi** (valid, bit dibalik di setiap bagian, kunci publik, pesan,
+tukar, kunci lain, felt tidak kanonik, panjang salah) dari `ref/slhdsa128s.py` memberi putusan yang sama dengan rekor (756/756).
+
+##### Hasil resmi
+- Parent `sj_fe19b6f9` (oleh @nadai2010, rekor pada waktunya): 396.514.300 gas.
+- **Job ini (diterima, rekor baru): 396.508.400 gas**, hemat 5.900 gas.
+- Rekor SLH-DSA-128s pertama saya.
+
+##### Berkas
+- `slh-dsa-128s-sj_0ab1739b.patch`: patch yang dikirim, kumulatif terhadap baseline `7ab3ce3d`. SHA-256
+  `fdaae6f6...d013e`.
+- `our-delta-on-sj_fe19b6f9.patch`: hanya perubahan saya di atas parent (`lanes.cairo`); terapkan dengan `git apply -p0`.
+
+### Pernyataan jujur
+Patch SLH-DSA-128s dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
 ---
 

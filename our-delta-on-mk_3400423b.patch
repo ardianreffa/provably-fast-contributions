@@ -1,0 +1,169 @@
+--- crates/ml_dsa_87/src/keccak.cairo
++++ crates/ml_dsa_87/src/keccak.cairo
+@@ -206,7 +206,7 @@
+ [hw(w0),hw(w1),hw(w2),hw(w3),hw(w4),hw(w5),hw(w6),hw(w7),hw(w8),hw(w9),hw(w10),hw(w11),hw(w12),hw(w13),hw(w14),hw(w15),hw(w16),hw(w17),hw(w18),hw(w19),hw(w20),hw(w21),hw(w22),hw(w23),hw(w24)];
+ ([l0,l1,l2,l3,l4,l5,l6,l7],[h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11,h12,h13,h14,h15,h16,h17,h18,h19,h20,h21,h22,h23,h24])
+ }
+-#[inline(always)]pub(crate)fn mu_and_ball_rate(tr:[u128;8],message_hash:felt252,c_tilde:[u128;8])->([u64;8],[u128;17]){
++#[inline(always)]pub(crate)fn mu_and_ball_rate(tr:[HW64;8],message_hash:felt252,c_tilde:[HW64;8])->([u64;8],[u128;17]){
+ let m:u256=message_hash.into();
+ let rh=core::integer::u128_byte_reverse(m.high);
+ let rl=core::integer::u128_byte_reverse(m.low);
+@@ -217,7 +217,7 @@
+ let [t0,t1,t2,t3,t4,t5,t6,t7]=tr;
+ let [c0,c1,c2,c3,c4,c5,c6,c7]=c_tilde;
+ let w=crate::k2::keccak_f1600_x2_rate([
+-pk2(t0,c0),pk2(t1,c1),pk2(t2,c2),pk2(t3,c3),pk2(t4,c4),pk2(t5,c5),pk2(t6,c6),pk2(t7,c7),
++crate::fk::aa(t0,c0),crate::fk::aa(t1,c1),crate::fk::aa(t2,c2),crate::fk::aa(t3,c3),crate::fk::aa(t4,c4),crate::fk::aa(t5,c5),crate::fk::aa(t6,c6),crate::fk::aa(t7,c7),
+ upcast(cb::add::<M64S,UnitInt<0x1f0000000000000000>,MA8>(cb::mul::<C48,UnitInt<0x10000>,MM16>(h0,M16K),M1F64)),upcast(h1),upcast(cb::add::<M64S,C16,MA10>(cb::mul::<C48,UnitInt<0x10000>,MM16>(r0,M16K),h2)),upcast(r1),upcast(cb::add::<C16,UnitInt<0x1f0000>,MA12>(r2,M1F16)),0,0,0,
+ 0x8000000000000000*(TWO64+1),0,0,0,0,0,0,0,0,
+ ]);
+@@ -258,22 +258,40 @@
+ const L64:NonZero<u128>=0x10000000000000000;
+ const L8:NonZero<u128>=0x100;
+ const L48:NonZero<u128>=0x1000000000000;
+-#[inline(always)]pub(crate)fn lanes8t(f0:felt252,f1:felt252,head:felt252)->Option<[u128;8]>{
++#[inline(always)]pub(crate)fn lanes8t(f0:felt252,f1:felt252,head:felt252)->Option<[HW64;8]>{
+ let v:u256=f0.into();
+ let w:u256=f1.into();
+-if v.high>=0x8000000000000000000000000000000||w.high>=0x8000000000000000000000000000000
+-{
+-return None;
++let vh=match cb::constrain::<u128,0x8000000000000000000000000000000,T123>(v.high){Ok(x)=>x,Err(_)=>{return None;},};
++let wh=match cb::constrain::<u128,0x8000000000000000000000000000000,T123>(w.high){Ok(x)=>x,Err(_)=>{return None;},};
++let(l1,l0)=bounded_int_div_rem(v.low,HW64N);
++let(t,l2)=bounded_int_div_rem(vh,HW64N);
++let(wl,a)=bounded_int_div_rem(w.low,T32N);
++let(c,b)=bounded_int_div_rem(wl,HW64N);
++let(wh,d)=bounded_int_div_rem(wh,T32N);
++let(g,e)=bounded_int_div_rem(wh,HW64N);
++let l3=cb::add::<C59,C59Hi,T59A>(t,cb::mul::<C5,UnitInt<0x800000000000000>,T59M>(a,T59K));
++let l5=cb::add::<C59,C59Hi,T59A>(c,cb::mul::<C5,UnitInt<0x800000000000000>,T59M>(d,T59K));
++let l7:HW64=corelib_imports::bounded_int::downcast(upcast::<C54,felt252>(g)+head)?;
++Some([l0,l1,l2,l3,b,l5,e,l7])
+ }
+-let(l1,l0)=DivRem::div_rem(v.low,L64);
+-let(t,l2)=DivRem::div_rem(v.high,L64);
+-let(wl,a)=DivRem::div_rem(w.low,L32);
+-let(c,b)=DivRem::div_rem(wl,L64);
+-let(wh,d)=DivRem::div_rem(w.high,L32);
+-let(g,e)=DivRem::div_rem(wh,L64);
+-let l7:u128=(Into::<u128,felt252>::into(g)+head).try_into()?;
+-Some([l0,l1,l2,t+a*0x800000000000000,b,c+d*0x800000000000000,e,l7])
++type C123=BoundedInt<0,0x7ffffffffffffffffffffffffffffff>;
++type C118=BoundedInt<0,0x3fffffffffffffffffffffffffffff>;
++type C59=BoundedInt<0,0x7ffffffffffffff>;
++type C54=BoundedInt<0,0x3fffffffffffff>;
++type C5=BoundedInt<0,31>;
++type C59Hi=BoundedInt<0,0xf800000000000000>;
++impl T123 of cb::ConstrainHelper<u128,0x8000000000000000000000000000000>{
++type LowT=C123;
++type HighT=BoundedInt<0x8000000000000000000000000000000,0xffffffffffffffffffffffffffffffff>;
+ }
++impl T123D64 of DivRemHelper<C123,UnitInt<0x10000000000000000>>{type DivT=C59;type RemT=HW64;}
++impl T128D32 of DivRemHelper<u128,UnitInt<32>>{type DivT=C123;type RemT=C5;}
++impl T123D32 of DivRemHelper<C123,UnitInt<32>>{type DivT=C118;type RemT=C5;}
++impl T118D64 of DivRemHelper<C118,UnitInt<0x10000000000000000>>{type DivT=C54;type RemT=HW64;}
++impl T59M of cb::MulHelper<C5,UnitInt<0x800000000000000>>{type Result=C59Hi;}
++impl T59A of cb::AddHelper<C59,C59Hi>{type Result=HW64;}
++const T32N:NonZero<UnitInt<32>>=32;
++const T59K:UnitInt<0x800000000000000>=0x800000000000000;
+ use core::internal::bounded_int as cb;
+ type C120=BoundedInt<0,0xffffffffffffffffffffffffffffff>;
+ type C112=BoundedInt<0,0xffffffffffffffffffffffffffff>;
+@@ -302,7 +320,7 @@
+ const C256:NonZero<UnitInt<256>>=256;
+ const C56K:UnitInt<0x100000000000000>=0x100000000000000;
+ const C48K:UnitInt<0x1000000000000>=0x1000000000000;
+-#[inline(always)]pub(crate)fn lanes8(f0:felt252,f1:felt252,head:u128)->Option<[u128;8]>{
++#[inline(always)]pub(crate)fn lanes8(f0:felt252,f1:felt252,head:u128)->Option<[HW64;8]>{
+ let v:u256=f0.into();
+ let w:u256=f1.into();
+ let vh=match cb::constrain::<u128,0x1000000000000000000000000000000,C120Check>(v.high){Ok(x)=>x,Err(_)=>{return None;},};
+@@ -317,10 +335,10 @@
+ let l3=cb::add::<C56,C56Hi,C56Add>(t,cb::mul::<C8,UnitInt<0x100000000000000>,C56Mul>(a,C56K));
+ let l5=cb::add::<C56,C56Hi,C56Add>(c,cb::mul::<C8,UnitInt<0x100000000000000>,C56Mul>(d,C56K));
+ let l7=cb::add::<C48,C48Hi,C48Add>(g,cb::mul::<C16,UnitInt<0x1000000000000>,C48Mul>(head,C48K));
+-Some([upcast(l0),upcast(l1),upcast(l2),upcast(l3),upcast(b),upcast(l5),upcast(e),upcast(l7)])
++Some([l0,l1,l2,l3,b,l5,e,l7])
+ }
+ 
+-pub fn shake256_pairs_packed(pairs:Span<u128>,c_tilde:[u128;8])->bool{
++pub fn shake256_pairs_packed(pairs:Span<u128>,c_tilde:[HW64;8])->bool{
+ let mut st=[0_u128;13];
+ let mut rest=pairs;
+ while let Some(b)=rest.multi_pop_front::<17>(){
+@@ -352,11 +370,11 @@
+ w0 ^ 0x1f,w1,w2,w3 ^ 0x80000000000000000000000000000000,w4,w5,w6,w7,w8,w9,w10,w11,w12,
+ ]);
+ let [c0,c1,c2,c3,c4,c5,c6,c7]=c_tilde;
+-eq_u128_felt(o0,crate::fk::pack(c0,c1))
+-&& eq_u128_felt(o5,crate::fk::pack(c2,c3))
+-&& eq_u128_felt(o1,crate::fk::pack(c5,c6))
+-&& eq_u128_felt(l10,c4)
+-&& eq_u128_felt(l6,c7)
++eq_u128_felt(o0,crate::fk::aa(c0,c1))
++&& eq_u128_felt(o5,crate::fk::aa(c2,c3))
++&& eq_u128_felt(o1,crate::fk::aa(c5,c6))
++&& eq_u128_felt(l10,upcast(c4))
++&& eq_u128_felt(l6,upcast(c7))
+ }
+ 
+ #[inline(always)]
+--- crates/ml_dsa_87/src/sampling.cairo
++++ crates/ml_dsa_87/src/sampling.cairo
+@@ -179,12 +179,12 @@
+ c0,c1,c2,c3,c4,c5,c6,c7,0x1f,0,0,0,0,0,0,0,0x8000000000000000,0,0,0,0,0,0,0,0,
+ ]))
+ }
+-#[inline(always)]pub fn sample_in_ball_rate(rate:[u128;17],tr:[u128;8],message_hash:felt252,c_tilde:[u128;8])->Array<ZC87>{
++#[inline(always)]pub fn sample_in_ball_rate(rate:[u128;17],tr:[crate::fk::u;8],message_hash:felt252,c_tilde:[crate::fk::u;8])->Array<ZC87>{
+ match ball_lanes(rate){
+ Ok(c)=>c,
+ Err(rest)=>{
+ let [c0,c1,c2,c3,c4,c5,c6,c7]=c_tilde;
+-ball_more(crate::keccak::keccak_f1600([c0,c1,c2,c3,c4,c5,c6,c7,0x1f,0,0,0,0,0,0,0,0x8000000000000000,0,0,0,0,0,0,0,0]),rest)
++ball_more(crate::keccak::keccak_f1600([upcast(c0),upcast(c1),upcast(c2),upcast(c3),upcast(c4),upcast(c5),upcast(c6),upcast(c7),0x1f,0,0,0,0,0,0,0,0x8000000000000000,0,0,0,0,0,0,0,0]),rest)
+ },
+ }
+ }
+@@ -312,7 +312,7 @@
+ }
+ Err((i,signs,ol,oh,nl,nh))
+ }
+-#[inline(never)]
++#[inline(always)]
+ fn ball_scan(hs:Span<SB96>,ref i:u32,ref signs:B128,ref ol:felt252,ref oh:felt252,ref nl:felt252,ref nh:felt252)->bool{
+ let mut hs=hs;
+ let pow=POW2.span();
+@@ -340,7 +340,7 @@
+ }
+ false
+ }
+-#[inline(never)]
++#[inline(always)]
+ fn ball_done(ol:felt252,oh:felt252,nl:felt252,nh:felt252)->Array<ZC87>{
+ let nlu:u128=nl.try_into().unwrap();
+ let nhu:u128=nh.try_into().unwrap();
+--- crates/ml_dsa_87/src/verify.cairo
++++ crates/ml_dsa_87/src/verify.cairo
+@@ -120,7 +120,7 @@
+ true
+ }
+ #[inline(always)]pub fn verify_decoded(
+-tr:[u128;8],rows:Span<felt252>,message_hash:felt252,c_tilde:[u128;8],
++tr:[crate::fk::u;8],rows:Span<felt252>,message_hash:felt252,c_tilde:[crate::fk::u;8],
+ z:Span<crate::nttu::ZC87>,hint:Span<u8>,p:[(u128,u128);5],
+ ) -> bool {
+ let([m0,m1,m2,m3,m4,m5,m6,m7],ball)=crate::keccak::mu_and_ball_rate(tr,message_hash,c_tilde);
+--- crates/ml_dsa_87/src/zread.cairo
++++ crates/ml_dsa_87/src/zread.cairo
+@@ -370,7 +370,7 @@
+ ok=o;
+ true
+ }
+-#[inline(never)]pub fn sig_decode(sig:Span<felt252>)->Option<([u128;8],Span<crate::nttu::ZC87>,Array<u8>)>{
++#[inline(never)]pub fn sig_decode(sig:Span<felt252>)->Option<([crate::fk::u;8],Span<crate::nttu::ZC87>,Array<u8>)>{
+ if sig.len()!=150{
+ return None;
+ }

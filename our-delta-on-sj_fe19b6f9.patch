@@ -1,0 +1,93 @@
+--- crates/slh_dsa_128s/src/lanes.cairo
++++ crates/slh_dsa_128s/src/lanes.cairo
+@@ -2593,16 +2593,22 @@
+ const B2P40:UnitInt<0x10000000000>=0x10000000000;
+ const B2P48:UnitInt<0x1000000000000>=0x1000000000000;
+ const B2P56:UnitInt<0x100000000000000>=0x100000000000000;
+-#[inline(never)]
+-fn ht_layer(
+-ref hs:Span<u64>,root:u128,leaf_idx:BoundedInt<0,0x1ff>,
++#[inline(always)]
++fn ht_layer_o(
++bx:@Box<[u64; 88]>,root:u128,leaf_idx:BoundedInt<0,0x1ff>,
+ leaf_lane:BoundedInt<0,0xffff000000000000>,a1:u64,s:SL,k256:NonZero<UnitInt<0x100>>,t2:u64,a0:u64,k8:NonZero<UnitInt<8>>,k4096:NonZero<UnitInt<4096>>,
+ )->Option<u128> {
+ let (low,high,check)=match digits(root,k256,k4096) { Option::Some(v)=>v,Option::None=>{ return None; } };
+-let bx=match hs.multi_pop_front::<88>() { Option::Some(b)=>b, Option::None=>{ return None; } };
+ let (w0,w1)=wots_pk(bx,low,high,check,s,a0,a1,leaf_lane)?;
+ climbx(w0,w1,leaf_idx,bx,s,a0,a1,t2,k8)
+ }
++#[inline(never)]
++fn ht_layer(
++root:u128,bx:@Box<[u64; 88]>,leaf_idx:BoundedInt<0,0x1ff>,
++a1:u64,s:SL,k256:NonZero<UnitInt<0x100>>,t2:u64,a0:u64,k8:NonZero<UnitInt<8>>,k4096:NonZero<UnitInt<4096>>,
++)->u128 {
++match ht_layer_o(bx,root,leaf_idx,bs32b(upcast(leaf_idx),k256),a1,s,k256,t2,a0,k8,k4096) { Some(v)=>v, None=>0 }
++}
+ #[inline(always)]
+ fn ht_layer_i(
+ ref hs:Span<u64>,root:u128,leaf_idx:BoundedInt<0,0x1ff>,
+@@ -2641,15 +2647,7 @@
+ let (t2,l2)=bd::<_,0x200,0xfffffffff,0x1ff>(t1,k512);
+ let (lane1b,lane2b)=bd::<_,0x10000000000000000,0xffffffffffffffff,0xffffffffffffffff>(u128_byte_reverse(upcast(ga::<_,_,0,1267650600209782692607365742591>(t1,gm::<_,_,0,1267650600209782657422993653760>(t2,BX64)))),s.d);
+ let lane1:u64=upcast(lane1b);
+-let rt=match ht_layer(ref hs,rt,l1,bs32b(upcast(l1),s.k256),lane1,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x1000000,k8,k4096) {
+-Option::Some(v)=>v,
+-Option::None=>{ return false; },
+-};
+ let lane2:u64=upcast(lane2b);
+-let rt=match ht_layer(ref hs,rt,l2,bs32b(upcast(l2),s.k256),lane2,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x2000000,k8,k4096) {
+-Option::Some(v)=>v,
+-Option::None=>{ return false; },
+-};
+ let (t3,l3)=bd::<_,0x200,0x7ffffff,0x1ff>(t2,k512);
+ let (lane3q0,lane3b0)=bd::<_,0x100,0x7ffff,0xff>(t3,s.k256);
+ let (lane3q1,lane3b1)=bd::<_,0x100,0x7ff,0xff>(lane3q0,s.k256);
+@@ -2662,10 +2660,6 @@
+ let lane3t3=gm::<_,_,0,0x700000000>(lane3q2,B2P32);
+ let lane3a3=ga::<_,_,0,0xffffff0700000000>(lane3a2,lane3t3);
+ let lane3:u64=upcast(lane3a3);
+-let rt=match ht_layer(ref hs,rt,l3,bs32b(upcast(l3),s.k256),lane3,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x3000000,k8,k4096) {
+-Option::Some(v)=>v,
+-Option::None=>{ return false; },
+-};
+ let (t4,l4)=bd::<_,0x200,0x3ffff,0x1ff>(t3,k512);
+ let (lane4q0,lane4b0)=bd::<_,0x100,0x3ff,0xff>(t4,s.k256);
+ let (lane4q1,lane4b1)=bd::<_,0x100,0x3,0xff>(lane4q0,s.k256);
+@@ -2675,24 +2669,24 @@
+ let lane4t2=gm::<_,_,0,0x30000000000>(lane4q1,B2P40);
+ let lane4a2=ga::<_,_,0,0xffff030000000000>(lane4a1,lane4t2);
+ let lane4:u64=upcast(lane4a2);
+-let rt=match ht_layer(ref hs,rt,l4,bs32b(upcast(l4),s.k256),lane4,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x4000000,k8,k4096) {
+-Option::Some(v)=>v,
+-Option::None=>{ return false; },
+-};
+ let (t5,l5)=bd::<_,0x200,0x1ff,0x1ff>(t4,k512);
+ let (lane5q0,lane5b0)=bd::<_,0x100,0x1,0xff>(t5,s.k256);
+ let lane5t0=gm::<_,_,0,0xff00000000000000>(lane5b0,B2P56);
+ let lane5t1=gm::<_,_,0,0x1000000000000>(lane5q0,B2P48);
+ let lane5a1=ga::<_,_,0,0xff01000000000000>(lane5t0,lane5t1);
+ let lane5:u64=upcast(lane5a1);
+-let rt=match ht_layer(ref hs,rt,l5,bs32b(upcast(l5),s.k256),lane5,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x5000000,k8,k4096) {
+-Option::Some(v)=>v,
+-Option::None=>{ return false; },
+-};
+-let rt=match ht_layer(ref hs,rt,t5,bs32b(upcast(t5),s.k256),0,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x6000000,k8,k4096) {
+-Option::Some(v)=>v,
+-Option::None=>{ return false; },
+-};
++let bx1=match hs.multi_pop_front::<88>() { Option::Some(b)=>b, Option::None=>{ return false; } };
++let bx2=match hs.multi_pop_front::<88>() { Option::Some(b)=>b, Option::None=>{ return false; } };
++let bx3=match hs.multi_pop_front::<88>() { Option::Some(b)=>b, Option::None=>{ return false; } };
++let bx4=match hs.multi_pop_front::<88>() { Option::Some(b)=>b, Option::None=>{ return false; } };
++let bx5=match hs.multi_pop_front::<88>() { Option::Some(b)=>b, Option::None=>{ return false; } };
++let bx6=match hs.multi_pop_front::<88>() { Option::Some(b)=>b, Option::None=>{ return false; } };
++let rt=ht_layer(rt,bx1,l1,lane1,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x1000000,k8,k4096);
++let rt=ht_layer(rt,bx2,l2,lane2,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x2000000,k8,k4096);
++let rt=ht_layer(rt,bx3,l3,lane3,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x3000000,k8,k4096);
++let rt=ht_layer(rt,bx4,l4,lane4,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x4000000,k8,k4096);
++let rt=ht_layer(rt,bx5,l5,lane5,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x5000000,k8,k4096);
++let rt=ht_layer(rt,bx6,t5,0,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x6000000,k8,k4096);
+ rt == upcast(ga::<_,_,0,340282366920938463463374607431768211455>(pk2,gm::<_,_,0,340282366920938463444927863358058659840>(pk3,BX64)))
+ }
+ #[cfg(test)]
