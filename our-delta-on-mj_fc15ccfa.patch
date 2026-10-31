@@ -1,0 +1,164 @@
+--- crates/ml_dsa_44/src/k2.cairo
++++ crates/ml_dsa_44/src/k2.cairo
+@@ -34,7 +34,7 @@
+ }
+ #[inline(always)]
+ pub fn hab(s:[u128;25])->[u128;25]{
+-qac(raa(qac(s,Ze),tbp(Zj)),Ze)
++raa(qac(s,Ze),tbm(Zj))
+ }
+ #[inline(always)]
+ pub fn lab(s:[u128;25],rcs:(Box<[u128;13]>,Nullable<[u128;13]>))->[u128;25]{
+@@ -53,6 +53,11 @@
+ pub fn tbp(t:[u128;24])->(Box<[u128;13]>,Nullable<[u128;13]>){
+ let[c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,_]=t;
+ (BoxTrait::new([c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,1]),NullableTrait::new([c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,0,0]))
++}
++#[inline(always)]
++pub fn tbm(t:[u128;24])->(Box<[u128;13]>,Nullable<[u128;13]>){
++let[c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,_]=t;
++(BoxTrait::new([c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,1]),NullableTrait::new([c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,0,2]))
+ }
+ #[inline(always)]
+ pub fn g1z()->Box<[u128;13]>{
+@@ -375,7 +380,7 @@
+ let a24=b24^(b20|b21);
+ [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]
+ }
+-#[inline(always)]fn zai(s:[u128;25])->[u128;15]{
++#[inline(always)]fn zai(s:[u128;25],sel:ZF)->[u128;25]{
+ let all:Uh=Ze;
+ let mk=Ss;
+ let[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]=s;
+@@ -399,31 +404,35 @@
+ let b7=rt(a10^d0,mk.g1.m2,8,0);
+ let b8=rt(a16^d1,mk.g2.m7,35184372088832,0);
+ let b9=rt(a22^d2,mk.g3.m13,2305843009213693952,0);
+-let b10=rt(a1^d1,mk.g0.m0,2,0);
+-let b11=rt(a7^d2,mk.g2.m10,64,0);
++let rc:u128=0x7fffffff7fff7ff77fffffff7fff7ff7;
++let n1=jaa(b1,all);
++let y1=a1;let y7=a7;
++let x0=b0^(n1|b2)^rc;
++let x1=n1^(b2&b3);
++let x2=b2^(b3|b4);
++let x3=b3^(b4&b0);
++let x4=b4^(b0|b1);
++let a5=b5^(b6&b7);
++let a6=b6^(b7|b8);
++let a7=b7^(b8&b9);
++if sel!=0{
++return [x0,x1,x2,x3,x4,a5,a6,a7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
++}
++let n9=jaa(b9,all);
++let a8=b8^(n9&b5);
++let a9=n9^(b5|b6);
++let b10=rt(y1^d1,mk.g0.m0,2,0);
++let b11=rt(y7^d2,mk.g2.m10,64,0);
+ let b12=rt(a13^d3,mk.g3.m16,33554432,0);
+ let b13=rt(a19^d4,mk.g4.m22,256,0);
+ let b14=rt(a20^d0,mk.g1.m4,262144,0);
+-let rc:u128=0x7fffffff7fff7ff77fffffff7fff7ff7;
+-let n1=jaa(b1,all);
+-let a0=b0^(n1|b2)^rc;
+-let a1=n1^(b2&b3);
+-let a2=b2^(b3|b4);
+-let a3=b3^(b4&b0);
+-let a4=b4^(b0|b1);
+-let n9=jaa(b9,all);
+-let a5=b5^(b6&b7);
+-let a6=b6^(b7|b8);
+-let a7=b7^(b8&b9);
+-let a8=b8^(n9&b5);
+-let a9=n9^(b5|b6);
+ let n10=jaa(b10,all);
+ let a10=b10^(b11|b12);
+ let a11=b11^(b12&b13);
+ let a12=b12^(b13|b14);
+ let a13=b13^(b14&n10);
+ let a14=b14^(b10&b11);
+-[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14]
++[x0,x1,x2,x3,x4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,KG,0xffffffffffffffff,KG,KG,KG,KG,0,0,0,0]
+ }
+ fn zah(st:[u128;25],g:Box<[u128;13]>,mk:MK,h:Nullable<[u128;13]>)->[u128;25]{
+ let[r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,_]=g.unbox();
+@@ -438,7 +447,7 @@
+ st=jag(st,r8,mk);
+ st=kag(st,r9,mk);
+ st=lag(st,r10,mk);
+-match Into::<u128,ZF>::into(r11){0=>{let[_,_,_,_,_,_,_,_,_,_,_,_,sel]=g.unbox();if Into::<u128,ZF>::into(sel)==0{let[a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14]=zai(st);return [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,KG,0xffffffffffffffff,KG,KG,KG,KG,0,0,0,0];}return st;},_=>{},}
++match Into::<u128,ZF>::into(r11){0=>{let[_,_,_,_,_,_,_,_,_,_,_,_,sel]=g.unbox();let sel:ZF=sel.into();if sel==1{return st;}return zai(st,sel);},_=>{},}
+ st=mag(st,r11,mk);
+ match core::nullable::match_nullable(h){core::nullable::FromNullableResult::Null=>st,core::nullable::FromNullableResult::NotNull(b)=>zah(st,b,mk,core::nullable::null()),}
+ }
+--- crates/ml_dsa_44/src/x2.cairo
++++ crates/ml_dsa_44/src/x2.cairo
+@@ -583,23 +583,23 @@
+ );
+ let[q0,q1,q2,q3,q4,q5,q6,q7,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]=st;
+ let mut mu:Array<u64>=array![];
+-let(_,l0)=zq::div_rem(q0,Wg);
++let(h0,l0)=zq::div_rem(q0,Wg);
+ mu.p(zu(l0));
+-let(_,l1)=zq::div_rem(q1,Wg);
++let(h1,l1)=zq::div_rem(q1,Wg);
+ mu.p(zu(l1));
+-let(_,l2)=zq::div_rem(q2,Wg);
++let(h2,l2)=zq::div_rem(q2,Wg);
+ mu.p(zu(l2));
+-let(_,l3)=zq::div_rem(q3,Wg);
++let(h3,l3)=zq::div_rem(q3,Wg);
+ mu.p(zu(l3));
+-let(_,l4)=zq::div_rem(q4,Wg);
++let(h4,l4)=zq::div_rem(q4,Wg);
+ mu.p(zu(l4));
+-let(_,l5)=zq::div_rem(q5,Wg);
++let(h5,l5)=zq::div_rem(q5,Wg);
+ mu.p(zu(l5));
+-let(_,l6)=zq::div_rem(q6,Wg);
++let(h6,l6)=zq::div_rem(q6,Wg);
+ mu.p(zu(l6));
+-let(_,l7)=zq::div_rem(q7,Wg);
++let(h7,l7)=zq::div_rem(q7,Wg);
+ mu.p(zu(l7));
+-let pab=crate::sa0::uah(st,14);
++let pab=crate::sa0::uah([h0,h1,h2,h3,h4,h5,h6,h7]);
+ if pab.len()==0{
+ return (mu,crate::sa0::ball_offsets(keccak_f1600_x2([hx(c0),hx(c1),hx(c2),hx(c3),0x1f0000000000000000,0,0,0,0,0,0,0,0,0,0,0,0x80000000000000000000000000000000,0,0,0,0,0,0,0,0])));
+ }
+--- crates/ml_dsa_44/src/sa0.cairo
++++ crates/ml_dsa_44/src/sa0.cairo
+@@ -284,14 +284,12 @@
+ taa
+ }
+ #[derive(Copy,Drop)]
+-struct BI{a:NonZero<ZU<0x10000000000000000>>,b:NonZero<ZU<2>>,c:NonZero<ZU<0x100>>,d:ZU<256>,e:ZU<128>,f:Span<u128>}
++struct BI{b:NonZero<ZU<2>>,c:NonZero<ZU<0x100>>,d:ZU<256>,e:ZU<128>,f:Span<u128>}
+ #[inline(always)]
+-pub(crate)fn uah(state:[u128;25],nw:usize)->Array<u32>{
+-let st=state.span();
+-let ns:NonZero<ZU<0x10000000000000000>>=0x10000000000000000;
+-let(signs,_)=zq::div_rem(*st.at(0),ns);
+-let mut signs:U64=signs;
+-let mut words=st.slice(1,nw);
++pub(crate)fn uah(hl:[U64;8])->Array<u32>{
++let[h0,h1,h2,h3,h4,h5,h6,h7]=hl;
++let mut signs:U64=h0;
++let mut words=[h1,h2,h3,h4,h5,h6,h7].span();
+ let two:NonZero<ZU<2>>=2;
+ let n8:NonZero<ZU<0x100>>=Rm;
+ let tab:ZU<256>=256;
+@@ -306,11 +304,10 @@
+ let mut oa=false;
+ let mut ib:ZB<0,0xffffffff>=0;
+ let mut ia=false;
+-let bi=BI{a:ns,b:two,c:n8,d:tab,e:yab,f:bit};
+-loop{let BI{a:ns,b:two,c:n8,d:tab,e:yab,f:bit}=bi;
++let bi=BI{b:two,c:n8,d:tab,e:yab,f:bit};
++loop{let BI{b:two,c:n8,d:tab,e:yab,f:bit}=bi;
+ let w4:ZB<0,0xffffffff>=if ia{ia=false;ib}else{
+ let w=match words.pop_front(){Some(w)=>*w,None=>{oa=true;break;},};
+-let(w,_)=zq::div_rem(w,ns);
+ let(h,l)=zq::div_rem(w,Ty);
+ ib=h;ia=true;l};
+ let(w,b0)=zq::div_rem(w4,n8);

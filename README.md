@@ -3,9 +3,9 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**15 contributions** in total: 13 scored jobs and 2 reviews (12 and 13).
-- **Records I hold (as of 29 Oct 2026):** ML-DSA-87 `mk_00f892fd` (contribution 14) and SLH-DSA-128s `sj_0ab1739b` (contribution 15).
-- **Records I once set, since beaten:** ML-DSA-44 `mj_7b791824` (contribution 7, now surpassed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
+**17 contributions** in total: 15 scored jobs and 2 reviews (12 and 13).
+- **Records I hold (as of 31 Oct 2026):** ML-DSA-44 `mj_59d79522` (contribution 17) and ML-DSA-87 `mk_a7b5d29d` (contribution 16).
+- **Records I once set, since passed:** SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: no record (contribution 10 was accepted but not a record).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
@@ -24,13 +24,15 @@ Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, 
 5. `mj_0d051868`: z range flags per 3 digits as one constant minus three products (172,877,140 gas, record at the time).
 6. `mj_29ea4ca5`: **combination, not my idea**: @saniksin's sibling patch `mj_d95817f8` merged on top of @odinfree's record `mj_a93adef3` (172,535,524 gas).
 7. `mj_7b791824`: z range flags, six digits per AND with a +78 offset in the division chain (172,230,687 gas, record at the time, since beaten by @mitchuski).
+17. `mj_59d79522`: final Keccak round for mu/ball pruned to lanes 0-7, lanes 0-7 split once for both (168,556,526 gas, **current ML-DSA-44 record (as of 31 Oct 2026)**, -32,662 vs @odinfree's `mj_fc15ccfa`). Port and extension of the ML-DSA-87 idea.
 
 ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 
 8. `mk_3691ffe9`: UseHint HighBits by multiply-shift, pairs `(i, i+16)` per u128 (110,867,290 gas, record at the time).
 9. `mk_469c1cb9`: mu and the first SampleInBall block in one two-state Keccak permutation (109,484,394 gas, ML-DSA-87 record when submitted). The two-state technique is **@rukafe0x's**; porting it to ML-DSA-87 is my work.
 11. `mk_a5460736`: SampleInBall 8 bytes per lane made to fit the CASM limit, with the fallback as a continuation of the lane walk (99,827,006 gas, accepted, **not a record**: queue order).
-14. `mk_00f892fd`: bounded lanes for `tr` (`lanes8t`), `tr`/`c_tilde` lanes typed `u64`, `ball_scan`/`ball_done` inlined (88,037,462 gas, **current ML-DSA-87 record (as of 29 Oct 2026)**, -17,620 vs @mitchuski's `mk_3400423b`). The bounded-lanes technique is **@odinfree's**.
+14. `mk_00f892fd`: bounded lanes for `tr` (`lanes8t`), `tr`/`c_tilde` lanes typed `u64`, `ball_scan`/`ball_done` inlined (88,037,462 gas, record at the time, since passed by @binharold's `mk_5276df6b`, -17,620 vs @mitchuski's `mk_3400423b`). The bounded-lanes technique is **@odinfree's**.
+16. `mk_a7b5d29d`: SampleInBall rate lanes 10-16 split only when needed, unused round constants dropped (87,513,845 gas, **current ML-DSA-87 record (as of 31 Oct 2026)**, -6,386 vs @odinfree's `mk_618454a1`). Credit: @odinfree (parent record).
 
 Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
@@ -38,7 +40,7 @@ Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
 SLH-DSA-128s (see the section [SLH-DSA-128s](#slh-dsa-128s)):
 
-15. `sj_0ab1739b`: new `ht_layer` call convention (396,508,400 gas, **current SLH-DSA-128s record (as of 29 Oct 2026)**, -5,900 vs @nadai2010's `sj_fe19b6f9`). My first SLH-DSA record.
+15. `sj_0ab1739b`: new `ht_layer` call convention (396,508,400 gas, record at the time, since passed by @thangvmt's `sj_e3657213`, -5,900 vs @nadai2010's `sj_fe19b6f9`). My first SLH-DSA record.
 
 STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Reviews only, no new mathematics:
 
@@ -322,6 +324,46 @@ This patch was produced by the AI agent **Claude Code** (model **Opus**), which 
 
 ---
 
+## Contribution 17: pruned final Keccak round for mu/ball, lanes 0-7 split once (job `mj_59d79522e5bd48ab82afd3f0f0f149fa`)
+
+> **Credit.** The record it is applied to, `mj_fc15ccfa`, is **@odinfree's**. The lane techniques it builds on come from
+> **@odinfree**, **@realadii** and **@nadai2010**. **What is mine** is porting the ML-DSA-87 lane idea (contribution 16)
+> to ML-DSA-44 and extending it: the pruned final round and the single split of lanes 0-7.
+
+### The idea
+1. The final Keccak round for `mu` and SampleInBall is **pruned to lanes 0-7**: the round branches after lane 7, and `hab`
+   no longer flips back, because lanes 8 and up are not read.
+2. Lanes 0-7 are **split once** and the same halves serve both `mu` and the SampleInBall scan; `ball_offsets` is kept as
+   the fallback.
+
+**Worst-case cost, honestly.** A signature that needs more than 56 SampleInBall candidate bytes takes the fallback, which
+costs about +6.58M gas (1.041x the record's worst valid signature is the dearest *rejection* path, below the 1.25x break
+line). The exact probability of needing the fallback is 2.03e-7.
+
+Measured on 348 signatures from two local FIPS 204 keys: the 300 natural ones save 32,603.5 on average (minimum 31,772).
+Correctness: 117 tests pass; 796 mu/SampleInBall vectors including the fallback and forced exhaustion; 6 mutants caught.
+
+### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mj_fc15ccfa` (by @odinfree, record at the time) | 168,589,188 |
+| **This job (accepted, record as of 31 Oct 2026)** | **168,556,526** |
+| Saved vs parent | 32,662 |
+
+Still above Starknet's 100M validation gas cap.
+
+### Files
+- `mldsa-44-mj_59d79522.patch`: the submitted patch, cumulative against baseline `78c83599f57e`. SHA-256
+  `1f86065f...dc188`.
+- `our-delta-on-mj_fc15ccfa.patch`: only my change on top of the parent (`k2.cairo`, `x2.cairo`, `sa0.cairo`); apply
+  with `git apply -p0`. Paths are relative to the repository root.
+
+### Disclosure
+This patch was produced by the AI agent **Claude Code** (model **Opus**), which I (**@ardianreffa**) ran and supervised.
+
+---
+
 ## Bahasa Indonesia (sederhana)
 
 ### Apa challenge-nya?
@@ -523,7 +565,7 @@ Bukti kebenaran:
 
 ### Hasil resmi
 - Parent `mj_bf48924d` (oleh @saniksin): 172.335.271 gas.
-- **Job ini (diterima, rekor ML-DSA-44 saat ini): 172.230.687 gas**, hemat 104.584 gas.
+- **Job ini (diterima, rekor pada waktunya; sudah dilewati @mitchuski): 172.230.687 gas**, hemat 104.584 gas.
 - Masih di atas batas 100 juta gas.
 
 Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_7b79182442cc43d6a00143c1b3519897
@@ -538,18 +580,52 @@ Halaman diff resmi: https://falcon.provably.fast/diff?job=mj_7b79182442cc43d6a00
 ### Pernyataan jujur
 Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
+## Kontribusi 17: putaran terakhir Keccak untuk mu/ball dipangkas, lane 0-7 dipecah sekali (job `mj_59d79522e5bd48ab82afd3f0f0f149fa`)
+
+> **Kredit.** Rekor yang menjadi dasar, `mj_fc15ccfa`, milik **@odinfree**. Teknik lane yang dipakai berasal dari
+> **@odinfree**, **@realadii** dan **@nadai2010**. **Bagian saya** adalah memindahkan ide lane ML-DSA-87 (kontribusi 16)
+> ke ML-DSA-44 dan mengembangkannya: putaran terakhir yang dipangkas dan pemecahan lane 0-7 satu kali.
+
+### Ide
+1. Putaran Keccak terakhir untuk `mu` dan SampleInBall **dipangkas ke lane 0-7**: putaran bercabang setelah lane 7, dan
+   `hab` tidak membalik lagi karena lane 8 ke atas tidak dibaca.
+2. Lane 0-7 **dipecah sekali** dan hasilnya dipakai bersama oleh `mu` dan pemindaian SampleInBall; `ball_offsets`
+   dipertahankan sebagai cadangan.
+
+**Biaya terburuk, apa adanya.** Tanda tangan yang butuh lebih dari 56 byte kandidat SampleInBall memakai jalur cadangan,
+sekitar +6,58 juta gas. Biaya penolakan terburuk 1,041x rekor (di bawah garis break 1,25x). Peluang butuh cadangan: 2,03e-7.
+
+Diukur pada 348 tanda tangan dari dua kunci FIPS 204 lokal: 300 tanda tangan biasa hemat rata-rata 32.603,5 (minimum 31.772).
+Pengujian: 117 tes lulus; 796 vektor mu/SampleInBall termasuk cadangan dan kehabisan paksa; 6 mutan tertangkap.
+
+### Hasil resmi
+- Parent `mj_fc15ccfa` (oleh @odinfree, rekor pada waktunya): 168.589.188 gas.
+- **Job ini (diterima, rekor per 31 Okt 2026): 168.556.526 gas**, hemat 32.662 gas.
+- Masih di atas batas gas validasi Starknet 100M.
+
+### Berkas
+- `mldsa-44-mj_59d79522.patch`: patch yang dikirim, kumulatif terhadap baseline `78c83599f57e`. SHA-256
+  `1f86065f...dc188`.
+- `our-delta-on-mj_fc15ccfa.patch`: hanya perubahan saya di atas parent (`k2.cairo`, `x2.cairo`, `sa0.cairo`);
+  terapkan dengan `git apply -p0`.
+
+### Pernyataan jujur
+Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
 ## ML-DSA-87
 
-Four accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
+Five accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa87). Here a transaction's validation is scored in
 Sierra gas, mean over the held-out set; the season baseline (`23d05d6a2412`) costs 401,296,683 gas. For both
 jobs, the official patch is the accepted one saved with `pvfast remote mldsa87 patch` (client 1.38.0). Like
 before, official patches are **cumulative** against the baseline and contain the work of many earlier
 contributors, mainly **@nadai2010**'s long record line, not only mine.
 
-> **Disclosure / Pernyataan:** all four ML-DSA-87 patches were produced by an AI agent, **Claude Code**
+> **Disclosure / Pernyataan:** all five ML-DSA-87 patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised. The job titles on the board say so.
-> Keempat patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
+> Kelima patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
 > (**@ardianreffa**) jalankan dan awasi. Judul job di papan skor juga menyebutkannya.
 
 ### English
@@ -686,7 +762,7 @@ reference pass; a mutant with lanes 6 and 7 swapped was caught by 2 account test
 | | Gas |
 |---|---:|
 | Parent `mk_3400423b` (by @mitchuski, record at the time) | 88,055,082 |
-| **This job (accepted, new record)** | **88,037,462** |
+| **This job (accepted, record at the time; since passed by @binharold's `mk_5276df6b`, 87,546,333)** | **88,037,462** |
 | Saved vs parent | 17,620 |
 
 Still below Starknet's 100M validation gas cap. CASM was 81,288 of 81,920 felts in my dev build.
@@ -696,6 +772,38 @@ Still below Starknet's 100M validation gas cap. CASM was 81,288 of 81,920 felts 
   `de6ded47...8518d`.
 - `our-delta-on-mk_3400423b.patch`: only my change on top of the parent (`keccak.cairo`, `sampling.cairo`,
   `verify.cairo`, `zread.cairo`); apply with `git apply -p0`. Paths are relative to the repository root.
+
+#### Contribution 16: SampleInBall rate lanes 10-16 split on demand (job `mk_a7b5d29dd6fa45bfb3f5c1a3233fd066`)
+
+> **Credit.** The record it is applied to, `mk_618454a1`, is **@odinfree's**. **What is mine** is splitting the rate lanes
+> only when they are needed, and dropping the round constants nobody reads any more.
+
+##### What I did
+1. `mu_and_ball_rate` used to split all 17 rate lanes, although about 90% of signatures finish SampleInBall inside lanes
+   0-9. Lanes 10-16 now stay packed and `ball_lanes` splits them when the first batch runs out.
+2. `ROUND_CONSTANTS` in `fk` is cut to the 16 entries still read, because rounds 15-22 are baked into the fused round
+   function: 0 gas, CASM -8.
+
+Measured on 169 real signatures: -7,270 gas when the first batch suffices, -200 gas when the second batch is needed
+(27 of 27 such signatures); expected mean -6,574. Correctness: 8 account tests and 115 bench tests pass; 19 SampleInBall
+tests (2,200 vectors including the fallback) pass; three mutants were caught. The third-batch path (`ball_more`) was reached
+only by crafted SampleInBall states.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mk_618454a1` (by @odinfree, record at the time) | 87,520,231 |
+| **This job (accepted, record as of 31 Oct 2026)** | **87,513,845** |
+| Saved vs parent | 6,386 |
+
+Still below Starknet's 100M validation gas cap. CASM was 81,694 of 81,920 felts in my dev build.
+
+##### Files
+- `mldsa-87-mk_a7b5d29d.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. SHA-256
+  `1413e3cb...c0c2c`.
+- `our-delta-on-mk_618454a1.patch`: only my change on top of the parent (`fk.cairo`, `keccak.cairo`, `sampling.cairo`,
+  `verify.cairo`); apply with `git apply -p0`. Paths are relative to the repository root.
 
 ### Bahasa Indonesia (sederhana)
 
@@ -812,7 +920,7 @@ mutan dengan lane 6 dan 7 ditukar tertangkap oleh 2 tes akun.
 
 ##### Hasil resmi
 - Parent `mk_3400423b` (oleh @mitchuski, rekor pada waktunya): 88.055.082 gas.
-- **Job ini (diterima, rekor baru): 88.037.462 gas**, hemat 17.620 gas.
+- **Job ini (diterima, rekor pada waktunya; sudah dilewati `mk_5276df6b` milik @binharold, 87.546.333): 88.037.462 gas**, hemat 17.620 gas.
 - Masih di bawah batas gas validasi Starknet 100M. CASM di build dev saya 81.288 dari 81.920 felt.
 
 ##### Berkas
@@ -821,8 +929,35 @@ mutan dengan lane 6 dan 7 ditukar tertangkap oleh 2 tes akun.
 - `our-delta-on-mk_3400423b.patch`: hanya perubahan saya di atas parent (`keccak.cairo`, `sampling.cairo`,
   `verify.cairo`, `zread.cairo`); terapkan dengan `git apply -p0`.
 
+#### Kontribusi 16: lane rate 10-16 SampleInBall dipecah saat dibutuhkan (job `mk_a7b5d29dd6fa45bfb3f5c1a3233fd066`)
+
+> **Kredit.** Rekor yang menjadi dasar, `mk_618454a1`, milik **@odinfree**. **Bagian saya** adalah memecah lane rate hanya
+> saat dibutuhkan dan membuang konstanta ronde yang tidak terpakai.
+
+##### Yang saya kerjakan
+1. `mu_and_ball_rate` dulu memecah semua 17 lane rate, padahal sekitar 90% tanda tangan selesai di SampleInBall dalam lane
+   0-9. Lane 10-16 sekarang tetap terkemas dan `ball_lanes` memecahnya saat batch pertama habis.
+2. `ROUND_CONSTANTS` di `fk` dipotong menjadi 16 entri yang masih dibaca, karena ronde 15-22 sudah dibakar ke fungsi ronde
+   gabungan: 0 gas, CASM -8.
+
+Diukur pada 169 tanda tangan asli: -7.270 gas bila batch pertama cukup, -200 gas bila batch kedua dibutuhkan (27 dari 27
+tanda tangan seperti itu); perkiraan rata-rata -6.574. Pengujian: 8 tes akun dan 115 tes bench lulus; 19 tes SampleInBall
+(2.200 vektor termasuk cadangan) lulus; tiga mutan tertangkap. Jalur batch ketiga (`ball_more`) hanya tercapai oleh state
+SampleInBall buatan.
+
+##### Hasil resmi
+- Parent `mk_618454a1` (oleh @odinfree, rekor pada waktunya): 87.520.231 gas.
+- **Job ini (diterima, rekor per 31 Okt 2026): 87.513.845 gas**, hemat 6.386 gas.
+- Masih di bawah batas gas validasi Starknet 100M. CASM di build dev saya 81.694 dari 81.920 felt.
+
+##### Berkas
+- `mldsa-87-mk_a7b5d29d.patch`: patch yang dikirim, kumulatif terhadap baseline `23d05d6a2412`. SHA-256
+  `1413e3cb...c0c2c`.
+- `our-delta-on-mk_618454a1.patch`: hanya perubahan saya di atas parent (`fk.cairo`, `keccak.cairo`, `sampling.cairo`,
+  `verify.cairo`); terapkan dengan `git apply -p0`.
+
 ### Pernyataan jujur
-Keempat patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Kelima patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
 ---
 
@@ -943,10 +1078,10 @@ record (756/756).
 | | Gas |
 |---|---:|
 | Parent `sj_fe19b6f9` (by @nadai2010, record at the time) | 396,514,300 |
-| **This job (accepted, new record)** | **396,508,400** |
+| **This job (accepted, record at the time; since passed by @thangvmt's `sj_e3657213`, 396,448,062)** | **396,508,400** |
 | Saved vs parent | 5,900 |
 
-The first SLH-DSA-128s record of mine. The season is far from any gas cap: the Keccak syscalls alone are about 400M.
+My first SLH-DSA-128s record (since passed by @thangvmt's `sj_e3657213`). The season is far from any gas cap: the Keccak syscalls alone are about 400M.
 
 ##### Files
 - `slh-dsa-128s-sj_0ab1739b.patch`: the submitted patch, cumulative against baseline `7ab3ce3d`. SHA-256
@@ -981,8 +1116,8 @@ tukar, kunci lain, felt tidak kanonik, panjang salah) dari `ref/slhdsa128s.py` m
 
 ##### Hasil resmi
 - Parent `sj_fe19b6f9` (oleh @nadai2010, rekor pada waktunya): 396.514.300 gas.
-- **Job ini (diterima, rekor baru): 396.508.400 gas**, hemat 5.900 gas.
-- Rekor SLH-DSA-128s pertama saya.
+- **Job ini (diterima, rekor pada waktunya; sudah dilewati `sj_e3657213` milik @thangvmt, 396.448.062): 396.508.400 gas**, hemat 5.900 gas.
+- Rekor SLH-DSA-128s pertama saya (sudah dilewati @thangvmt).
 
 ##### Berkas
 - `slh-dsa-128s-sj_0ab1739b.patch`: patch yang dikirim, kumulatif terhadap baseline `7ab3ce3d`. SHA-256
