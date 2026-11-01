@@ -3,7 +3,7 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**18 contributions** in total: 16 scored jobs and 2 reviews (12 and 13).
+**20 contributions** in total: 16 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
 - **Records I hold (as of 1 Nov 2026):** ML-DSA-44 `mj_59d79522` (contribution 17) and ML-DSA-87 `mk_29251ad0` (contribution 18).
 - **Records I once set, since passed:** SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: no record (contribution 10 was accepted but not a record).
@@ -43,10 +43,12 @@ SLH-DSA-128s (see the section [SLH-DSA-128s](#slh-dsa-128s)):
 
 15. `sj_0ab1739b`: new `ht_layer` call convention (396,508,400 gas, record at the time, since passed by @thangvmt's `sj_e3657213`, -5,900 vs @nadai2010's `sj_fe19b6f9`). My first SLH-DSA record.
 
-STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Reviews only, no new mathematics:
+STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Three reviews and one result of my own (19):
 
 12. `bp1_e61a7c63`: independent review of the 11,831 cap (T3, work of participant_dbbfaeddbe89). Posted, awaiting the organizers' record.
 13. `bp1_bcc0065b`: independent review of M-0020 (T2, work of odinfree). Posted, awaiting the organizers' record.
+19. `bp1_fe90e425`, `bp1_09dabbb6`: Q7 counterexample at n = 32, k = 16, A = 20, joint core j = 27: 21 nonaligned (E = 26), then 22 nonaligned (E = 30) from a census of 3,199 orbits. Lead `rgr1_f06231d3` (ADMITTED). **No record or reward under rules v2** (`bp1_cb64e859`); the result is listed in the official thread summary (`bp1_9ec9eaa9`, 1 Nov).
+20. `bp1_7d52b47e`: independent review of M-0016 (T3, work of nadai2010). My review is listed on the official M-0016 record as a partial review.
 
 ---
 
@@ -1202,17 +1204,18 @@ Patch SLH-DSA-128s dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus)
 
 ## starks.provably.fast (STARK math challenge)
 
-Two independent reviews posted on the bulletin of [starks.provably.fast](https://starks.provably.fast) (public record:
-<https://starks.provably.fast/record>). Files are in [`starks/`](starks/).
+Three independent reviews and one result of my own posted on the bulletin of [starks.provably.fast](https://starks.provably.fast) (public record:
+<https://starks.provably.fast/record>). Files for contributions 12 and 13 are in [`starks/`](starks/). Posts appear under my bulletin identity, participant_824029c29299.
 
-> **Disclosure / Pernyataan:** these reviews were written by an AI agent, **Claude Code** (models Sonnet and Opus),
+> **Disclosure / Pernyataan:** these reviews and the Q7 result were produced by an AI agent, **Claude Code** (models Sonnet and Opus),
 > which I (**@ardianreffa**) ran and supervised. The posts name the agent (Claude Opus 5.5).
-> Review ini ditulis oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
+> Review ini dan hasil Q7 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
 > dan awasi. Posting menyebut agent-nya (Claude Opus 5.5).
 
-> **Credit / Kredit:** the mathematics belongs to the original authors. Our contribution is review and re-checking only,
-> not new mathematical results. / Matematikanya milik penulis asli. Kontribusi kita hanya review dan pengecekan ulang,
-> bukan hasil matematika baru.
+> **Credit / Kredit:** in contributions 12, 13 and 20 the mathematics belongs to the original authors; our part is review
+> and re-checking only. Contribution 19 is our own lower-bound result, with no outside review. / Di kontribusi 12, 13, dan 20
+> matematikanya milik penulis asli; bagian kita hanya review dan pengecekan ulang. Kontribusi 19 adalah hasil batas bawah
+> kita sendiri, tanpa review luar.
 
 ### English
 
@@ -1234,6 +1237,32 @@ Two independent reviews posted on the bulletin of [starks.provably.fast](https:/
   J2 remark matches the pinned ArkLib definitions. Checked by hand and by own code (`m0020.py`).
 - Status: **posted, awaiting the organizers' record.**
 
+#### Contribution 19: Q7 counterexample at n = 32, joint core 27
+- Question: Q7 (`bp1_58386334`) asked whether n - j is the maximum residual, so that the split's constant could be
+  c = (n - j)/n. Setting: BabyBear, mu_32, k = 16, A = 20, joint core j = 27, one step below the M-0023 threshold.
+- Result 1 (`bp1_fe90e425`): an exact pair with E = 26, of which 21 are nonaligned, against n - j = 5. Each row of the post is
+  exhaustive over all 225,792,840 twenty-subsets.
+- Result 2 (`bp1_09dabbb6`): a census of pencil-form lines over all 3,199 orbits of the 5-point set U raises this to 22
+  nonaligned, with E = 30, on two pairs.
+- Lead: `rgr1_f06231d3...` (ADMITTED). Thread `bt1_f4a8d9ad`.
+- Limits: this is a lower bound at one length and, for the census, inside one family of lines. It gives no upper bound, and
+  there is no outside review. The pairs are still two-core pairs in the sense of `bp1_37829737` (participant_a63065a08b50).
+- Checks: own code only, C and standard-library Python with byte-identical output; the panel's `grade.py` gave reward 1 and
+  `kit/certify.py` certified 30 of 30 on both pairs with 22.
+- Status, stated plainly: **no record and no reward.** The maintainer's reply (`bp1_cb64e859`) says this cell pays only for a
+  count above 16n under rules v2, so it earns no record, no review and no reward. The result is still listed in the official
+  thread summary (`bp1_9ec9eaa9`, 1 Nov 2026): "found 22 at joint core 27, n = 32".
+- Other participants have larger nonaligned counts at n = 32 on small joint cores (52 in `bp1_37829737`, 117 in `bp1_a9ee2b02`).
+  The point of this result is the joint core, not the count.
+
+#### Contribution 20: independent review of M-0016 (T3)
+- Work under review: M-0016 by **nadai2010** (thread `bt1_cae9b123`).
+- Our post: `bp1_7d52b47e`.
+- Result: **partial.** Everything checked holds, with no counterexample: Claims A, B and C by hand, plus exhaustive and own-code
+  checks of the lower levels. The headline statement at levels 128 to 512 remains unchecked by this review.
+- Status: **my review is listed on the official M-0016 record as a partial review.** The record still shows M-0016 itself as
+  not fully reviewed.
+
 ### Bahasa Indonesia (sederhana)
 
 #### Kontribusi 12: review independen batas 11.831 (T3)
@@ -1254,9 +1283,35 @@ Two independent reviews posted on the bulletin of [starks.provably.fast](https:/
   sesuai dengan definisi ArkLib yang dipin. Dicek dengan tangan dan dengan kode sendiri (`m0020.py`).
 - Status: **posted, menunggu pencatatan panitia.**
 
+#### Kontribusi 19: counterexample Q7 di n = 32, joint core 27
+- Pertanyaan: Q7 (`bp1_58386334`) bertanya apakah n - j adalah residual maksimum, sehingga konstanta split bisa
+  c = (n - j)/n. Pengaturan: BabyBear, mu_32, k = 16, A = 20, joint core j = 27, satu langkah di bawah ambang M-0023.
+- Hasil 1 (`bp1_fe90e425`): pair pasti dengan E = 26, 21 di antaranya nonaligned, melawan n - j = 5. Tiap baris di post
+  diperiksa penuh atas semua 225.792.840 subset berukuran dua puluh.
+- Hasil 2 (`bp1_09dabbb6`): census garis bentuk pencil atas semua 3.199 orbit himpunan 5 titik U menaikkannya menjadi 22
+  nonaligned, dengan E = 30, pada dua pair.
+- Lead: `rgr1_f06231d3...` (ADMITTED). Thread `bt1_f4a8d9ad`.
+- Batasan: ini batas bawah di satu panjang dan, untuk census, di dalam satu keluarga garis. Tidak memberi batas atas, dan belum
+  ada review luar. Pair ini tetap pair dua-core menurut `bp1_37829737` (participant_a63065a08b50).
+- Pengujian: hanya kode sendiri, C dan Python stdlib dengan keluaran identik byte per byte; `grade.py` panel memberi reward 1
+  dan `kit/certify.py` mensertifikasi 30 dari 30 pada kedua pair dengan 22.
+- Status, terus terang: **tidak mendapat rekor dan tidak mendapat reward.** Balasan maintainer (`bp1_cb64e859`) menyatakan sel
+  ini hanya dibayar untuk hitungan di atas 16n menurut rules v2, jadi tidak mendapat rekor, review, atau reward. Hasilnya tetap
+  tercantum di ringkasan resmi thread (`bp1_9ec9eaa9`, 1 Nov 2026): "found 22 at joint core 27, n = 32".
+- Peserta lain punya hitungan nonaligned lebih besar di n = 32 pada joint core kecil (52 di `bp1_37829737`, 117 di
+  `bp1_a9ee2b02`). Nilai hasil ini ada pada joint core-nya, bukan pada hitungannya.
+
+#### Kontribusi 20: review independen M-0016 (T3)
+- Karya yang direview: M-0016 oleh **nadai2010** (thread `bt1_cae9b123`).
+- Post kami: `bp1_7d52b47e`.
+- Hasil: **parsial.** Semua yang dicek berlaku, tanpa counterexample: Claim A, B, dan C dengan tangan, ditambah cek penuh dengan
+  kode sendiri di level bawah. Pernyataan utama di level 128 sampai 512 tetap tidak dicek oleh review ini.
+- Status: **review kita tercantum di record resmi M-0016 sebagai partial review.** Record itu masih menandai M-0016 sendiri
+  belum selesai direview.
+
 ### Pernyataan jujur
-Review ini dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
-Kontribusi kami hanya review dan pengecekan ulang; hasil matematikanya milik penulis asli.
+Review ini dan hasil Q7 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Di kontribusi 12, 13, dan 20 bagian kami hanya review dan pengecekan ulang, dan hasil matematikanya milik penulis asli. Kontribusi 19 adalah hasil kami sendiri, tanpa review luar.
 
 ---
 
