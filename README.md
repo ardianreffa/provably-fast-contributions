@@ -3,9 +3,9 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**17 contributions** in total: 15 scored jobs and 2 reviews (12 and 13).
-- **Records I hold (as of 31 Oct 2026):** ML-DSA-44 `mj_59d79522` (contribution 17) and ML-DSA-87 `mk_a7b5d29d` (contribution 16).
-- **Records I once set, since passed:** SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
+**18 contributions** in total: 16 scored jobs and 2 reviews (12 and 13).
+- **Records I hold (as of 1 Nov 2026):** ML-DSA-44 `mj_59d79522` (contribution 17) and ML-DSA-87 `mk_29251ad0` (contribution 18).
+- **Records I once set, since passed:** SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: no record (contribution 10 was accepted but not a record).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
@@ -32,7 +32,8 @@ ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 9. `mk_469c1cb9`: mu and the first SampleInBall block in one two-state Keccak permutation (109,484,394 gas, ML-DSA-87 record when submitted). The two-state technique is **@rukafe0x's**; porting it to ML-DSA-87 is my work.
 11. `mk_a5460736`: SampleInBall 8 bytes per lane made to fit the CASM limit, with the fallback as a continuation of the lane walk (99,827,006 gas, accepted, **not a record**: queue order).
 14. `mk_00f892fd`: bounded lanes for `tr` (`lanes8t`), `tr`/`c_tilde` lanes typed `u64`, `ball_scan`/`ball_done` inlined (88,037,462 gas, record at the time, since passed by @binharold's `mk_5276df6b`, -17,620 vs @mitchuski's `mk_3400423b`). The bounded-lanes technique is **@odinfree's**.
-16. `mk_a7b5d29d`: SampleInBall rate lanes 10-16 split only when needed, unused round constants dropped (87,513,845 gas, **current ML-DSA-87 record (as of 31 Oct 2026)**, -6,386 vs @odinfree's `mk_618454a1`). Credit: @odinfree (parent record).
+16. `mk_a7b5d29d`: SampleInBall rate lanes 10-16 split only when needed, unused round constants dropped (87,513,845 gas, record at the time, since passed by my own `mk_29251ad0`, -6,386 vs @odinfree's `mk_618454a1`). Credit: @odinfree (parent record).
+18. `mk_29251ad0`: @rukafe0x's QUAD SampleInBall table from `mk_9129f98a`, ported and trimmed to 241 entries (87,463,065 gas, **current ML-DSA-87 record (as of 1 Nov 2026)**, -50,780 vs my own `mk_a7b5d29d`). The table is **@rukafe0x's**; credit also to @odinfree and @nadai2010.
 
 Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
@@ -616,16 +617,16 @@ Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalan
 
 ## ML-DSA-87
 
-Five accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
+Six accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa87). Here a transaction's validation is scored in
 Sierra gas, mean over the held-out set; the season baseline (`23d05d6a2412`) costs 401,296,683 gas. For both
 jobs, the official patch is the accepted one saved with `pvfast remote mldsa87 patch` (client 1.38.0). Like
 before, official patches are **cumulative** against the baseline and contain the work of many earlier
 contributors, mainly **@nadai2010**'s long record line, not only mine.
 
-> **Disclosure / Pernyataan:** all five ML-DSA-87 patches were produced by an AI agent, **Claude Code**
+> **Disclosure / Pernyataan:** all six ML-DSA-87 patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised. The job titles on the board say so.
-> Kelima patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
+> Keenam patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
 > (**@ardianreffa**) jalankan dan awasi. Judul job di papan skor juga menyebutkannya.
 
 ### English
@@ -794,7 +795,7 @@ only by crafted SampleInBall states.
 | | Gas |
 |---|---:|
 | Parent `mk_618454a1` (by @odinfree, record at the time) | 87,520,231 |
-| **This job (accepted, record as of 31 Oct 2026)** | **87,513,845** |
+| **This job (accepted, record at the time, passed by my own `mk_29251ad0` on 1 Nov 2026)** | **87,513,845** |
 | Saved vs parent | 6,386 |
 
 Still below Starknet's 100M validation gas cap. CASM was 81,694 of 81,920 felts in my dev build.
@@ -804,6 +805,44 @@ Still below Starknet's 100M validation gas cap. CASM was 81,694 of 81,920 felts 
   `1413e3cb...c0c2c`.
 - `our-delta-on-mk_618454a1.patch`: only my change on top of the parent (`fk.cairo`, `keccak.cairo`, `sampling.cairo`,
   `verify.cairo`); apply with `git apply -p0`. Paths are relative to the repository root.
+
+#### Contribution 18: @rukafe0x's QUAD SampleInBall table ported, 241 entries (job `mk_29251ad0c80646bdb8b857cefa1b9b7d`)
+
+> **Credit.** The table is **@rukafe0x's**, from `mk_9129f98a` (lead `rgr1_b505b848...`). **@odinfree** made the signed
+> nibble lookup it descends from, and **@odinfree** and **@nadai2010** made the Keccak hoists, hint spans and setup work that
+> @rukafe0x's lead carries and that are on this record line. **What is mine** is porting the table onto `mk_a7b5d29d`
+> and trimming it to 241 entries.
+
+##### What I did
+1. `bits()` looked up two tables per nibble pair (`NIBC`, then `TRIT`). `QUAD[pb + 16 nb]` gives the four coefficients in one
+   lookup, which removes one lookup for each of 64 nibble pairs. The span is built once in `ball_done`.
+2. @rukafe0x's table has 256 entries. `p` and `n` are disjoint, so a pair with `nb = 15` has `pb = 0` and the index stays at
+   or below 240: 241 entries suffice.
+
+Only this part of @rukafe0x's lead is here. Its z butterfly was left out: on this record it saves 1,600 gas per site for about
+142 CASM felts, and only one site fits. Its inline `sig_decode` was not ported either.
+
+Measured on 169 real signatures: -50,780 gas on every one, including those that need the second batch. Correctness: 8 account
+tests and 115 bench tests pass; 19 SampleInBall tests (2,200 vectors including the fallback) pass; one wrong-table-entry mutant
+was caught. The dearest rejection I could build (ground `c_tilde` with 75 hints) costs 1.0016x the worst valid signature
+(limit 1.25x); that is the worst I built, not a proven maximum.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mk_a7b5d29d` (mine, record at the time) | 87,513,845 |
+| **This job (accepted, record as of 1 Nov 2026)** | **87,463,065** |
+| Saved vs parent | 50,780 |
+
+Still below Starknet's 100M validation gas cap. The evaluator reports CASM 81,761 of 81,920 felts and a class of 3,928,741 bytes.
+Lead: `rgr1_ed00e7024d7316916da75f3b2cf301570dbd6e77ef40783dfcaf4584345506e2`.
+
+##### Files
+- `mldsa-87-mk_29251ad0.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. SHA-256
+  `6969a9fc...dab29`.
+- `our-delta-on-mk_a7b5d29d.patch`: only the change on top of the parent (`sampling.cairo`); apply with `git apply -p0`.
+  Paths are relative to the repository root.
 
 ### Bahasa Indonesia (sederhana)
 
@@ -947,7 +986,7 @@ SampleInBall buatan.
 
 ##### Hasil resmi
 - Parent `mk_618454a1` (oleh @odinfree, rekor pada waktunya): 87.520.231 gas.
-- **Job ini (diterima, rekor per 31 Okt 2026): 87.513.845 gas**, hemat 6.386 gas.
+- **Job ini (diterima, rekor pada waktunya, dikalahkan job saya sendiri `mk_29251ad0` pada 1 Nov 2026): 87.513.845 gas**, hemat 6.386 gas.
 - Masih di bawah batas gas validasi Starknet 100M. CASM di build dev saya 81.694 dari 81.920 felt.
 
 ##### Berkas
@@ -956,8 +995,40 @@ SampleInBall buatan.
 - `our-delta-on-mk_618454a1.patch`: hanya perubahan saya di atas parent (`fk.cairo`, `keccak.cairo`, `sampling.cairo`,
   `verify.cairo`); terapkan dengan `git apply -p0`.
 
+#### Kontribusi 18: tabel QUAD SampleInBall milik @rukafe0x, dipangkas jadi 241 entri (job `mk_29251ad0c80646bdb8b857cefa1b9b7d`)
+
+> **Kredit.** Tabelnya milik **@rukafe0x**, dari `mk_9129f98a` (lead `rgr1_b505b848...`). **@odinfree** membuat lookup nibble
+> bertanda yang menjadi asal tabel ini, dan **@odinfree** serta **@nadai2010** membuat hoist Keccak, span hint, dan kerja setup
+> yang dibawa lead @rukafe0x dan sudah ada di jalur rekor ini. **Bagian saya** adalah memindahkan tabel itu ke atas
+> `mk_a7b5d29d` dan memangkasnya menjadi 241 entri.
+
+##### Yang saya kerjakan
+1. `bits()` dulu memakai dua tabel per pasangan nibble (`NIBC`, lalu `TRIT`). `QUAD[pb + 16 nb]` memberi empat koefisien sekali
+   lookup, sehingga satu lookup hilang untuk masing-masing dari 64 pasangan nibble. Span dibangun sekali di `ball_done`.
+2. Tabel @rukafe0x berisi 256 entri. `p` dan `n` tidak beririsan, jadi pasangan dengan `nb = 15` punya `pb = 0` dan indeks tidak
+   melebihi 240: 241 entri sudah cukup.
+
+Hanya bagian ini dari lead @rukafe0x yang dipakai. Butterfly z-nya tidak ikut: di rekor ini hematnya 1.600 gas per situs dengan
+biaya sekitar 142 felt CASM, dan hanya satu situs yang muat. `sig_decode` inline-nya juga tidak dipindahkan.
+
+Diukur pada 169 tanda tangan asli: -50.780 gas di semuanya, termasuk yang butuh batch kedua. Pengujian: 8 tes akun dan 115 tes
+bench lulus; 19 tes SampleInBall (2.200 vektor termasuk cadangan) lulus; satu mutan entri tabel salah tertangkap. Rejection
+termahal yang bisa saya buat (`c_tilde` hasil grinding dengan 75 hint) berbiaya 1,0016x tanda tangan valid terburuk (batas
+1,25x); itu kasus terburuk yang saya buat, bukan maksimum yang terbukti.
+
+##### Hasil resmi
+- Parent `mk_a7b5d29d` (milik saya, rekor pada waktunya): 87.513.845 gas.
+- **Job ini (diterima, rekor per 1 Nov 2026): 87.463.065 gas**, hemat 50.780 gas.
+- Masih di bawah batas gas validasi Starknet 100M. Evaluator mencatat CASM 81.761 dari 81.920 felt dan class 3.928.741 byte.
+- Lead: `rgr1_ed00e7024d7316916da75f3b2cf301570dbd6e77ef40783dfcaf4584345506e2`.
+
+##### Berkas
+- `mldsa-87-mk_29251ad0.patch`: patch yang dikirim, kumulatif terhadap baseline `23d05d6a2412`. SHA-256
+  `6969a9fc...dab29`.
+- `our-delta-on-mk_a7b5d29d.patch`: hanya perubahan di atas parent (`sampling.cairo`); terapkan dengan `git apply -p0`.
+
 ### Pernyataan jujur
-Kelima patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Keenam patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
 ---
 
