@@ -3,9 +3,9 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**20 contributions** in total: 16 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
-- **Records I hold (as of 1 Nov 2026):** ML-DSA-44 `mj_59d79522` (contribution 17) and ML-DSA-87 `mk_29251ad0` (contribution 18).
-- **Records I once set, since passed:** SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
+**21 contributions** in total: 17 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
+- **Records I hold (as of 2 Nov 2026):** ML-DSA-44 `mj_59d79522` (contribution 17) and ML-DSA-87 `mk_14ba0499` (contribution 21).
+- **Records I once set, since passed:** ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: no record (contribution 10 was accepted but not a record).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
@@ -24,7 +24,7 @@ Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, 
 5. `mj_0d051868`: z range flags per 3 digits as one constant minus three products (172,877,140 gas, record at the time).
 6. `mj_29ea4ca5`: **combination, not my idea**: @saniksin's sibling patch `mj_d95817f8` merged on top of @odinfree's record `mj_a93adef3` (172,535,524 gas).
 7. `mj_7b791824`: z range flags, six digits per AND with a +78 offset in the division chain (172,230,687 gas, record at the time, since beaten by @mitchuski).
-17. `mj_59d79522`: final Keccak round for mu/ball pruned to lanes 0-7, lanes 0-7 split once for both (168,556,526 gas, **current ML-DSA-44 record (as of 31 Oct 2026)**, -32,662 vs @odinfree's `mj_fc15ccfa`). Port and extension of the ML-DSA-87 idea.
+17. `mj_59d79522`: final Keccak round for mu/ball pruned to lanes 0-7, lanes 0-7 split once for both (168,556,526 gas, **current ML-DSA-44 record (as of 2 Nov 2026)**, -32,662 vs @odinfree's `mj_fc15ccfa`). Port and extension of the ML-DSA-87 idea.
 
 ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 
@@ -33,7 +33,8 @@ ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 11. `mk_a5460736`: SampleInBall 8 bytes per lane made to fit the CASM limit, with the fallback as a continuation of the lane walk (99,827,006 gas, accepted, **not a record**: queue order).
 14. `mk_00f892fd`: bounded lanes for `tr` (`lanes8t`), `tr`/`c_tilde` lanes typed `u64`, `ball_scan`/`ball_done` inlined (88,037,462 gas, record at the time, since passed by @binharold's `mk_5276df6b`, -17,620 vs @mitchuski's `mk_3400423b`). The bounded-lanes technique is **@odinfree's**.
 16. `mk_a7b5d29d`: SampleInBall rate lanes 10-16 split only when needed, unused round constants dropped (87,513,845 gas, record at the time, since passed by my own `mk_29251ad0`, -6,386 vs @odinfree's `mk_618454a1`). Credit: @odinfree (parent record).
-18. `mk_29251ad0`: @rukafe0x's QUAD SampleInBall table from `mk_9129f98a`, ported and trimmed to 241 entries (87,463,065 gas, **current ML-DSA-87 record (as of 1 Nov 2026)**, -50,780 vs my own `mk_a7b5d29d`). The table is **@rukafe0x's**; credit also to @odinfree and @nadai2010.
+18. `mk_29251ad0`: @rukafe0x's QUAD SampleInBall table from `mk_9129f98a`, ported and trimmed to 241 entries (87,463,065 gas, record at the time, since passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`, -50,780 vs my own `mk_a7b5d29d`). The table is **@rukafe0x's**; credit also to @odinfree and @nadai2010.
+21. `mk_14ba0499`: one box pop per row and per z, plus z NTT blocks batched five per call (`zf4a5`) (87,399,475 gas, **current ML-DSA-87 record (as of 2 Nov 2026)**, -48,090 vs @binharold's `mk_3c0224a5`). Credit: **@binharold** (parent record and `zf4a3` batching), **@nadai2010** (box-pointer style), **@rukafe0x** (z butterfly).
 
 Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
@@ -619,16 +620,16 @@ Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalan
 
 ## ML-DSA-87
 
-Six accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
+Seven accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa87). Here a transaction's validation is scored in
 Sierra gas, mean over the held-out set; the season baseline (`23d05d6a2412`) costs 401,296,683 gas. For both
 jobs, the official patch is the accepted one saved with `pvfast remote mldsa87 patch` (client 1.38.0). Like
 before, official patches are **cumulative** against the baseline and contain the work of many earlier
 contributors, mainly **@nadai2010**'s long record line, not only mine.
 
-> **Disclosure / Pernyataan:** all six ML-DSA-87 patches were produced by an AI agent, **Claude Code**
+> **Disclosure / Pernyataan:** all seven ML-DSA-87 patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised. The job titles on the board say so.
-> Keenam patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
+> Ketujuh patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
 > (**@ardianreffa**) jalankan dan awasi. Judul job di papan skor juga menyebutkannya.
 
 ### English
@@ -834,7 +835,7 @@ was caught. The dearest rejection I could build (ground `c_tilde` with 75 hints)
 | | Gas |
 |---|---:|
 | Parent `mk_a7b5d29d` (mine, record at the time) | 87,513,845 |
-| **This job (accepted, record as of 1 Nov 2026)** | **87,463,065** |
+| **This job (accepted, record at the time, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`)** | **87,463,065** |
 | Saved vs parent | 50,780 |
 
 Still below Starknet's 100M validation gas cap. The evaluator reports CASM 81,761 of 81,920 felts and a class of 3,928,741 bytes.
@@ -845,6 +846,46 @@ Lead: `rgr1_ed00e7024d7316916da75f3b2cf301570dbd6e77ef40783dfcaf4584345506e2`.
   `6969a9fc...dab29`.
 - `our-delta-on-mk_a7b5d29d.patch`: only the change on top of the parent (`sampling.cairo`); apply with `git apply -p0`.
   Paths are relative to the repository root.
+
+#### Contribution 21: one box pop per row and per z, `zf4a5` batching (job `mk_14ba049949954bf4acac786dd79807b5`)
+
+> **Credit.** The parent record `mk_3c0224a5` and the `zf4a3` batching of z NTT blocks are **@binharold's** (lead `rgr1_6e195551...`).
+> The lazy box reads follow **@nadai2010's** box-pointer group bodies (lead `rgr1_70e549c6...`). **@rukafe0x's** z butterfly
+> (lead `rgr1_b505b848...`) first removed `zf4a` calls in `ntt_z`. **What is mine** is finding the unneeded pops and slices on the row
+> and z paths, replacing them with one box pop, and extending the batching from three blocks to five with the CASM that freed.
+
+##### What I did
+Gas figures are score changes, in the order the steps were built.
+
+1. `verify_decoded` paid `slice(256*j,256)` plus a pop for each z NTT. Now `ntt_z` takes one `@Box<[ZC87;256]>` and z is walked by pops,
+   with no `j` counter: -14,410 gas and 183 fewer CASM felts.
+2. `intt_row` popped eight 64-cell boxes per row. Now it reads one 512-cell box, popped once inside `vrow`, and the odd row of a pair
+   drops one element with `pop_front` instead of `slice(1,512)`: -30,480 gas. Box reads are lazy, so one pattern at the top costs no more
+   than eight. The pop sits inside `vrow` because Sierra debug names count toward the class size: holding the box across calls put the
+   class 39,864 bytes over the limit.
+3. @binharold's `zf4a3` became `zf4a5`, three calls per `ntt_z` instead of five: -3,200 gas for 284 CASM felts.
+
+Measured on 169 real signatures: -59,290 gas of raw validate on every one. `ntt_z` also lowers the baseline by 11,200 gas, so the score
+falls by 48,090. Correctness: 8 account tests and 115 bench tests pass; 19 SampleInBall tests (2,200 vectors) pass; 4 rejection vectors
+are still rejected; two mutants (row offset, `intt_row` input order) were caught. The dearest rejection I built costs 1.0016x the worst
+valid signature (limit 1.25x); that is the worst I built, not a proven maximum.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mk_3c0224a5` (@binharold, record at the time) | 87,447,565 |
+| **This job (accepted, record as of 2 Nov 2026)** | **87,399,475** |
+| Saved vs parent | 48,090 |
+
+Still below Starknet's 100M validation gas cap. The evaluator reports CASM 81,603 of 81,920 felts and a class of 4,051,090 bytes.
+Lead: `rgr1_6fc597643e64ec59293e1ef78f7b2c1d0c49d076cf4f6bfc48e577aece341c10`.
+
+##### Files
+- `mldsa-87-mk_14ba0499.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. SHA-256
+  `0b1a3ea8...81e54`.
+- `our-delta-on-mk_3c0224a5.patch`: only the change on top of the parent (`cache.cairo`, `nttu.cairo`, `verify.cairo`); apply with
+  `git apply -p0`. Paths are relative to the repository root.
 
 ### Bahasa Indonesia (sederhana)
 
@@ -1020,7 +1061,7 @@ termahal yang bisa saya buat (`c_tilde` hasil grinding dengan 75 hint) berbiaya 
 
 ##### Hasil resmi
 - Parent `mk_a7b5d29d` (milik saya, rekor pada waktunya): 87.513.845 gas.
-- **Job ini (diterima, rekor per 1 Nov 2026): 87.463.065 gas**, hemat 50.780 gas.
+- **Job ini (diterima, rekor pada waktunya, dikalahkan `mk_3c0224a5` milik @binharold, rekor direbut kembali oleh `mk_14ba0499` milik saya): 87.463.065 gas**, hemat 50.780 gas.
 - Masih di bawah batas gas validasi Starknet 100M. Evaluator mencatat CASM 81.761 dari 81.920 felt dan class 3.928.741 byte.
 - Lead: `rgr1_ed00e7024d7316916da75f3b2cf301570dbd6e77ef40783dfcaf4584345506e2`.
 
@@ -1029,8 +1070,43 @@ termahal yang bisa saya buat (`c_tilde` hasil grinding dengan 75 hint) berbiaya 
   `6969a9fc...dab29`.
 - `our-delta-on-mk_a7b5d29d.patch`: hanya perubahan di atas parent (`sampling.cairo`); terapkan dengan `git apply -p0`.
 
+#### Kontribusi 21: satu box pop per baris dan per z, batching `zf4a5` (job `mk_14ba049949954bf4acac786dd79807b5`)
+
+> **Kredit.** Rekor induk `mk_3c0224a5` dan batching blok z NTT `zf4a3` milik **@binharold** (lead `rgr1_6e195551...`). Pembacaan box
+> yang lazy mengikuti badan grup pointer box milik **@nadai2010** (lead `rgr1_70e549c6...`). Butterfly z milik **@rukafe0x**
+> (lead `rgr1_b505b848...`) yang pertama mengurangi panggilan `zf4a` di `ntt_z`. **Bagian saya** adalah menemukan pop dan slice yang tidak
+> perlu di jalur baris dan z, menggantinya dengan satu box pop, dan memperluas batching dari tiga blok ke lima dengan CASM yang terbebas.
+
+##### Yang saya kerjakan
+Angka gas adalah perubahan skor, sesuai urutan langkah dibangun.
+
+1. `verify_decoded` membayar `slice(256*j,256)` plus satu pop untuk tiap z NTT. Sekarang `ntt_z` menerima satu `@Box<[ZC87;256]>` dan z
+   ditelusuri dengan pop, tanpa penghitung `j`: -14.410 gas dan CASM berkurang 183 felt.
+2. `intt_row` dulu melakukan delapan pop box 64 sel per baris. Sekarang ia membaca satu box 512 sel yang di-pop sekali di dalam `vrow`, dan
+   baris ganjil dari satu pasangan membuang satu elemen dengan `pop_front`, bukan `slice(1,512)`: -30.480 gas. Pembacaan box bersifat lazy,
+   jadi satu pola di awal tidak lebih mahal dari delapan. Pop diletakkan di dalam `vrow` karena nama debug Sierra ikut dihitung dalam ukuran
+   class: menyimpan box melintasi panggilan membuat class lebih 39.864 byte dari batas.
+3. `zf4a3` milik @binharold menjadi `zf4a5`, tiga panggilan per `ntt_z`, bukan lima: -3.200 gas dengan biaya 284 felt CASM.
+
+Diukur pada 169 tanda tangan asli: raw validate -59.290 gas di semuanya. `ntt_z` juga menurunkan baseline 11.200 gas, jadi skor turun
+48.090. Pengujian: 8 tes akun dan 115 tes bench lulus; 19 tes SampleInBall (2.200 vektor) lulus; 4 vektor penolakan tetap ditolak; dua
+mutan (offset baris, urutan input `intt_row`) tertangkap. Rejection termahal yang saya buat berbiaya 1,0016x tanda tangan valid terburuk
+(batas 1,25x); itu kasus terburuk yang saya buat, bukan maksimum yang terbukti.
+
+##### Hasil resmi
+- Parent `mk_3c0224a5` (@binharold, rekor pada waktunya): 87.447.565 gas.
+- **Job ini (diterima, rekor per 2 Nov 2026): 87.399.475 gas**, hemat 48.090 gas.
+- Masih di bawah batas gas validasi Starknet 100M. Evaluator mencatat CASM 81.603 dari 81.920 felt dan class 4.051.090 byte.
+- Lead: `rgr1_6fc597643e64ec59293e1ef78f7b2c1d0c49d076cf4f6bfc48e577aece341c10`.
+
+##### Berkas
+- `mldsa-87-mk_14ba0499.patch`: patch yang dikirim, kumulatif terhadap baseline `23d05d6a2412`. SHA-256
+  `0b1a3ea8...81e54`.
+- `our-delta-on-mk_3c0224a5.patch`: hanya perubahan di atas parent (`cache.cairo`, `nttu.cairo`, `verify.cairo`); terapkan dengan
+  `git apply -p0`.
+
 ### Pernyataan jujur
-Keenam patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Ketujuh patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
 ---
 
