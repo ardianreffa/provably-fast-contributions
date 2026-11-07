@@ -3,9 +3,9 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**21 contributions** in total: 17 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
-- **Records I hold (as of 2 Nov 2026):** ML-DSA-44 `mj_59d79522` (contribution 17) and ML-DSA-87 `mk_14ba0499` (contribution 21).
-- **Records I once set, since passed:** ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
+**22 contributions** in total: 18 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
+- **Records I hold (as of 7 Nov 2026):** ML-DSA-87 `mk_4ff5f9db` (contribution 22).
+- **Records I once set, since passed:** ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: no record (contribution 10 was accepted but not a record).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
@@ -24,7 +24,7 @@ Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, 
 5. `mj_0d051868`: z range flags per 3 digits as one constant minus three products (172,877,140 gas, record at the time).
 6. `mj_29ea4ca5`: **combination, not my idea**: @saniksin's sibling patch `mj_d95817f8` merged on top of @odinfree's record `mj_a93adef3` (172,535,524 gas).
 7. `mj_7b791824`: z range flags, six digits per AND with a +78 offset in the division chain (172,230,687 gas, record at the time, since beaten by @mitchuski).
-17. `mj_59d79522`: final Keccak round for mu/ball pruned to lanes 0-7, lanes 0-7 split once for both (168,556,526 gas, **current ML-DSA-44 record (as of 2 Nov 2026)**, -32,662 vs @odinfree's `mj_fc15ccfa`). Port and extension of the ML-DSA-87 idea.
+17. `mj_59d79522`: final Keccak round for mu/ball pruned to lanes 0-7, lanes 0-7 split once for both (168,556,526 gas, record at the time, since passed by @rukafe0x's `mj_e898606c`, then `mj_502dcc7a` and `mj_8ec4b8da`; -32,662 vs @odinfree's `mj_fc15ccfa`). Port and extension of the ML-DSA-87 idea.
 
 ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 
@@ -34,7 +34,8 @@ ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 14. `mk_00f892fd`: bounded lanes for `tr` (`lanes8t`), `tr`/`c_tilde` lanes typed `u64`, `ball_scan`/`ball_done` inlined (88,037,462 gas, record at the time, since passed by @binharold's `mk_5276df6b`, -17,620 vs @mitchuski's `mk_3400423b`). The bounded-lanes technique is **@odinfree's**.
 16. `mk_a7b5d29d`: SampleInBall rate lanes 10-16 split only when needed, unused round constants dropped (87,513,845 gas, record at the time, since passed by my own `mk_29251ad0`, -6,386 vs @odinfree's `mk_618454a1`). Credit: @odinfree (parent record).
 18. `mk_29251ad0`: @rukafe0x's QUAD SampleInBall table from `mk_9129f98a`, ported and trimmed to 241 entries (87,463,065 gas, record at the time, since passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`, -50,780 vs my own `mk_a7b5d29d`). The table is **@rukafe0x's**; credit also to @odinfree and @nadai2010.
-21. `mk_14ba0499`: one box pop per row and per z, plus z NTT blocks batched five per call (`zf4a5`) (87,399,475 gas, **current ML-DSA-87 record (as of 2 Nov 2026)**, -48,090 vs @binharold's `mk_3c0224a5`). Credit: **@binharold** (parent record and `zf4a3` batching), **@nadai2010** (box-pointer style), **@rukafe0x** (z butterfly).
+21. `mk_14ba0499`: one box pop per row and per z, plus z NTT blocks batched five per call (`zf4a5`) (87,399,475 gas, record at the time, since passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`; -48,090 vs @binharold's `mk_3c0224a5`). Credit: **@binharold** (parent record and `zf4a3` batching), **@nadai2010** (box-pointer style), **@rukafe0x** (z butterfly).
+22. `mk_4ff5f9db`: z felts of the signature split through the Wide arm only (a Narrow felt panics, since no valid signature has a zero high half there), plus a cold SampleInBall fallback (86,970,866 gas, **current ML-DSA-87 record (as of 7 Nov 2026)**, -42,200 vs @rukafe0x's `mk_7c976a34`). Credit: **@rukafe0x** (parent record `mk_7c976a34`, the marker bit / Wide-only split from `mk_0ed9df51`, and the cold-arm technique from his ML-DSA-44 `mj_e898606c`).
 
 Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
@@ -352,7 +353,7 @@ Correctness: 117 tests pass; 796 mu/SampleInBall vectors including the fallback 
 | | Gas |
 |---|---:|
 | Parent `mj_fc15ccfa` (by @odinfree, record at the time) | 168,589,188 |
-| **This job (accepted, record as of 31 Oct 2026)** | **168,556,526** |
+| **This job (accepted, record at the time; passed by @rukafe0x's `mj_e898606c`, then `mj_502dcc7a` and `mj_8ec4b8da`)** | **168,556,526** |
 | Saved vs parent | 32,662 |
 
 Still above Starknet's 100M validation gas cap.
@@ -604,7 +605,7 @@ Pengujian: 117 tes lulus; 796 vektor mu/SampleInBall termasuk cadangan dan kehab
 
 ### Hasil resmi
 - Parent `mj_fc15ccfa` (oleh @odinfree, rekor pada waktunya): 168.589.188 gas.
-- **Job ini (diterima, rekor per 31 Okt 2026): 168.556.526 gas**, hemat 32.662 gas.
+- **Job ini (diterima, rekor pada waktunya; dikalahkan `mj_e898606c` milik @rukafe0x, lalu `mj_502dcc7a` dan `mj_8ec4b8da` miliknya): 168.556.526 gas**, hemat 32.662 gas.
 - Masih di atas batas gas validasi Starknet 100M.
 
 ### Berkas
@@ -620,16 +621,16 @@ Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalan
 
 ## ML-DSA-87
 
-Seven accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
+Eight accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa87). Here a transaction's validation is scored in
 Sierra gas, mean over the held-out set; the season baseline (`23d05d6a2412`) costs 401,296,683 gas. For both
 jobs, the official patch is the accepted one saved with `pvfast remote mldsa87 patch` (client 1.38.0). Like
 before, official patches are **cumulative** against the baseline and contain the work of many earlier
 contributors, mainly **@nadai2010**'s long record line, not only mine.
 
-> **Disclosure / Pernyataan:** all seven ML-DSA-87 patches were produced by an AI agent, **Claude Code**
+> **Disclosure / Pernyataan:** all eight ML-DSA-87 patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised. The job titles on the board say so.
-> Ketujuh patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
+> Kedelapan patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
 > (**@ardianreffa**) jalankan dan awasi. Judul job di papan skor juga menyebutkannya.
 
 ### English
@@ -875,7 +876,7 @@ valid signature (limit 1.25x); that is the worst I built, not a proven maximum.
 | | Gas |
 |---|---:|
 | Parent `mk_3c0224a5` (@binharold, record at the time) | 87,447,565 |
-| **This job (accepted, record as of 2 Nov 2026)** | **87,399,475** |
+| **This job (accepted, record at the time; passed by @rukafe0x's line ending in `mk_7c976a34`, record retaken by my `mk_4ff5f9db`)** | **87,399,475** |
 | Saved vs parent | 48,090 |
 
 Still below Starknet's 100M validation gas cap. The evaluator reports CASM 81,603 of 81,920 felts and a class of 4,051,090 bytes.
@@ -885,6 +886,54 @@ Lead: `rgr1_6fc597643e64ec59293e1ef78f7b2c1d0c49d076cf4f6bfc48e577aece341c10`.
 - `mldsa-87-mk_14ba0499.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. SHA-256
   `0b1a3ea8...81e54`.
 - `our-delta-on-mk_3c0224a5.patch`: only the change on top of the parent (`cache.cairo`, `nttu.cairo`, `verify.cairo`); apply with
+  `git apply -p0`. Paths are relative to the repository root.
+
+#### Contribution 22: z felts split Wide-only, cold SampleInBall fallback (job `mk_4ff5f9db085d4a2bbff6a624902c84bb`)
+
+> **Credit.** Almost all of this record is **@rukafe0x's**. The parent record `mk_7c976a34` is his (lead `rgr1_c4750f63...`). The
+> marker bit and the Wide-only split of cache felts come from his `mk_0ed9df51` (lead `rgr1_a8b48c6c...`). The cold arm, a rare branch
+> moved out of line with its own gas withdrawal, comes from his ML-DSA-44 record `mj_e898606c` (lead `rgr1_c805af03...`; the server did
+> not accept an ML-DSA-44 lead as a parent of an ML-DSA-87 lead, so that credit is in the lead's summary and the job title). **What is
+> mine** is seeing that the same Wide-only split applies to the signature's z felts, proving why that is exact, and porting the cold arm.
+
+##### What I did
+1. `g5` and `zstep` split each z felt of the signature into u128 halves through `u256`. That conversion has a Narrow arm (value below
+   2^128) and a Wide arm, and the two arms merge again, which costs gas on every felt. The new helper `wz` keeps only the Wide arm and
+   panics on Narrow, like @rukafe0x's split of the marked cache felts. It is used for the 145 z felts (`f0..f3` in `g5`, `f4`/`f9` in
+   `zstep`, the last z felt `g4` and felt 2): -41,500 gas.
+2. The SampleInBall fallback (past the 17 lanes of the first block) moved into an `inline(never)` function `cold_ball` that calls
+   `core::gas::withdraw_gas()`, so the common path is not charged for it: -700 gas.
+
+**Why the panic never hits a valid signature.** FIPS 204 packs each z coefficient as `gamma1 - z` in 20 bits, and a valid z has
+`|z| < gamma1 - beta` (beta = 120), so every field of a valid signature is at least 121, never 0. The signature felts are
+little-endian 31-byte chunks. In every decoded felt the high half (bits 128..247) holds only z bits, at least five whole fields, so
+it is not zero. In the last z felt, bits 128..143 are bits 4..19 of the last field, at least 121 >> 4 = 7. So a felt below 2^128 in
+these places means an invalid signature. The record returned `false` later for it; this job panics, so validation still fails. The
+`c_tilde`, `tr` and hint felts keep the `u256` split, because they can be zero for valid inputs.
+
+Measured on 169 real signatures: -42,200 gas of raw validate on every one; the baseline does not change. Correctness: 8 account tests
+and 115 bench tests pass; 19 SampleInBall tests (2,200 vectors) pass; the 4 old rejection vectors are still rejected; 3 new rejection
+vectors (a valid signature with the high half of one z felt set to zero, at felt 10, felt 2 and the last z felt) are rejected by both
+the record (returns 0) and this job (panics); a mutant with the halves swapped in `wz` was caught.
+
+What did not fit: handling two row groups per call (one pop for both) saved 186,690 gas but added about 404 KB of Sierra and 2.5k CASM
+felts, over both limits.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mk_7c976a34` (@rukafe0x, record at the time) | 87,013,066 |
+| **This job (accepted, record as of 7 Nov 2026)** | **86,970,866** |
+| Saved vs parent | 42,200 |
+
+Still below Starknet's 100M validation gas cap. The evaluator reports CASM 80,027 of 81,920 felts and a class of 4,075,777 bytes.
+Lead: `rgr1_a6317ec382d235a6b9c80317cb966ab38ce38cb156d2f3c28f7e8c392b6a4b61`.
+
+##### Files
+- `mldsa-87-mk_4ff5f9db.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. SHA-256
+  `4ba00a65...826c3`.
+- `our-delta-on-mk_7c976a34.patch`: only the change on top of the parent (`sampling.cairo`, `zread.cairo`); apply with
   `git apply -p0`. Paths are relative to the repository root.
 
 ### Bahasa Indonesia (sederhana)
@@ -1095,7 +1144,7 @@ mutan (offset baris, urutan input `intt_row`) tertangkap. Rejection termahal yan
 
 ##### Hasil resmi
 - Parent `mk_3c0224a5` (@binharold, rekor pada waktunya): 87.447.565 gas.
-- **Job ini (diterima, rekor per 2 Nov 2026): 87.399.475 gas**, hemat 48.090 gas.
+- **Job ini (diterima, rekor pada waktunya; dikalahkan rantai @rukafe0x yang berakhir di `mk_7c976a34`, rekor direbut kembali oleh `mk_4ff5f9db` milik saya): 87.399.475 gas**, hemat 48.090 gas.
 - Masih di bawah batas gas validasi Starknet 100M. Evaluator mencatat CASM 81.603 dari 81.920 felt dan class 4.051.090 byte.
 - Lead: `rgr1_6fc597643e64ec59293e1ef78f7b2c1d0c49d076cf4f6bfc48e577aece341c10`.
 
@@ -1105,8 +1154,51 @@ mutan (offset baris, urutan input `intt_row`) tertangkap. Rejection termahal yan
 - `our-delta-on-mk_3c0224a5.patch`: hanya perubahan di atas parent (`cache.cairo`, `nttu.cairo`, `verify.cairo`); terapkan dengan
   `git apply -p0`.
 
+#### Kontribusi 22: felt z dipecah hanya lewat lengan Wide, cadangan SampleInBall dipisah (job `mk_4ff5f9db085d4a2bbff6a624902c84bb`)
+
+> **Kredit.** Hampir seluruh rekor ini milik **@rukafe0x**. Rekor induk `mk_7c976a34` miliknya (lead `rgr1_c4750f63...`). Bit penanda dan
+> pemecahan Wide-only untuk felt cache berasal dari `mk_0ed9df51` miliknya (lead `rgr1_a8b48c6c...`). Cold arm, yaitu cabang langka yang
+> dipindah ke fungsi terpisah dengan penarikan gas sendiri, berasal dari rekor ML-DSA-44 miliknya `mj_e898606c` (lead `rgr1_c805af03...`;
+> server tidak menerima lead ML-DSA-44 sebagai induk lead ML-DSA-87, jadi kredit itu ada di ringkasan lead dan judul job). **Bagian saya**
+> adalah melihat bahwa pemecahan Wide-only yang sama berlaku untuk felt z tanda tangan, membuktikan kenapa itu tepat, dan memindahkan cold arm.
+
+##### Yang saya kerjakan
+1. `g5` dan `zstep` memecah tiap felt z tanda tangan menjadi dua setengah u128 lewat `u256`. Konversi itu punya lengan Narrow (nilai di
+   bawah 2^128) dan lengan Wide, dan kedua lengan menyatu lagi, yang memakan gas di setiap felt. Helper baru `wz` hanya menyimpan lengan
+   Wide dan panic pada Narrow, seperti pemecahan felt cache bertanda milik @rukafe0x. Dipakai untuk 145 felt z (`f0..f3` di `g5`,
+   `f4`/`f9` di `zstep`, felt z terakhir `g4` dan felt 2): -41.500 gas.
+2. Cadangan SampleInBall (setelah 17 lane blok pertama) dipindah ke fungsi `inline(never)` `cold_ball` yang memanggil
+   `core::gas::withdraw_gas()`, jadi jalur biasa tidak ikut dibebani: -700 gas.
+
+**Kenapa panic tidak pernah kena tanda tangan valid.** FIPS 204 mengemas tiap koefisien z sebagai `gamma1 - z` dalam 20 bit, dan z yang
+valid memenuhi `|z| < gamma1 - beta` (beta = 120), jadi setiap field tanda tangan valid minimal 121, tidak pernah 0. Felt tanda tangan
+adalah potongan 31 byte little-endian. Di setiap felt yang didekode, setengah-atas (bit 128..247) hanya berisi bit z, minimal lima field
+utuh, jadi tidak nol. Di felt z terakhir, bit 128..143 adalah bit 4..19 dari field terakhir, minimal 121 >> 4 = 7. Jadi felt di bawah 2^128
+di posisi ini berarti tanda tangan tidak valid. Rekor mengembalikan `false` belakangan untuk kasus itu; job ini panic, jadi validasi tetap
+gagal. Felt `c_tilde`, `tr` dan hint tetap memakai `u256`, karena bisa nol untuk input valid.
+
+Diukur pada 169 tanda tangan asli: raw validate -42.200 gas di semuanya; baseline tidak berubah. Pengujian: 8 tes akun dan 115 tes bench
+lulus; 19 tes SampleInBall (2.200 vektor) lulus; 4 vektor penolakan lama tetap ditolak; 3 vektor penolakan baru (tanda tangan valid dengan
+setengah-atas satu felt z dijadikan nol, di felt 10, felt 2 dan felt z terakhir) ditolak oleh rekor (mengembalikan 0) maupun job ini
+(panic); mutan dengan setengah-setengah ditukar di `wz` tertangkap.
+
+Yang tidak muat: memproses dua grup baris per panggilan (satu pop untuk keduanya) hemat 186.690 gas, tetapi menambah sekitar 404 KB Sierra
+dan 2,5 ribu felt CASM, melewati kedua batas.
+
+##### Hasil resmi
+- Parent `mk_7c976a34` (@rukafe0x, rekor pada waktunya): 87.013.066 gas.
+- **Job ini (diterima, rekor per 7 Nov 2026): 86.970.866 gas**, hemat 42.200 gas.
+- Masih di bawah batas gas validasi Starknet 100M. Evaluator mencatat CASM 80.027 dari 81.920 felt dan class 4.075.777 byte.
+- Lead: `rgr1_a6317ec382d235a6b9c80317cb966ab38ce38cb156d2f3c28f7e8c392b6a4b61`.
+
+##### Berkas
+- `mldsa-87-mk_4ff5f9db.patch`: patch yang dikirim, kumulatif terhadap baseline `23d05d6a2412`. SHA-256
+  `4ba00a65...826c3`.
+- `our-delta-on-mk_7c976a34.patch`: hanya perubahan di atas parent (`sampling.cairo`, `zread.cairo`); terapkan dengan
+  `git apply -p0`.
+
 ### Pernyataan jujur
-Ketujuh patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Kedelapan patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
 ---
 
