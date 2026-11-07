@@ -3,9 +3,9 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**22 contributions** in total: 18 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
-- **Records I hold (as of 7 Nov 2026):** ML-DSA-87 `mk_4ff5f9db` (contribution 22).
-- **Records I once set, since passed:** ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
+**23 contributions** in total: 19 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
+- **Records I hold (as of 7 Nov 2026):** ML-DSA-87 `mk_4ff5f9db` (contribution 22) and ML-DSA-44 `mj_11c423be` (contribution 23).
+- **Records I once set, since passed:** ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: no record (contribution 10 was accepted but not a record).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
@@ -24,7 +24,8 @@ Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, 
 5. `mj_0d051868`: z range flags per 3 digits as one constant minus three products (172,877,140 gas, record at the time).
 6. `mj_29ea4ca5`: **combination, not my idea**: @saniksin's sibling patch `mj_d95817f8` merged on top of @odinfree's record `mj_a93adef3` (172,535,524 gas).
 7. `mj_7b791824`: z range flags, six digits per AND with a +78 offset in the division chain (172,230,687 gas, record at the time, since beaten by @mitchuski).
-17. `mj_59d79522`: final Keccak round for mu/ball pruned to lanes 0-7, lanes 0-7 split once for both (168,556,526 gas, record at the time, since passed by @rukafe0x's `mj_e898606c`, then `mj_502dcc7a` and `mj_8ec4b8da`; -32,662 vs @odinfree's `mj_fc15ccfa`). Port and extension of the ML-DSA-87 idea.
+17. `mj_59d79522`: final Keccak round for mu/ball pruned to lanes 0-7, lanes 0-7 split once for both (168,556,526 gas, record at the time, since passed by @rukafe0x's `mj_e898606c`, then `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`; -32,662 vs @odinfree's `mj_fc15ccfa`). Port and extension of the ML-DSA-87 idea.
+23. `mj_11c423be`: z NTT radix-16 blocks run two per call, the ML-DSA-87 `zf4a3`/`zf4a5` batching ported (168,453,282 gas, **current ML-DSA-44 record (as of 7 Nov 2026)**, -6,400 vs @rukafe0x's `mj_8ec4b8da`). Credit: **@rukafe0x** (parent record), **@binharold** (`zf4a3` batching, ML-DSA-87 `mk_3c0224a5`), and my `zf4a5` (ML-DSA-87 `mk_14ba0499`, contribution 21).
 
 ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 
@@ -353,7 +354,7 @@ Correctness: 117 tests pass; 796 mu/SampleInBall vectors including the fallback 
 | | Gas |
 |---|---:|
 | Parent `mj_fc15ccfa` (by @odinfree, record at the time) | 168,589,188 |
-| **This job (accepted, record at the time; passed by @rukafe0x's `mj_e898606c`, then `mj_502dcc7a` and `mj_8ec4b8da`)** | **168,556,526** |
+| **This job (accepted, record at the time; passed by @rukafe0x's `mj_e898606c`, then `mj_502dcc7a` and `mj_8ec4b8da`; record retaken by my `mj_11c423be`)** | **168,556,526** |
 | Saved vs parent | 32,662 |
 
 Still above Starknet's 100M validation gas cap.
@@ -363,6 +364,46 @@ Still above Starknet's 100M validation gas cap.
   `1f86065f...dc188`.
 - `our-delta-on-mj_fc15ccfa.patch`: only my change on top of the parent (`k2.cairo`, `x2.cairo`, `sa0.cairo`); apply
   with `git apply -p0`. Paths are relative to the repository root.
+
+### Disclosure
+This patch was produced by the AI agent **Claude Code** (model **Opus**), which I (**@ardianreffa**) ran and supervised.
+
+---
+
+## Contribution 23: z NTT blocks two per call (job `mj_11c423be1bfa4e9caf8a79d060bdc9e7`)
+
+> **Credit.** The parent record `mj_8ec4b8da` is **@rukafe0x's** (lead `rgr1_df8f78d9...`), and it carries the cold arms and
+> ExpandA fifth-block work from that same line. Batching the z NTT blocks is **@binharold's** idea from ML-DSA-87 (`zf4a3`, `mk_3c0224a5`), which I
+> widened to five blocks (`zf4a5`) in ML-DSA-87 `mk_14ba0499` (contribution 21). The ML-DSA-87 leads live in another graph, so the
+> server does not take them as parents; that credit is in the lead's summary and the job title. **What is mine** is the port to
+> ML-DSA-44.
+
+### The idea
+`pac`, the unrolled forward NTT of each z polynomial, called the `inline(never)` radix-16 block `f4a` 16 times per polynomial,
+64 calls per verify. Each call costs about 200 gas of call overhead. The new `f42` (`inline(never)`) runs two blocks per call
+(body `f4i`, `inline(always)`), and `pac` makes 8 calls per polynomial: 32 calls fewer. The arithmetic, the bounds and the order
+of the outputs do not change. Three blocks per call would need about 128 more CASM felts; only 40 are left.
+
+Measured on 348 signatures from two local FIPS 204 keys: -6,400 gas on every one (the NTT does not depend on the data).
+Correctness: 117 bench tests pass (including ACVP); 106 forged rejection vectors are still rejected; 3 mutants of the pairing
+were caught.
+
+### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mj_8ec4b8da` (by @rukafe0x, record at the time) | 168,459,682 |
+| **This job (accepted, record as of 7 Nov 2026)** | **168,453,282** |
+| Saved vs parent | 6,400 |
+
+Still above Starknet's 100M validation gas cap. The evaluator reports CASM 81,880 of 81,920 felts and a class of 4,088,840 bytes.
+Lead: `rgr1_9d92b3aec23f767b761f7f97cc465a659c6511b24c49a221d0a8d4aa1112401e`.
+
+### Files
+- `mldsa-44-mj_11c423be.patch`: the submitted patch, cumulative against baseline `78c83599f57e`. SHA-256
+  `f7419b0a...6d4c5`.
+- `our-delta-on-mj_8ec4b8da.patch`: only my change on top of the parent (`nttu.cairo`); apply with `git apply -p0`. Paths are
+  relative to the repository root.
 
 ### Disclosure
 This patch was produced by the AI agent **Claude Code** (model **Opus**), which I (**@ardianreffa**) ran and supervised.
@@ -605,7 +646,7 @@ Pengujian: 117 tes lulus; 796 vektor mu/SampleInBall termasuk cadangan dan kehab
 
 ### Hasil resmi
 - Parent `mj_fc15ccfa` (oleh @odinfree, rekor pada waktunya): 168.589.188 gas.
-- **Job ini (diterima, rekor pada waktunya; dikalahkan `mj_e898606c` milik @rukafe0x, lalu `mj_502dcc7a` dan `mj_8ec4b8da` miliknya): 168.556.526 gas**, hemat 32.662 gas.
+- **Job ini (diterima, rekor pada waktunya; dikalahkan `mj_e898606c` milik @rukafe0x, lalu `mj_502dcc7a` dan `mj_8ec4b8da` miliknya; rekor direbut kembali oleh `mj_11c423be` milik saya): 168.556.526 gas**, hemat 32.662 gas.
 - Masih di atas batas gas validasi Starknet 100M.
 
 ### Berkas
@@ -613,6 +654,38 @@ Pengujian: 117 tes lulus; 796 vektor mu/SampleInBall termasuk cadangan dan kehab
   `1f86065f...dc188`.
 - `our-delta-on-mj_fc15ccfa.patch`: hanya perubahan saya di atas parent (`k2.cairo`, `x2.cairo`, `sa0.cairo`);
   terapkan dengan `git apply -p0`.
+
+### Pernyataan jujur
+Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
+## Kontribusi 23: blok NTT z dua per panggilan (job `mj_11c423be1bfa4e9caf8a79d060bdc9e7`)
+
+> **Kredit.** Rekor induk `mj_8ec4b8da` milik **@rukafe0x** (lead `rgr1_df8f78d9...`), dan di dalamnya ada cold arm serta kerja blok
+> kelima ExpandA miliknya. Ide menggabungkan blok NTT z adalah milik **@binharold** dari ML-DSA-87 (`zf4a3`, `mk_3c0224a5`), yang
+> saya lebarkan menjadi lima blok (`zf4a5`) di ML-DSA-87 `mk_14ba0499` (kontribusi 21). Lead ML-DSA-87 ada di graf lain, jadi server
+> tidak menerimanya sebagai induk; kredit itu ada di ringkasan lead dan judul job. **Bagian saya** adalah memindahkannya ke ML-DSA-44.
+
+### Ide
+`pac`, NTT maju yang ditulis penuh untuk tiap polinomial z, memanggil blok radix-16 `f4a` (`inline(never)`) 16 kali per
+polinomial, 64 panggilan per verifikasi. Tiap panggilan memakan sekitar 200 gas. Fungsi baru `f42` (`inline(never)`) menjalankan dua
+blok per panggilan (isi `f4i`, `inline(always)`), dan `pac` hanya memanggil 8 kali per polinomial: 32 panggilan lebih sedikit.
+Hitungan, batas nilai dan urutan keluaran tidak berubah. Tiga blok per panggilan butuh sekitar 128 felt CASM lagi; sisanya cuma 40.
+
+Diukur pada 348 tanda tangan dari dua kunci FIPS 204 lokal: -6.400 gas di semuanya (NTT tidak bergantung pada data).
+Pengujian: 117 tes bench lulus (termasuk ACVP); 106 vektor penolakan palsu tetap ditolak; 3 mutan pasangan tertangkap.
+
+### Hasil resmi
+- Parent `mj_8ec4b8da` (oleh @rukafe0x, rekor pada waktunya): 168.459.682 gas.
+- **Job ini (diterima, rekor per 7 Nov 2026): 168.453.282 gas**, hemat 6.400 gas.
+- Masih di atas batas gas validasi Starknet 100M. Evaluator mencatat CASM 81.880 dari 81.920 felt dan class 4.088.840 byte.
+- Lead: `rgr1_9d92b3aec23f767b761f7f97cc465a659c6511b24c49a221d0a8d4aa1112401e`.
+
+### Berkas
+- `mldsa-44-mj_11c423be.patch`: patch yang dikirim, kumulatif terhadap baseline `78c83599f57e`. SHA-256
+  `f7419b0a...6d4c5`.
+- `our-delta-on-mj_8ec4b8da.patch`: hanya perubahan saya di atas parent (`nttu.cairo`); terapkan dengan `git apply -p0`.
 
 ### Pernyataan jujur
 Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
