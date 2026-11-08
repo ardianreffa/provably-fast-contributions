@@ -1,0 +1,154 @@
+--- crates/ml_dsa_87/src/cache.cairo
++++ crates/ml_dsa_87/src/cache.cairo
+@@ -16,6 +16,9 @@
+ /// Where each part's window of its half's stream starts, five entries per half (tr and the half
+ /// of columns 0..3, then the half of columns 4..7); each half's last entry is that stream's length.
+ const BOUNDS:[u32;10]=[0,85,340,595,821,0,54,308,564,820];
++/// Per part, precomputed from BOUNDS: (half, first group, last group, coefficients per column,
++/// offset of the window in the part's stream, window length, appends trailing felts, starts with tr).
++const PT:[(u32,u32,u32,u32,u32,u32,bool,bool);8]=[(0,0,5,30,0,85,false,true),(0,5,21,110,4,255,false,false),(0,21,37,190,3,255,false,false),(0,37,50,256,2,226,true,false),(1,0,3,20,0,54,false,false),(1,3,19,100,6,254,false,false),(1,19,35,180,4,256,false,false),(1,35,50,256,4,256,true,false)];
+ 
+ /// Part `index` of the key's work, or None for a malformed key or an index past the last part.
+ /// The cache is tr, then the half of columns 0..3, then the half of columns 4..7; parts 0..3 hold
+@@ -26,18 +29,11 @@
+ if!key_ok(public_key)||index>=PARTS{
+         return None;
+     }
+-let h=index/4;
+-let off=if h==0{TR_FELTS}else{0};
+-let lo=*BOUNDS.span().at(5*h+index%4);
+-let hi=*BOUNDS.span().at(5*h+index%4+1);
+-let tail=hi>off+51*16;
+-let first=if lo<off{0}else{(lo-off)/16};
+-let last=if tail{50}else{(hi-1-off)/16};
+-let count=if tail{256}else{5*(last+1)};
++let(h,first,_,count,skip,len,tail,app)=*PT.span().at(index);
+ let mut stream:Array<felt252>=array![];
+-let w=if lo<off||tail{
++let w=if app||tail{
+ let(t0,w)=tr_of(public_key);
+-if lo<off{
++if app{
+ stream.append(t0);
+ }
+ w
+@@ -47,7 +43,7 @@
+ let mut j:u32=4*h;
+ while j!=4*h+4{
+ let mut c:Array<felt252>=ea();
+-col_into(public_key,rho,j,gap(w,j),count,first,last,tail,ref c);
++col_into(public_key,rho,j,gap(w,j),count,first,tail,ref c);
+ cs.append(c.span());
+ j+=1;
+ }
+@@ -55,16 +51,15 @@
+ let[mut s0,mut s1,mut s2,mut s3]=match cs.span().multi_pop_front::<4>(){Some(b)=>b.unbox(),None=>[e,e,e,e]};
+ while let Some(x)=s0.multi_pop_front::<4>(){
+ stream.append_span(x.unbox().span());
+-stream.append_span(s1.multi_pop_front::<4>().unwrap().unbox().span());
+-stream.append_span(s2.multi_pop_front::<4>().unwrap().unbox().span());
+-stream.append_span(s3.multi_pop_front::<4>().unwrap().unbox().span());
++take4(ref s1,ref stream);
++take4(ref s2,ref stream);
++take4(ref s3,ref stream);
+ }
+ if tail{
+-stream.append_span(array![*s0[0],*s1[0],*s2[0],*s3[0]].span());
++stream.append(head(s0));stream.append(head(s1));stream.append(head(s2));stream.append(head(s3));
+ }
+-let start=if lo<off{0}else{off+16*first};
+ let mut out:Array<felt252>=array![];
+-out.append_span(stream.span().slice(lo-start,hi-lo));
++out.append_span(stream.span().slice(skip,len));
+     Some(out)
+ }
+ 
+@@ -196,7 +191,8 @@
+ fn half5(a0:felt252,a1:felt252,a2:felt252,b0:felt252,b1:felt252)->felt252{
+ a0+a1*0x2000000000000+a2*0x4000000000000000000000000+b0*0x800000+b1*0x1000000000000000000
+ }
+-/// Appends groups first..=last of column j of the cache, then, when `tail`, its trailing felt plus g.
++/// Appends the groups of column j of the cache from group `first` through the last whole group of
++/// its first `count` coefficients, then, when `tail`, its trailing felt plus g.
+ /// For each NTT index group of five, four felts whose low halves hold rows 0..2 (masked lanes)
+ /// and rows 6, 7 (other lanes) at index k and whose high halves hold rows 3..5 at index k and
+ /// rows 2k, 2k+1 at the group's last index. Every felt of each group also carries `rowp::MARK`.
+@@ -204,7 +200,7 @@
+ /// index of the groups appended (256 when `tail`); rejection sampling yields A_hat's coefficients
+ /// in index order, so stopping it there leaves those coefficients unchanged.
+ #[inline(never)]
+-fn col_into(public_key:Span<felt252>,rho:[u128;4],j:u32,g:felt252,count:u32,first:u32,last:u32,tail:bool,ref out:Array<felt252>){
++fn col_into(public_key:Span<felt252>,rho:[u128;4],j:u32,g:felt252,count:u32,first:u32,tail:bool,ref out:Array<felt252>){
+ let z=oz();
+ let mut polys:Array<Span<felt252>>=ea();
+ let skip=5*first;
+@@ -215,7 +211,7 @@
+ }else{
+ t1_hat_row(public_key,r).span()
+ };
+-polys.append(p.slice(skip,p.len()-skip));
++polys.append(p.slice(skip,count-skip));
+ r+=1;
+ }
+ let e=ea::<felt252>().span();
+@@ -223,9 +219,8 @@
+ let two128:felt252=0x100000000000000000000000000000000;
+ let mk=crate::rowp::MARK;
+ let[mut q0,mut q1,mut q2,mut q3,mut q4,mut q5,mut q6,mut q7]=p;
+-let mut k0:u32=first;
+-while k0<last+1{
+-let[a0,a1,a2,a3,a4]=take5(ref q0);
++while let Some(qa)=q0.multi_pop_front::<5>(){
++let[a0,a1,a2,a3,a4]=qa.unbox();
+ let[b0,b1,b2,b3,b4]=take5(ref q1);
+ let[c0,c1,c2,c3,c4]=take5(ref q2);
+ let[d0,d1,d2,d3,d4]=take5(ref q3);
+@@ -237,7 +232,6 @@
+ out.append(half5(a1,b1,c1,g1,h1)+half5(d1,e1,f1,c4,d4)*two128+mk);
+ out.append(half5(a2,b2,c2,g2,h2)+half5(d2,e2,f2,e4,f4)*two128+mk);
+ out.append(half5(a3,b3,c3,g3,h3)+half5(d3,e3,f3,g4,h4)*two128+mk);
+-k0+=1;
+ }
+ if tail{
+ let lo=half5(head(q0),head(q1),head(q2),head(q6),head(q7));
+@@ -245,6 +239,13 @@
+ out.append(lo+hi*two128+g);
+ }
+ }
++/// Appends the next four felts of `q` to `out` (nothing past its end).
++#[inline(never)]
++fn take4(ref q:Span<felt252>,ref out:Array<felt252>){
++if let Some(b)=q.multi_pop_front::<4>(){
++out.append_span(b.unbox().span());
++}
++}
+ /// The next five coefficients of `q` (zeros past its end).
+ #[inline(never)]
+ fn take5(ref q:Span<felt252>)->[felt252;5]{
+--- crates/ml_dsa_87/src/rowp.cairo
++++ crates/ml_dsa_87/src/rowp.cairo
+@@ -35,10 +35,10 @@
+ /// with the trailing block. ta and tb hold the remaining groups of columns 0..3 and 4..7
+ /// (16 felts per group), each followed by its four columns' trailing felts, and z0..z6, c the
+ /// matching NTT-domain multipliers; each group takes 16 packed felts of ta and of tb and 5 residues
+-/// per multiplier. Each call processes 13 groups and recurses; ta holds 51 groups and four trailing
+-/// felts, so it runs out at group 12 of the last call, where the trailing block is appended from
++/// per multiplier. Each call processes 18 groups and recurses; ta holds 51 groups and four trailing
++/// felts, so it runs out at group 15 of the third call, where the trailing block is appended from
+ /// the trailing felts of tb and the next residue of each multiplier. Panics when any span runs out earlier.
+-#[inline(never)]fn row_groups(ta:Span<felt252>,tb:Span<felt252>,z0:Span<R>,z1:Span<R>,z2:Span<R>,z3:Span<R>,z4:Span<R>,z5:Span<R>,z6:Span<R>,c:Span<R>,p:Box<[(u128,u128);6]>,mt:u128,ref wa:Array<RS>,ref wb:Array<RS>){let n98=n98_cell();let n49=n49_cell();let mut ta=ta;let mut tb=tb;let mut z0=z0;let mut z1=z1;let mut z2=z2;let mut z3=z3;let mut z4=z4;let mut z5=z5;let mut z6=z6;let mut c=c;let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let Some(a0)=ta.multi_pop_front::<16>()else{return fin(tb,[*z0[0],*z1[0],*z2[0],*z3[0],*z4[0],*z5[0],*z6[0]],*c[0],p,mt,n98,n49,ref wa,ref wb);};let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);row_groups(ta,tb,z0,z1,z2,z3,z4,z5,z6,c,p,mt,ref wa,ref wb);
++#[inline(never)]fn row_groups(ta:Span<felt252>,tb:Span<felt252>,z0:Span<R>,z1:Span<R>,z2:Span<R>,z3:Span<R>,z4:Span<R>,z5:Span<R>,z6:Span<R>,c:Span<R>,p:Box<[(u128,u128);6]>,mt:u128,ref wa:Array<RS>,ref wb:Array<RS>){let n98=n98_cell();let n49=n49_cell();let mut ta=ta;let mut tb=tb;let mut z0=z0;let mut z1=z1;let mut z2=z2;let mut z3=z3;let mut z4=z4;let mut z5=z5;let mut z6=z6;let mut c=c;let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let Some(a0)=ta.multi_pop_front::<16>()else{return fin(tb,[*z0[0],*z1[0],*z2[0],*z3[0],*z4[0],*z5[0],*z6[0]],*c[0],p,mt,n98,n49,ref wa,ref wb);};let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);let a0=ta.multi_pop_front::<16>().unwrap();let a1=tb.multi_pop_front::<16>().unwrap();let y0=z0.multi_pop_front::<5>().unwrap();let y1=z1.multi_pop_front::<5>().unwrap();let y2=z2.multi_pop_front::<5>().unwrap();let y3=z3.multi_pop_front::<5>().unwrap();let y4=z4.multi_pop_front::<5>().unwrap();let y5=z5.multi_pop_front::<5>().unwrap();let y6=z6.multi_pop_front::<5>().unwrap();let y7=c.multi_pop_front::<5>().unwrap();grp1(a0,a1,y0,y1,y2,y3,y4,y5,y6,y7,mt,n98,n49,ref wa,ref wb);row_groups(ta,tb,z0,z1,z2,z3,z4,z5,z6,c,p,mt,ref wa,ref wb);
+ }
+ /// The eight rows' NTT-domain sums in two arrays: entry 4k+r of the first is row r at index k
+ /// and of the second row 4+r, each followed by three zeros so that every row's sums span 1024
+--- crates/ml_dsa_87/src/sampling.cairo
++++ crates/ml_dsa_87/src/sampling.cairo
+@@ -367,7 +367,7 @@
+ None=>false,
+ }
+ }
+-#[inline(always)]
++#[inline(never)]
+ fn ball_done(olu:u128,ohu:u128,nl:felt252,nh:felt252)->Array<ZC87>{
+ let nlu:u128=nl.try_into().unwrap();
+ let nhu:u128=nh.try_into().unwrap();

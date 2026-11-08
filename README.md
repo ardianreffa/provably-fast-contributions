@@ -3,10 +3,11 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**23 contributions** in total: 19 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
-- **Records I hold (as of 7 Nov 2026):** ML-DSA-87 `mk_4ff5f9db` (contribution 22) and ML-DSA-44 `mj_11c423be` (contribution 23).
-- **Records I once set, since passed:** ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
+**25 contributions** in total: 21 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
+- **Records I hold (as of 8 Nov 2026):** ML-DSA-87 `mk_790f1c30` (contribution 25) and ML-DSA-44 `mj_eaf3b3db` (contribution 24).
+- **Records I once set, since passed:** ML-DSA-87 `mk_4ff5f9db` (contribution 22, passed by my own `mk_790f1c30`), ML-DSA-44 `mj_11c423be` (contribution 23, passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`), ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: no record (contribution 10 was accepted but not a record).
+- STARK math challenge: **53 points** (M-0078 = 50 for contribution 19, review of M-0020 = 3 for contribution 13).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised.
@@ -25,7 +26,8 @@ Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, 
 6. `mj_29ea4ca5`: **combination, not my idea**: @saniksin's sibling patch `mj_d95817f8` merged on top of @odinfree's record `mj_a93adef3` (172,535,524 gas).
 7. `mj_7b791824`: z range flags, six digits per AND with a +78 offset in the division chain (172,230,687 gas, record at the time, since beaten by @mitchuski).
 17. `mj_59d79522`: final Keccak round for mu/ball pruned to lanes 0-7, lanes 0-7 split once for both (168,556,526 gas, record at the time, since passed by @rukafe0x's `mj_e898606c`, then `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`; -32,662 vs @odinfree's `mj_fc15ccfa`). Port and extension of the ML-DSA-87 idea.
-23. `mj_11c423be`: z NTT radix-16 blocks run two per call, the ML-DSA-87 `zf4a3`/`zf4a5` batching ported (168,453,282 gas, **current ML-DSA-44 record (as of 7 Nov 2026)**, -6,400 vs @rukafe0x's `mj_8ec4b8da`). Credit: **@rukafe0x** (parent record), **@binharold** (`zf4a3` batching, ML-DSA-87 `mk_3c0224a5`), and my `zf4a5` (ML-DSA-87 `mk_14ba0499`, contribution 21).
+23. `mj_11c423be`: z NTT radix-16 blocks run two per call, the ML-DSA-87 `zf4a3`/`zf4a5` batching ported (168,453,282 gas, record at the time, since passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`; -6,400 vs @rukafe0x's `mj_8ec4b8da`). Credit: **@rukafe0x** (parent record), **@binharold** (`zf4a3` batching, ML-DSA-87 `mk_3c0224a5`), and my `zf4a5` (ML-DSA-87 `mk_14ba0499`, contribution 21).
+24. `mj_eaf3b3db`: my z NTT pairs from contribution 23 (`zf4a5`-style batching, grown from @binharold's `zf4a3`) merged onto @rukafe0x's record `mj_2c1f51cf`, with one of his inline `i2` sites moved back out of line to fit the CASM limit (168,441,260 gas, **current ML-DSA-44 record (as of 8 Nov 2026)**, -4,400 vs @rukafe0x's `mj_2c1f51cf`). Credit: **@rukafe0x** (parent record and its line `mj_a2031102`, `mj_2c1f51cf`), **@binharold** (`zf4a3` batching, ML-DSA-87 `mk_3c0224a5`).
 
 ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 
@@ -36,7 +38,8 @@ ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 16. `mk_a7b5d29d`: SampleInBall rate lanes 10-16 split only when needed, unused round constants dropped (87,513,845 gas, record at the time, since passed by my own `mk_29251ad0`, -6,386 vs @odinfree's `mk_618454a1`). Credit: @odinfree (parent record).
 18. `mk_29251ad0`: @rukafe0x's QUAD SampleInBall table from `mk_9129f98a`, ported and trimmed to 241 entries (87,463,065 gas, record at the time, since passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`, -50,780 vs my own `mk_a7b5d29d`). The table is **@rukafe0x's**; credit also to @odinfree and @nadai2010.
 21. `mk_14ba0499`: one box pop per row and per z, plus z NTT blocks batched five per call (`zf4a5`) (87,399,475 gas, record at the time, since passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`; -48,090 vs @binharold's `mk_3c0224a5`). Credit: **@binharold** (parent record and `zf4a3` batching), **@nadai2010** (box-pointer style), **@rukafe0x** (z butterfly).
-22. `mk_4ff5f9db`: z felts of the signature split through the Wide arm only (a Narrow felt panics, since no valid signature has a zero high half there), plus a cold SampleInBall fallback (86,970,866 gas, **current ML-DSA-87 record (as of 7 Nov 2026)**, -42,200 vs @rukafe0x's `mk_7c976a34`). Credit: **@rukafe0x** (parent record `mk_7c976a34`, the marker bit / Wide-only split from `mk_0ed9df51`, and the cold-arm technique from his ML-DSA-44 `mj_e898606c`).
+22. `mk_4ff5f9db`: z felts of the signature split through the Wide arm only (a Narrow felt panics, since no valid signature has a zero high half there), plus a cold SampleInBall fallback (86,970,866 gas, record at the time, since passed by my own `mk_790f1c30`; -42,200 vs @rukafe0x's `mk_7c976a34`). Credit: **@rukafe0x** (parent record `mk_7c976a34`, the marker bit / Wide-only split from `mk_0ed9df51`, and the cold-arm technique from his ML-DSA-44 `mj_e898606c`).
+25. `mk_790f1c30`: @rukafe0x's `row_groups` with 18 column groups per call (three calls instead of four) and `ball_done` out of line, from his `mk_1b5b9dea`, ported onto my record `mk_4ff5f9db`; the Sierra it adds is paid by tidying setup-only cache code (`cache::part` table, `take4`, `col_into` loop) (86,967,233 gas, **current ML-DSA-87 record (as of 8 Nov 2026)**, -3,633 vs my `mk_4ff5f9db`). Credit: **@rukafe0x** (`mk_1b5b9dea`, both gas techniques).
 
 Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
@@ -49,8 +52,8 @@ SLH-DSA-128s (see the section [SLH-DSA-128s](#slh-dsa-128s)):
 STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Three reviews and one result of my own (19):
 
 12. `bp1_e61a7c63`: independent review of the 11,831 cap (T3, work of participant_dbbfaeddbe89). Posted, awaiting the organizers' record.
-13. `bp1_bcc0065b`: independent review of M-0020 (T2, work of odinfree). Posted, awaiting the organizers' record.
-19. `bp1_fe90e425`, `bp1_09dabbb6`: Q7 counterexample at n = 32, k = 16, A = 20, joint core j = 27: 21 nonaligned (E = 26), then 22 nonaligned (E = 30) from a census of 3,199 orbits. Lead `rgr1_f06231d3` (ADMITTED). **No record or reward under rules v2** (`bp1_cb64e859`); the result is listed in the official thread summary (`bp1_9ec9eaa9`, 1 Nov).
+13. `bp1_bcc0065b`: independent review of M-0020 (T2, work of odinfree). Credited with **3 points**.
+19. `bp1_fe90e425`, `bp1_09dabbb6`: Q7 counterexample at n = 32, k = 16, A = 20, joint core j = 27: 21 nonaligned (E = 26), then 22 nonaligned (E = 30) from a census of 3,199 orbits. Lead `rgr1_f06231d3` (ADMITTED). **Accepted as M-0078 with 50 points** (2 Nov 2026, reviewed by hero570; `bp1_09dabbb6` reproduced by binharold). An earlier maintainer reply (`bp1_cb64e859`, 1 Nov) had said the cell would earn nothing; that is no longer the status.
 20. `bp1_7d52b47e`: independent review of M-0016 (T3, work of nadai2010). My review is listed on the official M-0016 record as a partial review.
 
 ---
@@ -393,7 +396,7 @@ were caught.
 | | Gas |
 |---|---:|
 | Parent `mj_8ec4b8da` (by @rukafe0x, record at the time) | 168,459,682 |
-| **This job (accepted, record as of 7 Nov 2026)** | **168,453,282** |
+| **This job (accepted, record at the time; since passed by @rukafe0x's `mj_2c1f51cf`, retaken by my `mj_eaf3b3db`)** | **168,453,282** |
 | Saved vs parent | 6,400 |
 
 Still above Starknet's 100M validation gas cap. The evaluator reports CASM 81,880 of 81,920 felts and a class of 4,088,840 bytes.
@@ -403,6 +406,46 @@ Lead: `rgr1_9d92b3aec23f767b761f7f97cc465a659c6511b24c49a221d0a8d4aa1112401e`.
 - `mldsa-44-mj_11c423be.patch`: the submitted patch, cumulative against baseline `78c83599f57e`. SHA-256
   `f7419b0a...6d4c5`.
 - `our-delta-on-mj_8ec4b8da.patch`: only my change on top of the parent (`nttu.cairo`); apply with `git apply -p0`. Paths are
+  relative to the repository root.
+
+### Disclosure
+This patch was produced by the AI agent **Claude Code** (model **Opus**), which I (**@ardianreffa**) ran and supervised.
+
+---
+
+## Contribution 24: z NTT pairs merged onto @rukafe0x's `mj_2c1f51cf` (job `mj_eaf3b3db1b6b4050afe7a61a807a3cc4`)
+
+> **Credit.** The parent record `mj_2c1f51cf` is **@rukafe0x's** (E71, on his `mj_a2031102` E70, on his `mj_8ec4b8da`): one bitwise
+> call per SampleInBall draw, a cold fallback, the padded 12-wide flip rebuild, and everything earlier in that line. His line did not
+> contain my z NTT pairs from contribution 23. Batching the z NTT blocks is **@binharold's** idea from ML-DSA-87 (`zf4a3`,
+> `mk_3c0224a5`), which I widened to `zf4a5` in ML-DSA-87 and ported to ML-DSA-44 in contribution 23. **What is mine** is the merge
+> and the CASM trade that makes it fit.
+
+### What I did
+- `nttu.cairo` takes my `mj_11c423be` version: `f42` (`inline(never)`) runs two radix-16 blocks per call, and `pac` makes 8 calls per
+  z polynomial instead of 16 (-6,400 gas).
+- With the pairs and all four of the parent's inline `i2` sites, CASM would be 81,997 felts, 77 over the 81,920 limit. One `i2`
+  site (row `a0` in `mab`) goes back to the out-of-line `oaa` call: +2,000 gas, -339 CASM felts. Everything else in the parent stays.
+- Net vs the parent: -6,400 + 2,000 = -4,400 gas.
+
+Measured on 348 signatures from two local FIPS 204 keys: -4,400 gas on every one. Correctness: 117 bench tests pass (including
+ACVP); 106 forged rejection vectors are still rejected; 3 mutants of the pairing were caught.
+
+### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mj_2c1f51cf` (by @rukafe0x, record at the time) | 168,445,660 |
+| **This job (accepted, record as of 8 Nov 2026)** | **168,441,260** |
+| Saved vs parent | 4,400 |
+
+Still above Starknet's 100M validation gas cap. The evaluator reports CASM 81,658 of 81,920 felts and a class of 4,058,432 bytes.
+Lead: `rgr1_44684a1c202602be7f5a454e982bb336e359f890c2d22dddb12acb6b227e3bf8`.
+
+### Files
+- `mldsa-44-mj_eaf3b3db.patch`: the submitted patch, cumulative against baseline `78c83599f57e`. SHA-256
+  `46b9f726...b5655`.
+- `our-delta-on-mj_2c1f51cf.patch`: only my change on top of the parent (`nttu.cairo`); apply with `git apply -p0`. Paths are
   relative to the repository root.
 
 ### Disclosure
@@ -678,7 +721,7 @@ Pengujian: 117 tes bench lulus (termasuk ACVP); 106 vektor penolakan palsu tetap
 
 ### Hasil resmi
 - Parent `mj_8ec4b8da` (oleh @rukafe0x, rekor pada waktunya): 168.459.682 gas.
-- **Job ini (diterima, rekor per 7 Nov 2026): 168.453.282 gas**, hemat 6.400 gas.
+- **Job ini (diterima, rekor pada waktunya; kemudian dilewati `mj_2c1f51cf` milik @rukafe0x, lalu diambil kembali oleh `mj_eaf3b3db` saya): 168.453.282 gas**, hemat 6.400 gas.
 - Masih di atas batas gas validasi Starknet 100M. Evaluator mencatat CASM 81.880 dari 81.920 felt dan class 4.088.840 byte.
 - Lead: `rgr1_9d92b3aec23f767b761f7f97cc465a659c6511b24c49a221d0a8d4aa1112401e`.
 
@@ -692,18 +735,52 @@ Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalan
 
 ---
 
+## Kontribusi 24: pasangan NTT z digabung ke `mj_2c1f51cf` milik @rukafe0x (job `mj_eaf3b3db1b6b4050afe7a61a807a3cc4`)
+
+> **Kredit.** Rekor induk `mj_2c1f51cf` milik **@rukafe0x** (E71, di atas `mj_a2031102` E70 miliknya, di atas `mj_8ec4b8da` miliknya):
+> satu panggilan bitwise per undian SampleInBall, fallback dingin, flip rebuild 12 lebar dengan padding, dan semua kerja sebelumnya di
+> jalur itu. Jalurnya belum berisi pasangan NTT z saya dari kontribusi 23. Ide menggabungkan blok NTT z adalah milik **@binharold** dari
+> ML-DSA-87 (`zf4a3`, `mk_3c0224a5`), yang saya lebarkan menjadi `zf4a5` di ML-DSA-87 dan saya pindahkan ke ML-DSA-44 di kontribusi 23.
+> **Bagian saya** adalah penggabungannya dan tukar-tambah CASM supaya muat.
+
+### Yang saya kerjakan
+- `nttu.cairo` memakai versi `mj_11c423be` saya: `f42` (`inline(never)`) menjalankan dua blok radix-16 per panggilan, dan `pac`
+  memanggil 8 kali per polinomial z, bukan 16 (-6.400 gas).
+- Dengan pasangan itu dan keempat situs `i2` inline milik induk, CASM menjadi 81.997 felt, 77 di atas batas 81.920. Satu situs `i2`
+  (baris `a0` di `mab`) dikembalikan ke panggilan `oaa` di luar baris: +2.000 gas, -339 felt CASM. Bagian lain dari induk tetap.
+- Bersih terhadap induk: -6.400 + 2.000 = -4.400 gas.
+
+Diukur pada 348 tanda tangan dari dua kunci FIPS 204 lokal: -4.400 gas di semuanya. Pengujian: 117 tes bench lulus (termasuk ACVP);
+106 vektor penolakan palsu tetap ditolak; 3 mutan pasangan tertangkap.
+
+### Hasil resmi
+- Parent `mj_2c1f51cf` (oleh @rukafe0x, rekor pada waktunya): 168.445.660 gas.
+- **Job ini (diterima, rekor per 8 Nov 2026): 168.441.260 gas**, hemat 4.400 gas.
+- Masih di atas batas gas validasi Starknet 100M. Evaluator mencatat CASM 81.658 dari 81.920 felt dan class 4.058.432 byte.
+- Lead: `rgr1_44684a1c202602be7f5a454e982bb336e359f890c2d22dddb12acb6b227e3bf8`.
+
+### Berkas
+- `mldsa-44-mj_eaf3b3db.patch`: patch yang dikirim, kumulatif terhadap baseline `78c83599f57e`. SHA-256
+  `46b9f726...b5655`.
+- `our-delta-on-mj_2c1f51cf.patch`: hanya perubahan saya di atas parent (`nttu.cairo`); terapkan dengan `git apply -p0`.
+
+### Pernyataan jujur
+Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
 ## ML-DSA-87
 
-Eight accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
+Nine accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa87). Here a transaction's validation is scored in
 Sierra gas, mean over the held-out set; the season baseline (`23d05d6a2412`) costs 401,296,683 gas. For both
 jobs, the official patch is the accepted one saved with `pvfast remote mldsa87 patch` (client 1.38.0). Like
 before, official patches are **cumulative** against the baseline and contain the work of many earlier
 contributors, mainly **@nadai2010**'s long record line, not only mine.
 
-> **Disclosure / Pernyataan:** all eight ML-DSA-87 patches were produced by an AI agent, **Claude Code**
+> **Disclosure / Pernyataan:** all nine ML-DSA-87 patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised. The job titles on the board say so.
-> Kedelapan patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
+> Kesembilan patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
 > (**@ardianreffa**) jalankan dan awasi. Judul job di papan skor juga menyebutkannya.
 
 ### English
@@ -997,7 +1074,7 @@ felts, over both limits.
 | | Gas |
 |---|---:|
 | Parent `mk_7c976a34` (@rukafe0x, record at the time) | 87,013,066 |
-| **This job (accepted, record as of 7 Nov 2026)** | **86,970,866** |
+| **This job (accepted, record at the time; since passed by my own `mk_790f1c30`)** | **86,970,866** |
 | Saved vs parent | 42,200 |
 
 Still below Starknet's 100M validation gas cap. The evaluator reports CASM 80,027 of 81,920 felts and a class of 4,075,777 bytes.
@@ -1007,6 +1084,48 @@ Lead: `rgr1_a6317ec382d235a6b9c80317cb966ab38ce38cb156d2f3c28f7e8c392b6a4b61`.
 - `mldsa-87-mk_4ff5f9db.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. SHA-256
   `4ba00a65...826c3`.
 - `our-delta-on-mk_7c976a34.patch`: only the change on top of the parent (`sampling.cairo`, `zread.cairo`); apply with
+  `git apply -p0`. Paths are relative to the repository root.
+
+#### Contribution 25: @rukafe0x's 18 row groups per call, paid in Sierra by setup-only cache code (job `mk_790f1c3001844e5cb4ee195485e582d1`)
+
+> **Credit.** Both gas techniques are **@rukafe0x's**, from his accepted job `mk_1b5b9dea` (lead `rgr1_0a891997...`), which he built on
+> his own `mk_7c976a34` line, not on my record. **What is mine** is the port onto my record `mk_4ff5f9db`, and the setup-only cleanup
+> that makes it fit the class size limit.
+
+##### What I did
+1. `rowp::row_groups` handles 18 column groups per call instead of 13, so the 51 groups take three calls instead of four; the
+   length check sits at group 16, where the third call reaches the trailing block. Exactly @rukafe0x's `rowp.cairo`.
+2. `sampling::ball_done` is `inline(never)` (@rukafe0x): about -20.4 KB of Sierra and -411 CASM felts.
+3. A straight port of 1 and 2 onto `mk_4ff5f9db` was 10,323 bytes over the Sierra class limit: each extra call site in `row_groups`
+   costs about 8.9 KB, most of it `drop` statements in the panic arms of its ten `unwrap` calls. To pay for it I tidied code that runs
+   only in `fill_cache` (the account setup, which is not scored):
+   - `cache::part` reads each part's window (half, first group, coefficients per column, window offset and length, tail, starts with
+     `tr`) from a constant table `PT`, precomputed from `BOUNDS`, instead of u32 arithmetic whose overflow checks all need panic arms.
+   - The four columns are interleaved with a panic-free helper `take4` and `head`, instead of `unwrap` and indexing.
+   - `col_into` slices each row to `count` coefficients and loops while column 0 still holds a whole group of five, so the loop
+     counter and `last` are gone. The groups written are the same: `count` is 5 * (last + 1), or 256 = 5 * 51 + 1 for the tail part.
+   Together: -10.4 KB of Sierra, -556 CASM felts, and -382,530 gas of setup per account. The cache content does not change.
+
+Measured on 169 real signatures: -3,640 gas of validate on average (from -3,790 to -3,610); local score -3,610. Correctness: 8 account
+tests and 115 bench tests pass; 19 SampleInBall tests (2,200 vectors) pass; all 169 paired signatures validate, and the 7 rejection
+vectors are still rejected; a mutant with one window offset changed in `PT` was caught (signature tests fail).
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mk_4ff5f9db` (mine, record at the time) | 86,970,866 |
+| **This job (accepted, record as of 8 Nov 2026)** | **86,967,233** |
+| Saved vs parent | 3,633 |
+
+Still below Starknet's 100M validation gas cap. The evaluator reports CASM 80,650 of 81,920 felts and a class of 4,088,242 bytes
+(1,204 bytes under the limit).
+Lead: `rgr1_5e6a80537952ff340ae69e2b92a01333c3657fffff11daf18396b283b01df00a`.
+
+##### Files
+- `mldsa-87-mk_790f1c30.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. SHA-256
+  `0a9b7ce8...16fa4d`.
+- `our-delta-on-mk_4ff5f9db.patch`: only the change on top of the parent (`cache.cairo`, `rowp.cairo`, `sampling.cairo`); apply with
   `git apply -p0`. Paths are relative to the repository root.
 
 ### Bahasa Indonesia (sederhana)
@@ -1260,7 +1379,7 @@ dan 2,5 ribu felt CASM, melewati kedua batas.
 
 ##### Hasil resmi
 - Parent `mk_7c976a34` (@rukafe0x, rekor pada waktunya): 87.013.066 gas.
-- **Job ini (diterima, rekor per 7 Nov 2026): 86.970.866 gas**, hemat 42.200 gas.
+- **Job ini (diterima, rekor pada waktunya; kemudian dilewati `mk_790f1c30` saya sendiri): 86.970.866 gas**, hemat 42.200 gas.
 - Masih di bawah batas gas validasi Starknet 100M. Evaluator mencatat CASM 80.027 dari 81.920 felt dan class 4.075.777 byte.
 - Lead: `rgr1_a6317ec382d235a6b9c80317cb966ab38ce38cb156d2f3c28f7e8c392b6a4b61`.
 
@@ -1270,8 +1389,45 @@ dan 2,5 ribu felt CASM, melewati kedua batas.
 - `our-delta-on-mk_7c976a34.patch`: hanya perubahan di atas parent (`sampling.cairo`, `zread.cairo`); terapkan dengan
   `git apply -p0`.
 
+#### Kontribusi 25: 18 grup baris per panggilan milik @rukafe0x, Sierra-nya dibayar dari kode setup (job `mk_790f1c3001844e5cb4ee195485e582d1`)
+
+> **Kredit.** Kedua teknik gas milik **@rukafe0x**, dari job `mk_1b5b9dea` miliknya yang diterima (lead `rgr1_0a891997...`). Ia membangunnya
+> di jalur `mk_7c976a34` miliknya sendiri, bukan di atas rekor saya. **Bagian saya** adalah memindahkannya ke rekor saya `mk_4ff5f9db`,
+> dan merapikan kode setup supaya muat dalam batas ukuran class.
+
+##### Yang saya kerjakan
+1. `rowp::row_groups` memproses 18 grup kolom per panggilan, bukan 13, jadi 51 grup selesai dalam tiga panggilan, bukan empat; cek
+   panjang ada di grup ke-16, tempat panggilan ketiga sampai ke blok penutup. Persis `rowp.cairo` milik @rukafe0x.
+2. `sampling::ball_done` dijadikan `inline(never)` (@rukafe0x): sekitar -20,4 KB Sierra dan -411 felt CASM.
+3. Port langsung poin 1 dan 2 ke `mk_4ff5f9db` kelebihan 10.323 byte dari batas class Sierra: tiap situs panggilan tambahan di
+   `row_groups` memakan sekitar 8,9 KB, kebanyakan berupa statement `drop` di panic arm dari sepuluh `unwrap`-nya. Untuk membayarnya saya
+   merapikan kode yang hanya jalan di `fill_cache` (setup akun, tidak dihitung skor):
+   - `cache::part` membaca jendela tiap part (paruh, grup pertama, koefisien per kolom, offset dan panjang jendela, tail, diawali `tr`)
+     dari tabel konstan `PT` yang dihitung dari `BOUNDS`, bukan dari aritmetika u32 yang cek overflow-nya butuh panic arm.
+   - Keempat kolom disusun berselang-seling dengan helper `take4` dan `head` yang tidak bisa panic, bukan `unwrap` dan indeks.
+   - `col_into` memotong tiap baris tepat `count` koefisien dan mengulang selama kolom 0 masih punya satu grup utuh berisi lima, jadi
+     penghitung loop dan `last` hilang. Grup yang ditulis tetap sama: `count` adalah 5 * (last + 1), atau 256 = 5 * 51 + 1 untuk part tail.
+   Totalnya: -10,4 KB Sierra, -556 felt CASM, dan gas setup -382.530 per akun. Isi cache tidak berubah.
+
+Diukur pada 169 tanda tangan asli: validate rata-rata -3.640 gas (dari -3.790 sampai -3.610); skor lokal -3.610. Pengujian: 8 tes akun
+dan 115 tes bench lulus; 19 tes SampleInBall (2.200 vektor) lulus; semua 169 tanda tangan berpasangan tervalidasi, dan 7 vektor penolakan
+tetap ditolak; mutan dengan satu offset jendela di `PT` diubah tertangkap (tes tanda tangan gagal).
+
+##### Hasil resmi
+- Parent `mk_4ff5f9db` (milik saya, rekor pada waktunya): 86.970.866 gas.
+- **Job ini (diterima, rekor per 8 Nov 2026): 86.967.233 gas**, hemat 3.633 gas.
+- Masih di bawah batas gas validasi Starknet 100M. Evaluator mencatat CASM 80.650 dari 81.920 felt dan class 4.088.242 byte (1.204 byte
+  di bawah batas).
+- Lead: `rgr1_5e6a80537952ff340ae69e2b92a01333c3657fffff11daf18396b283b01df00a`.
+
+##### Berkas
+- `mldsa-87-mk_790f1c30.patch`: patch yang dikirim, kumulatif terhadap baseline `23d05d6a2412`. SHA-256
+  `0a9b7ce8...16fa4d`.
+- `our-delta-on-mk_4ff5f9db.patch`: hanya perubahan di atas parent (`cache.cairo`, `rowp.cairo`, `sampling.cairo`); terapkan dengan
+  `git apply -p0`.
+
 ### Pernyataan jujur
-Kedelapan patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Kesembilan patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
 ---
 
@@ -1448,15 +1604,17 @@ Patch SLH-DSA-128s dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus)
 Three independent reviews and one result of my own posted on the bulletin of [starks.provably.fast](https://starks.provably.fast) (public record:
 <https://starks.provably.fast/record>). Files for contributions 12 and 13 are in [`starks/`](starks/). Posts appear under my bulletin identity, participant_824029c29299.
 
+**Points on the STARK board: 53** (M-0078 = 50 for contribution 19, review of M-0020 = 3 for contribution 13). / **Poin di papan STARK: 53** (M-0078 = 50 untuk kontribusi 19, review M-0020 = 3 untuk kontribusi 13).
+
 > **Disclosure / Pernyataan:** these reviews and the Q7 result were produced by an AI agent, **Claude Code** (models Sonnet and Opus),
 > which I (**@ardianreffa**) ran and supervised. The posts name the agent (Claude Opus 5.5).
 > Review ini dan hasil Q7 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
 > dan awasi. Posting menyebut agent-nya (Claude Opus 5.5).
 
 > **Credit / Kredit:** in contributions 12, 13 and 20 the mathematics belongs to the original authors; our part is review
-> and re-checking only. Contribution 19 is our own lower-bound result, with no outside review. / Di kontribusi 12, 13, dan 20
+> and re-checking only. Contribution 19 is our own lower-bound result, accepted as M-0078 after review by hero570. / Di kontribusi 12, 13, dan 20
 > matematikanya milik penulis asli; bagian kita hanya review dan pengecekan ulang. Kontribusi 19 adalah hasil batas bawah
-> kita sendiri, tanpa review luar.
+> kita sendiri, diterima sebagai M-0078 setelah direview hero570.
 
 ### English
 
@@ -1476,7 +1634,7 @@ Three independent reviews and one result of my own posted on the bulletin of [st
 - Our post: `bp1_bcc0065b`, thread `bt1_5d39cc28`. Text: `starks/review-M0020.md`.
 - Result: **holds as written.** The bucket lemma, the conditional transfer and the near-pair example are correct, and the
   J2 remark matches the pinned ArkLib definitions. Checked by hand and by own code (`m0020.py`).
-- Status: **posted, awaiting the organizers' record.**
+- Status: **credited with 3 points** on the STARK points board.
 
 #### Contribution 19: Q7 counterexample at n = 32, joint core 27
 - Question: Q7 (`bp1_58386334`) asked whether n - j is the maximum residual, so that the split's constant could be
@@ -1486,13 +1644,13 @@ Three independent reviews and one result of my own posted on the bulletin of [st
 - Result 2 (`bp1_09dabbb6`): a census of pencil-form lines over all 3,199 orbits of the 5-point set U raises this to 22
   nonaligned, with E = 30, on two pairs.
 - Lead: `rgr1_f06231d3...` (ADMITTED). Thread `bt1_f4a8d9ad`.
-- Limits: this is a lower bound at one length and, for the census, inside one family of lines. It gives no upper bound, and
-  there is no outside review. The pairs are still two-core pairs in the sense of `bp1_37829737` (participant_a63065a08b50).
+- Limits: this is a lower bound at one length and, for the census, inside one family of lines. It gives no upper bound. The pairs are still two-core pairs in the sense of `bp1_37829737` (participant_a63065a08b50).
 - Checks: own code only, C and standard-library Python with byte-identical output; the panel's `grade.py` gave reward 1 and
   `kit/certify.py` certified 30 of 30 on both pairs with 22.
-- Status, stated plainly: **no record and no reward.** The maintainer's reply (`bp1_cb64e859`) says this cell pays only for a
-  count above 16n under rules v2, so it earns no record, no review and no reward. The result is still listed in the official
-  thread summary (`bp1_9ec9eaa9`, 1 Nov 2026): "found 22 at joint core 27, n = 32".
+- Status: **accepted as M-0078 with 50 points** (2 Nov 2026). The record was reviewed by hero570, and binharold reproduced the
+  census result (`bp1_09dabbb6`). An earlier maintainer reply (`bp1_cb64e859`, 1 Nov) had said this cell pays only for a count
+  above 16n under rules v2 and earns nothing; the accepted record replaces that. The result is also listed in the official thread
+  summary (`bp1_9ec9eaa9`, 1 Nov 2026): "found 22 at joint core 27, n = 32".
 - Other participants have larger nonaligned counts at n = 32 on small joint cores (52 in `bp1_37829737`, 117 in `bp1_a9ee2b02`).
   The point of this result is the joint core, not the count.
 
@@ -1522,7 +1680,7 @@ Three independent reviews and one result of my own posted on the bulletin of [st
 - Post kami: `bp1_bcc0065b`, thread `bt1_5d39cc28`. Teks: `starks/review-M0020.md`.
 - Hasil: **berlaku seperti yang ditulis.** Lemma bucket, transfer bersyarat, dan contoh near-pair benar, dan catatan J2
   sesuai dengan definisi ArkLib yang dipin. Dicek dengan tangan dan dengan kode sendiri (`m0020.py`).
-- Status: **posted, menunggu pencatatan panitia.**
+- Status: **mendapat 3 poin** di papan poin STARK.
 
 #### Kontribusi 19: counterexample Q7 di n = 32, joint core 27
 - Pertanyaan: Q7 (`bp1_58386334`) bertanya apakah n - j adalah residual maksimum, sehingga konstanta split bisa
@@ -1532,12 +1690,12 @@ Three independent reviews and one result of my own posted on the bulletin of [st
 - Hasil 2 (`bp1_09dabbb6`): census garis bentuk pencil atas semua 3.199 orbit himpunan 5 titik U menaikkannya menjadi 22
   nonaligned, dengan E = 30, pada dua pair.
 - Lead: `rgr1_f06231d3...` (ADMITTED). Thread `bt1_f4a8d9ad`.
-- Batasan: ini batas bawah di satu panjang dan, untuk census, di dalam satu keluarga garis. Tidak memberi batas atas, dan belum
-  ada review luar. Pair ini tetap pair dua-core menurut `bp1_37829737` (participant_a63065a08b50).
+- Batasan: ini batas bawah di satu panjang dan, untuk census, di dalam satu keluarga garis. Tidak memberi batas atas. Pair ini tetap pair dua-core menurut `bp1_37829737` (participant_a63065a08b50).
 - Pengujian: hanya kode sendiri, C dan Python stdlib dengan keluaran identik byte per byte; `grade.py` panel memberi reward 1
   dan `kit/certify.py` mensertifikasi 30 dari 30 pada kedua pair dengan 22.
-- Status, terus terang: **tidak mendapat rekor dan tidak mendapat reward.** Balasan maintainer (`bp1_cb64e859`) menyatakan sel
-  ini hanya dibayar untuk hitungan di atas 16n menurut rules v2, jadi tidak mendapat rekor, review, atau reward. Hasilnya tetap
+- Status: **diterima sebagai M-0078 dengan 50 poin** (2 Nov 2026). Record-nya direview oleh hero570, dan binharold mereproduksi
+  hasil census (`bp1_09dabbb6`). Balasan maintainer sebelumnya (`bp1_cb64e859`, 1 Nov) sempat menyatakan sel ini hanya dibayar untuk
+  hitungan di atas 16n menurut rules v2 dan tidak mendapat apa-apa; record yang diterima menggantikan pernyataan itu. Hasilnya juga
   tercantum di ringkasan resmi thread (`bp1_9ec9eaa9`, 1 Nov 2026): "found 22 at joint core 27, n = 32".
 - Peserta lain punya hitungan nonaligned lebih besar di n = 32 pada joint core kecil (52 di `bp1_37829737`, 117 di
   `bp1_a9ee2b02`). Nilai hasil ini ada pada joint core-nya, bukan pada hitungannya.
@@ -1552,7 +1710,7 @@ Three independent reviews and one result of my own posted on the bulletin of [st
 
 ### Pernyataan jujur
 Review ini dan hasil Q7 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
-Di kontribusi 12, 13, dan 20 bagian kami hanya review dan pengecekan ulang, dan hasil matematikanya milik penulis asli. Kontribusi 19 adalah hasil kami sendiri, tanpa review luar.
+Di kontribusi 12, 13, dan 20 bagian kami hanya review dan pengecekan ulang, dan hasil matematikanya milik penulis asli. Kontribusi 19 adalah hasil kami sendiri, diterima sebagai M-0078 (50 poin) setelah direview hero570.
 
 ---
 
