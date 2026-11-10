@@ -3,9 +3,9 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**26 contributions** in total: 22 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
-- **Records I hold (as of 9 Nov 2026):** ML-DSA-87 `mk_0e77da11` (contribution 26). ML-DSA-44: none at the moment; the current ML-DSA-44 record is @solanaqubits' `mj_36c63657`, whose line also contains my z NTT pairs (`zf4a5`-style) from `mj_eaf3b3db`.
-- **Records I once set, since passed:** ML-DSA-87 `mk_790f1c30` (contribution 25, passed by @rukafe0x's line `mk_04b420bb`, `mk_295151d9`, `mk_711ea4cc`, record retaken by my `mk_0e77da11`), ML-DSA-44 `mj_eaf3b3db` (contribution 24, passed by @solanaqubits' `mj_51c7a1c9`, built on it, then @rukafe0x's `mj_6c044bee` and `mj_9663722c`, then @solanaqubits' `mj_36c63657`), ML-DSA-87 `mk_4ff5f9db` (contribution 22, passed by my own `mk_790f1c30`), ML-DSA-44 `mj_11c423be` (contribution 23, passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`), ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
+**27 contributions** in total: 23 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
+- **Records I hold (as of 10 Nov 2026):** ML-DSA-87 `mk_195e9e3e` (contribution 27). ML-DSA-44: none at the moment; the current ML-DSA-44 record is @rukafe0x's `mj_b5729847`.
+- **Records I once set, since passed:** ML-DSA-87 `mk_0e77da11` (contribution 26, passed by @rukafe0x's `mk_a05fd935`, record retaken by my `mk_195e9e3e`), ML-DSA-87 `mk_790f1c30` (contribution 25, passed by @rukafe0x's line `mk_04b420bb`, `mk_295151d9`, `mk_711ea4cc`, record retaken by my `mk_0e77da11`), ML-DSA-44 `mj_eaf3b3db` (contribution 24, passed by @solanaqubits' `mj_51c7a1c9`, built on it, then @rukafe0x's `mj_6c044bee` and `mj_9663722c`, then @solanaqubits' `mj_36c63657`), ML-DSA-87 `mk_4ff5f9db` (contribution 22, passed by my own `mk_790f1c30`), ML-DSA-44 `mj_11c423be` (contribution 23, passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`), ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: no record (contribution 10 was accepted but not a record).
 - STARK math challenge: **53 points** (M-0078 = 50 for contribution 19, review of M-0020 = 3 for contribution 13).
 
@@ -27,7 +27,7 @@ Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, 
 7. `mj_7b791824`: z range flags, six digits per AND with a +78 offset in the division chain (172,230,687 gas, record at the time, since beaten by @mitchuski).
 17. `mj_59d79522`: final Keccak round for mu/ball pruned to lanes 0-7, lanes 0-7 split once for both (168,556,526 gas, record at the time, since passed by @rukafe0x's `mj_e898606c`, then `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`; -32,662 vs @odinfree's `mj_fc15ccfa`). Port and extension of the ML-DSA-87 idea.
 23. `mj_11c423be`: z NTT radix-16 blocks run two per call, the ML-DSA-87 `zf4a3`/`zf4a5` batching ported (168,453,282 gas, record at the time, since passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`; -6,400 vs @rukafe0x's `mj_8ec4b8da`). Credit: **@rukafe0x** (parent record), **@binharold** (`zf4a3` batching, ML-DSA-87 `mk_3c0224a5`), and my `zf4a5` (ML-DSA-87 `mk_14ba0499`, contribution 21).
-24. `mj_eaf3b3db`: my z NTT pairs from contribution 23 (`zf4a5`-style batching, grown from @binharold's `zf4a3`) merged onto @rukafe0x's record `mj_2c1f51cf`, with one of his inline `i2` sites moved back out of line to fit the CASM limit (168,441,260 gas, record at the time, since passed by @solanaqubits' `mj_51c7a1c9` and later records; the current ML-DSA-44 record @solanaqubits' `mj_36c63657` still contains these pairs; -4,400 vs @rukafe0x's `mj_2c1f51cf`). Credit: **@rukafe0x** (parent record and its line `mj_a2031102`, `mj_2c1f51cf`), **@binharold** (`zf4a3` batching, ML-DSA-87 `mk_3c0224a5`).
+24. `mj_eaf3b3db`: my z NTT pairs from contribution 23 (`zf4a5`-style batching, grown from @binharold's `zf4a3`) merged onto @rukafe0x's record `mj_2c1f51cf`, with one of his inline `i2` sites moved back out of line to fit the CASM limit (168,441,260 gas, record at the time, since passed by @solanaqubits' `mj_51c7a1c9` and later records; @solanaqubits' later record `mj_36c63657` (9 Nov 2026) still contained these pairs; -4,400 vs @rukafe0x's `mj_2c1f51cf`). Credit: **@rukafe0x** (parent record and its line `mj_a2031102`, `mj_2c1f51cf`), **@binharold** (`zf4a3` batching, ML-DSA-87 `mk_3c0224a5`).
 
 ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 
@@ -40,7 +40,8 @@ ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 21. `mk_14ba0499`: one box pop per row and per z, plus z NTT blocks batched five per call (`zf4a5`) (87,399,475 gas, record at the time, since passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`; -48,090 vs @binharold's `mk_3c0224a5`). Credit: **@binharold** (parent record and `zf4a3` batching), **@nadai2010** (box-pointer style), **@rukafe0x** (z butterfly).
 22. `mk_4ff5f9db`: z felts of the signature split through the Wide arm only (a Narrow felt panics, since no valid signature has a zero high half there), plus a cold SampleInBall fallback (86,970,866 gas, record at the time, since passed by my own `mk_790f1c30`; -42,200 vs @rukafe0x's `mk_7c976a34`). Credit: **@rukafe0x** (parent record `mk_7c976a34`, the marker bit / Wide-only split from `mk_0ed9df51`, and the cold-arm technique from his ML-DSA-44 `mj_e898606c`).
 25. `mk_790f1c30`: @rukafe0x's `row_groups` with 18 column groups per call (three calls instead of four) and `ball_done` out of line, from his `mk_1b5b9dea`, ported onto my record `mk_4ff5f9db`; the Sierra it adds is paid by tidying setup-only cache code (`cache::part` table, `take4`, `col_into` loop) (86,967,233 gas, record at the time, since passed by @rukafe0x's line `mk_04b420bb` ... `mk_711ea4cc`, record retaken by my `mk_0e77da11`; -3,633 vs my `mk_4ff5f9db`). Credit: **@rukafe0x** (`mk_1b5b9dea`, both gas techniques).
-26. `mk_0e77da11`: my techniques that @rukafe0x's line did not contain (z felts split Wide-only in `zread` and the cold SampleInBall fallback from `mk_4ff5f9db`; the setup-only `PT` window table, `take4` and `col_into` from `mk_790f1c30`) ported onto his record `mk_711ea4cc` (86,891,608 gas, **current ML-DSA-87 record (as of 9 Nov 2026)**, -42,200 vs @rukafe0x's `mk_711ea4cc`; my previous record `mk_790f1c30` was 86,967,233). Credit: **@rukafe0x** (parent `mk_711ea4cc` and his line `mk_04b420bb`, `mk_295151d9`: seven cache windows, SampleInBall split at 128, high-only reject, balanced Bitwise; the Wide-only split from `mk_0ed9df51`; the cold-arm technique from ML-DSA-44 `mj_e898606c`) and **@binharold**'s `mk_3c0224a5` line.
+26. `mk_0e77da11`: my techniques that @rukafe0x's line did not contain (z felts split Wide-only in `zread` and the cold SampleInBall fallback from `mk_4ff5f9db`; the setup-only `PT` window table, `take4` and `col_into` from `mk_790f1c30`) ported onto his record `mk_711ea4cc` (86,891,608 gas, record at the time, since passed by @rukafe0x's `mk_a05fd935`, record retaken by my `mk_195e9e3e`, -42,200 vs @rukafe0x's `mk_711ea4cc`; my previous record `mk_790f1c30` was 86,967,233). Credit: **@rukafe0x** (parent `mk_711ea4cc` and his line `mk_04b420bb`, `mk_295151d9`: seven cache windows, SampleInBall split at 128, high-only reject, balanced Bitwise; the Wide-only split from `mk_0ed9df51`; the cold-arm technique from ML-DSA-44 `mj_e898606c`) and **@binharold**'s `mk_3c0224a5` line.
+27. `mk_195e9e3e`: the same techniques as contribution 26 (z felts split Wide-only in `zread`, the cold SampleInBall fallback, the setup-only `PT` window table with `take4` and `col_into`) put onto @rukafe0x's new record `mk_a05fd935`, which builds on `mk_711ea4cc` and so did not contain them; the delta applies unchanged (86,541,815 gas, **current ML-DSA-87 record (as of 10 Nov 2026)**, -42,200 vs @rukafe0x's `mk_a05fd935`). Credit: **@rukafe0x** (parent `mk_a05fd935`: rowp `grp1` returning `Option` with 17 groups popped once, Keccak first block/theta on known-zero lanes; its parent `mk_711ea4cc` with seven cache windows; the Wide-only split from `mk_0ed9df51`) and **@binharold**'s `mk_3c0224a5` line.
 
 Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
@@ -437,7 +438,7 @@ ACVP); 106 forged rejection vectors are still rejected; 3 mutants of the pairing
 | | Gas |
 |---|---:|
 | Parent `mj_2c1f51cf` (by @rukafe0x, record at the time) | 168,445,660 |
-| **This job (accepted, record at the time; since passed by @solanaqubits' `mj_51c7a1c9` and later records, current record @solanaqubits' `mj_36c63657` still contains these pairs)** | **168,441,260** |
+| **This job (accepted, record at the time; since passed by @solanaqubits' `mj_51c7a1c9` and later records, @solanaqubits' later record `mj_36c63657` still contained these pairs)** | **168,441,260** |
 | Saved vs parent | 4,400 |
 
 Still above Starknet's 100M validation gas cap. The evaluator reports CASM 81,658 of 81,920 felts and a class of 4,058,432 bytes.
@@ -756,7 +757,7 @@ Diukur pada 348 tanda tangan dari dua kunci FIPS 204 lokal: -4.400 gas di semuan
 
 ### Hasil resmi
 - Parent `mj_2c1f51cf` (oleh @rukafe0x, rekor pada waktunya): 168.445.660 gas.
-- **Job ini (diterima, rekor pada waktunya; kemudian dilewati `mj_51c7a1c9` milik @solanaqubits dan rekor-rekor sesudahnya; rekor ML-DSA-44 saat ini, `mj_36c63657` milik @solanaqubits, masih memuat pasangan ini): 168.441.260 gas**, hemat 4.400 gas.
+- **Job ini (diterima, rekor pada waktunya; kemudian dilewati `mj_51c7a1c9` milik @solanaqubits dan rekor-rekor sesudahnya; rekor ML-DSA-44 berikutnya, `mj_36c63657` milik @solanaqubits (9 Nov 2026), masih memuat pasangan ini): 168.441.260 gas**, hemat 4.400 gas.
 - Masih di atas batas gas validasi Starknet 100M. Evaluator mencatat CASM 81.658 dari 81.920 felt dan class 4.058.432 byte.
 - Lead: `rgr1_44684a1c202602be7f5a454e982bb336e359f890c2d22dddb12acb6b227e3bf8`.
 
@@ -772,16 +773,16 @@ Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalan
 
 ## ML-DSA-87
 
-Ten accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
+Eleven accepted contributions to the **ML-DSA-87** (NIST level 5) account season on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa87). Here a transaction's validation is scored in
 Sierra gas, mean over the held-out set; the season baseline (`23d05d6a2412`) costs 401,296,683 gas. For both
 jobs, the official patch is the accepted one saved with `pvfast remote mldsa87 patch` (client 1.38.0). Like
 before, official patches are **cumulative** against the baseline and contain the work of many earlier
 contributors, mainly **@nadai2010**'s long record line, not only mine.
 
-> **Disclosure / Pernyataan:** all ten ML-DSA-87 patches were produced by an AI agent, **Claude Code**
+> **Disclosure / Pernyataan:** all eleven ML-DSA-87 patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised. The job titles on the board say so.
-> Kesepuluh patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
+> Kesebelas patch ML-DSA-87 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya
 > (**@ardianreffa**) jalankan dan awasi. Judul job di papan skor juga menyebutkannya.
 
 ### English
@@ -1158,7 +1159,7 @@ parent fails those 3, as expected); a mutant with one `PT` offset changed was ca
 |---|---:|
 | My previous record `mk_790f1c30` (contribution 25) | 86,967,233 |
 | Parent `mk_711ea4cc` (by @rukafe0x, record at the time) | 86,933,808 |
-| **This job (accepted, record as of 9 Nov 2026)** | **86,891,608** |
+| **This job (accepted, record at the time; since passed by @rukafe0x's `mk_a05fd935`, retaken by my `mk_195e9e3e`)** | **86,891,608** |
 | Saved vs parent | 42,200 |
 
 Still below Starknet's 100M validation gas cap. The evaluator reports CASM 80,457 of 81,920 felts and a class of 4,085,182 bytes.
@@ -1168,6 +1169,44 @@ Lead: `rgr1_8338e85c38fc36b3d3cbca8f5cf04dfd9875d795041608ae011afeb0686cf732`.
 - `mldsa-87-mk_0e77da11.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. SHA-256
   `b260db8e...a28fc`.
 - `our-delta-on-mk_711ea4cc.patch`: only the change on top of the parent (`cache.cairo`, `sampling.cairo`, `zread.cairo`); apply with
+  `git apply -p0`. Paths are relative to the repository root.
+
+#### Contribution 27: the same techniques put onto @rukafe0x's `mk_a05fd935` (job `mk_195e9e3e62e744dd93957ebc53ab3a33`)
+
+> **Credit.** The parent record `mk_a05fd935` is **@rukafe0x's** (lead `rgr1_d2ddaffe...`): `rowp` `grp1` returns `Option` and pops
+> its 17 groups once, and the Keccak first block / theta skips work on lanes known to be zero (-350K). It builds on his `mk_711ea4cc`
+> (seven cache windows, lead `rgr1_969d40bc...`), on **@binharold**'s `mk_3c0224a5` line, and did not contain my contribution 26.
+> The Wide-only split idea is his (`mk_0ed9df51`). **What is mine** is the delta itself (contributions 22, 25 and 26).
+
+##### What I did
+`mk_a05fd935` changes only `k2`, `keccak`, `rowp` and `verify` on top of `mk_711ea4cc`; it does not touch `zread`, `sampling` or
+`cache`. So the contribution 26 delta applies unchanged (the file `our-delta-on-mk_a05fd935.patch` is byte-identical to
+`our-delta-on-mk_711ea4cc.patch`):
+1. `zread.cairo`: z felts split through the Wide arm only; a Narrow felt panics (no valid signature has a zero high half). -41,500 gas.
+2. `sampling`: the SampleInBall fallback moves to an `inline(never)` `cold_ball` with its own `withdraw_gas`. -700 gas.
+3. Setup only (`fill_cache`, not scored): the `PT` window table, `take4`/`head` and `col_into`. The parent has about 112 KB of Sierra
+   headroom, so this step is no longer needed for size; I kept it so the delta stays the one already accepted in contribution 26.
+
+Local score (`bench_validate - bench_baseline`): -42,200, exactly the official result. Correctness: 8 account tests, 115 bench tests and
+19 SampleInBall tests pass; all 169 paired signatures validate, the 4 older rejection vectors and 3 Narrow-z vectors are rejected (the
+parent fails those 3, as expected).
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| My previous record `mk_0e77da11` (contribution 26) | 86,891,608 |
+| Parent `mk_a05fd935` (by @rukafe0x, record at the time) | 86,584,015 |
+| **This job (accepted, record as of 10 Nov 2026)** | **86,541,815** |
+| Saved vs parent | 42,200 |
+
+Still below Starknet's 100M validation gas cap. The evaluator reports CASM 76,670 of 81,920 felts and a class of 3,990,364 bytes.
+Lead: `rgr1_cdc530f48fa6fa99b1f6316ea5740725e3335b0f2d5c5f3852075d6595eb9fba`.
+
+##### Files
+- `mldsa-87-mk_195e9e3e.patch`: the submitted patch, cumulative against baseline `23d05d6a2412`. SHA-256
+  `cb1d1eca...bc1ed1`.
+- `our-delta-on-mk_a05fd935.patch`: only the change on top of the parent (`cache.cairo`, `sampling.cairo`, `zread.cairo`); apply with
   `git apply -p0`. Paths are relative to the repository root.
 
 ### Bahasa Indonesia (sederhana)
@@ -1495,7 +1534,7 @@ SampleInBall lulus; semua 169 tanda tangan berpasangan tervalidasi, 4 vektor pen
 ##### Hasil resmi
 - Rekor saya sebelumnya `mk_790f1c30` (kontribusi 25): 86.967.233 gas.
 - Parent `mk_711ea4cc` (oleh @rukafe0x, rekor pada waktunya): 86.933.808 gas.
-- **Job ini (diterima, rekor per 9 Nov 2026): 86.891.608 gas**, hemat 42.200 gas terhadap parent.
+- **Job ini (diterima, rekor pada waktunya; kemudian dilewati `mk_a05fd935` milik @rukafe0x, lalu diambil kembali oleh `mk_195e9e3e` saya): 86.891.608 gas**, hemat 42.200 gas terhadap parent.
 - Masih di bawah batas gas validasi Starknet 100M. Evaluator mencatat CASM 80.457 dari 81.920 felt dan class 4.085.182 byte.
 - Lead: `rgr1_8338e85c38fc36b3d3cbca8f5cf04dfd9875d795041608ae011afeb0686cf732`.
 
@@ -1505,8 +1544,42 @@ SampleInBall lulus; semua 169 tanda tangan berpasangan tervalidasi, 4 vektor pen
 - `our-delta-on-mk_711ea4cc.patch`: hanya perubahan di atas parent (`cache.cairo`, `sampling.cairo`, `zread.cairo`); terapkan dengan
   `git apply -p0`.
 
+#### Kontribusi 27: teknik yang sama dipasang di atas `mk_a05fd935` milik @rukafe0x (job `mk_195e9e3e62e744dd93957ebc53ab3a33`)
+
+> **Kredit.** Rekor induk `mk_a05fd935` milik **@rukafe0x** (lead `rgr1_d2ddaffe...`): `grp1` di `rowp` mengembalikan `Option` dan
+> mengambil 17 grupnya sekali, dan blok pertama / theta Keccak melewati kerja pada lane yang sudah pasti nol (-350K). Rekor itu dibangun di
+> atas `mk_711ea4cc` miliknya (tujuh jendela cache, lead `rgr1_969d40bc...`), di jalur `mk_3c0224a5` milik **@binharold**, dan belum memuat
+> kontribusi 26 saya. Ide split Wide-only miliknya (`mk_0ed9df51`). **Bagian saya** adalah delta itu sendiri (kontribusi 22, 25, dan 26).
+
+##### Yang saya kerjakan
+`mk_a05fd935` hanya mengubah `k2`, `keccak`, `rowp`, dan `verify` di atas `mk_711ea4cc`; `zread`, `sampling`, dan `cache` tidak disentuh.
+Jadi delta kontribusi 26 bisa dipasang apa adanya (berkas `our-delta-on-mk_a05fd935.patch` identik byte-per-byte dengan
+`our-delta-on-mk_711ea4cc.patch`):
+1. `zread.cairo`: felt z dipecah hanya lewat lengan Wide; felt Narrow memicu panic (tidak ada tanda tangan valid dengan paruh atas nol). -41.500 gas.
+2. `sampling`: cadangan SampleInBall dipindah ke `cold_ball` yang `inline(never)` dengan `withdraw_gas` sendiri. -700 gas.
+3. Hanya setup (`fill_cache`, tidak dihitung skor): tabel jendela `PT`, `take4`/`head`, dan `col_into`. Induknya punya sisa ruang Sierra
+   sekitar 112 KB, jadi langkah ini tidak lagi diperlukan untuk ukuran; saya pertahankan supaya deltanya tetap sama dengan yang sudah
+   diterima di kontribusi 26.
+
+Skor lokal (`bench_validate - bench_baseline`): -42.200, persis sama dengan hasil resmi. Pengujian: 8 tes akun, 115 tes bench, dan 19 tes
+SampleInBall lulus; semua 169 tanda tangan berpasangan tervalidasi, 4 vektor penolakan lama dan 3 vektor z Narrow ditolak (induknya gagal di
+3 vektor itu, sesuai dugaan).
+
+##### Hasil resmi
+- Rekor saya sebelumnya `mk_0e77da11` (kontribusi 26): 86.891.608 gas.
+- Parent `mk_a05fd935` (oleh @rukafe0x, rekor pada waktunya): 86.584.015 gas.
+- **Job ini (diterima, rekor per 10 Nov 2026): 86.541.815 gas**, hemat 42.200 gas terhadap parent.
+- Masih di bawah batas gas validasi Starknet 100M. Evaluator mencatat CASM 76.670 dari 81.920 felt dan class 3.990.364 byte.
+- Lead: `rgr1_cdc530f48fa6fa99b1f6316ea5740725e3335b0f2d5c5f3852075d6595eb9fba`.
+
+##### Berkas
+- `mldsa-87-mk_195e9e3e.patch`: patch yang dikirim, kumulatif terhadap baseline `23d05d6a2412`. SHA-256
+  `cb1d1eca...bc1ed1`.
+- `our-delta-on-mk_a05fd935.patch`: hanya perubahan di atas parent (`cache.cairo`, `sampling.cairo`, `zread.cairo`); terapkan dengan
+  `git apply -p0`.
+
 ### Pernyataan jujur
-Kesepuluh patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Kesebelas patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
 
 ---
 
