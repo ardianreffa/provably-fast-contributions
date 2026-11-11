@@ -1,9 +1,11 @@
 # provably-fast-contributions
 
-Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-1024** and **SLH-DSA-128s** seasons on
-[falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
+Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-512**, **Falcon-1024** and **SLH-DSA-128s** seasons on
+[falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-512, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**30 contributions** in total: 26 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
+**32 contributions** in total: 28 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
+I now have contributions in all five signature schemes: ML-DSA-44, ML-DSA-87, SLH-DSA-128s, Falcon-512 and Falcon-1024.
+Sekarang sudah ada kontribusi saya di kelima jenis tanda tangan: ML-DSA-44, ML-DSA-87, SLH-DSA-128s, Falcon-512 dan Falcon-1024.
 
 > **Board reset, 11 Nov 2026 / Papan direset, 11 Nov 2026.** On 11 Nov 2026 every postquantum board started applying a new size rule:
 > a record's account class may use at most 75% of Starknet's class limits (CASM ≤ 61,440 felts, Sierra ≤ 3,067,084 bytes) when it
@@ -21,9 +23,11 @@ Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, 
   |---|---|---:|---|
   | ML-DSA-87 | `mk_b2e61741` | 86,783,625 | 30 |
   | ML-DSA-44 | `mj_50bc7f09` | 174,316,245 | 29 |
+  | Falcon-512 | `fj_3a35fbca` | 24,470,451 | 31 |
+  | Falcon-1024 | `fk_12c60489` | 49,434,087 | 32 |
 
 - **Records I once set, since passed:** ML-DSA-87 `mk_96568c3f` (contribution 28, first record after the reset, passed by my own `mk_b2e61741`), ML-DSA-87 `mk_195e9e3e` (contribution 27, record at the time; its class, 97.6% of the limit, is over the new budget, so it no longer counts as a record after the 11 Nov reset), ML-DSA-87 `mk_0e77da11` (contribution 26, passed by @rukafe0x's `mk_a05fd935`, record retaken by my `mk_195e9e3e`), ML-DSA-87 `mk_790f1c30` (contribution 25, passed by @rukafe0x's line `mk_04b420bb`, `mk_295151d9`, `mk_711ea4cc`, record retaken by my `mk_0e77da11`), ML-DSA-44 `mj_eaf3b3db` (contribution 24, passed by @solanaqubits' `mj_51c7a1c9`, built on it, then @rukafe0x's `mj_6c044bee` and `mj_9663722c`, then @solanaqubits' `mj_36c63657`), ML-DSA-87 `mk_4ff5f9db` (contribution 22, passed by my own `mk_790f1c30`), ML-DSA-44 `mj_11c423be` (contribution 23, passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`), ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
-- Falcon-1024: no record (contribution 10 was accepted but not a record).
+- Falcon-1024: contribution 10 was accepted but not a record; contribution 32 is the current record.
 - STARK math challenge: **53 points** (M-0078 = 50 for contribution 19, review of M-0020 = 3 for contribution 13).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
@@ -63,9 +67,14 @@ ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 
 28. `mk_96568c3f` (after the reset): a slim version on @rukafe0x's 75%-budget record `mk_3ae3d577` with my techniques (setup-only `PT` cache table with `take4`/`col_into`, cold SampleInBall fallback), the z reader `g5` inlined again, paid for by shorter Sierra debug names (wide box pops split) (86,918,125 gas, record at the time, since passed by my own `mk_b2e61741`; -88,903 vs @rukafe0x's `mk_3ae3d577`). Credit: **@rukafe0x** (`mk_3ae3d577` and `mk_f7634154`), **@binharold**'s `mk_3c0224a5` line.
 30. `mk_b2e61741` (after the reset): the Keccak round grouping from contribution 29 put into ML-DSA-87, two rounds per out-of-line call (`r2`), with the Sierra paid by further box-pop splits (86,783,625 gas, **current ML-DSA-87 record (as of 11 Nov 2026)**, -134,500 vs my `mk_96568c3f`). Credit: as contribution 28, plus contribution 29.
+Falcon-512 (see the section [Falcon-512](#falcon-512)):
+
+31. `fj_3a35fbca` (after the reset): Keccak rounds two per out-of-line call (`rQ`/`rA2`) on @rukafe0x's 70%-budget record `fj_1520d5dc`; 18 round calls per permutation become 11 (24,470,451 gas, **current Falcon-512 record (as of 11 Nov 2026)**, -168,000 vs @rukafe0x's `fj_1520d5dc`). My first Falcon-512 contribution. Credit: **@rukafe0x** (parent `fj_1520d5dc` and its 70% fit line), **@binharold** (`fj_8ad7595e`, the line underneath), and the round grouping from my contributions 29 and 30.
+
 Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
 10. `fk_40768326`: Keccak cell constants hoisted out of the squeeze loop (49,339,523 gas, accepted, **not a record**: queue order).
+32. `fk_12c60489` (after the reset): the Q-to-A transition Keccak round (round 15) moved out of line on @rukafe0x's record `fk_20c8300f`, with `bb` kept unspecialised (49,434,087 gas, **current Falcon-1024 record (as of 11 Nov 2026)**, -23,808 vs @rukafe0x's `fk_20c8300f`). Credit: **@rukafe0x** (parent `fk_20c8300f`, seven rounds per call, and its `mode1()` trick).
 
 SLH-DSA-128s (see the section [SLH-DSA-128s](#slh-dsa-128s)):
 
@@ -1810,15 +1819,97 @@ Ketiga belas patch ML-DSA-87 dikerjakan oleh agent **Claude Code** (model Sonnet
 
 ---
 
+## Falcon-512
+
+One accepted contribution to the **Falcon-512** season on [falcon.provably.fast](https://falcon.provably.fast/falcon),
+baseline `bece5c07eeea`. The official patch is cumulative against that baseline and contains the work of many contributors.
+
+> **Disclosure / Pernyataan:** this patch was produced by an AI agent, **Claude Code** (model Opus), which I
+> (**@ardianreffa**) ran and supervised. The job's model label on the board is `claude-opus-5-5`.
+> Patch ini dikerjakan oleh agent AI **Claude Code** (model Opus) yang saya (**@ardianreffa**) jalankan dan awasi.
+> Label model job di papan skor adalah `claude-opus-5-5`.
+
+### English
+
+#### Contribution 31: Keccak rounds two per out-of-line call on @rukafe0x's `fj_1520d5dc` (job `fj_3a35fbcab38447098695a10570d527ee`)
+
+> **Credit.** The parent record `fj_1520d5dc` and the 70% account-budget fit it builds on (`fj_ec003097` ... `fj_ecd1564b`) are
+> **@rukafe0x**'s; underneath is **@binharold**'s `fj_8ad7595e`. The round grouping is the idea of my ML-DSA-44 contribution 29 and
+> ML-DSA-87 contribution 30, adapted here.
+
+##### What I did
+After the 11 Nov reset the Falcon-512 record has to fit 70% of the class limits (it is 1.96x cheaper than the baseline, just under the
+2x needed for 75%). @rukafe0x's fit runs Keccak rounds 4-14 as 11 calls to the out-of-line `rQ` and rounds 16-22 as 7 calls to `rA`,
+with rounds 1-3 still inline: 18 round calls per permutation.
+1. `rQ(st, ra, rb, kk)` now runs two rounds inline, so rounds 1-14 are 7 calls. The inline copies of rounds 1-3 are dropped, which
+   pays for the second round inside `rQ` and frees about 87 KB of Sierra.
+2. That Sierra pays for a new `inline(never)` `rA2(st, ra, rb, kk)` with two A-rounds for rounds 16-21; round 22 stays on the
+   one-round `rA`. (One body with an `if rb == 0` skip was tried and is +606k: the branch breaks the straight-line code.)
+3. 11 round calls per permutation instead of 18: -21,000 gas per Keccak permutation.
+
+Local score (account validate minus baseline): 26,874,899 -> 26,706,899, -168,000, and -168,000 on every SHAKE verify/reject case.
+Correctness: 60 crate tests and 7 local account tests pass (valid signature accepted, wrong hash and tampered signature rejected).
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `fj_1520d5dc` (by @rukafe0x, record at the time) | 24,638,451 |
+| **This job (accepted, record as of 11 Nov 2026)** | **24,470,451** |
+| Saved vs parent | 168,000 |
+
+The same -168,000 at 8 blocks (23,525,804) and 9 blocks (25,119,896). The evaluator reports CASM 48,216 felts and a class of
+2,851,701 bytes (69.7%, inside the 70% budget). Lead: `rgr1_60dee0d7a5bbcf7f8a05a0dc31034145cd58bec5aa3f8c66a0ac8c124f7f1f4a`.
+
+##### Files
+- `falcon-512-fj_3a35fbca.patch`: the submitted patch (`git diff --full-index`), cumulative against baseline `bece5c07eeea`. Its
+  SHA-256 (`a392a2b6...f66f`) equals the `patch_sha256` the scorer reported for the job.
+- `our-delta-on-fj_1520d5dc.patch`: only my change on top of the parent (`shake256.cairo`). Verified: the parent patch on the
+  baseline plus this delta gives a tree identical (`diff -r`) to the baseline plus the submitted patch.
+
+### Bahasa Indonesia (sederhana)
+
+#### Kontribusi 31: ronde Keccak dua per panggilan di luar baris, di atas `fj_1520d5dc` milik @rukafe0x (job `fj_3a35fbcab38447098695a10570d527ee`)
+
+> **Kredit.** Rekor dasar `fj_1520d5dc` dan penyesuaian ke batas akun 70% di bawahnya (`fj_ec003097` ... `fj_ecd1564b`) milik
+> **@rukafe0x**; di bawahnya lagi `fj_8ad7595e` milik **@binharold**. Pengelompokan ronde berasal dari kontribusi ML-DSA-44 saya
+> (29) dan ML-DSA-87 (30), disesuaikan di sini. Ini kontribusi Falcon-512 pertama saya.
+
+##### Yang saya lakukan
+Sejak reset 11 Nov, rekor Falcon-512 harus muat 70% batas class (1,96x lebih murah dari baseline, sedikit di bawah 2x untuk batas 75%).
+Versi @rukafe0x menjalankan ronde Keccak 4-14 sebagai 11 panggilan ke `rQ` dan ronde 16-22 sebagai 7 panggilan ke `rA`, dengan ronde 1-3
+masih inline: 18 panggilan per permutasi.
+1. `rQ` sekarang menjalankan dua ronde, jadi ronde 1-14 cukup 7 panggilan. Salinan inline ronde 1-3 dibuang; itu yang membayar ronde
+   kedua di `rQ` dan membebaskan sekitar 87 KB Sierra.
+2. Sierra itu dipakai untuk `rA2` baru (dua ronde A) untuk ronde 16-21; ronde 22 tetap lewat `rA`. (Satu fungsi dengan cabang
+   `if rb == 0` dicoba dan malah +606 ribu gas.)
+3. 11 panggilan per permutasi, bukan 18: hemat 21.000 gas per permutasi Keccak.
+
+Skor lokal (validate akun dikurangi baseline): 26.874.899 -> 26.706.899, hemat 168.000, sama di setiap kasus SHAKE. 60 tes crate dan
+7 tes akun lokal lulus.
+
+##### Hasil resmi
+- Parent `fj_1520d5dc` (oleh @rukafe0x, rekor pada waktunya): 24.638.451 gas.
+- **Job ini (diterima, rekor per 11 Nov 2026): 24.470.451 gas**, hemat 168.000 gas (sama pada 8 dan 9 blok).
+- CASM 48.216 felt, class 2.851.701 byte (69,7%, di dalam batas 70%). Lead: `rgr1_60dee0d7...1f4a`.
+
+##### Berkas
+- `falcon-512-fj_3a35fbca.patch`: patch yang dikirim (`git diff --full-index`), kumulatif terhadap baseline `bece5c07eeea`;
+  SHA-256 (`a392a2b6...f66f`) sama dengan `patch_sha256` dari penilai.
+- `our-delta-on-fj_1520d5dc.patch`: hanya perubahan saya di atas parent (`shake256.cairo`). Patch parent + delta ini sama persis
+  (`diff -r`) dengan baseline + patch yang dikirim.
+
+---
+
 ## Falcon-1024
 
-One accepted contribution to the **Falcon-1024** (NIST level 5) season on
+Two accepted contributions to the **Falcon-1024** (NIST level 5) season on
 [falcon.provably.fast](https://falcon.provably.fast/falcon1024), baseline `bf7fd8785a18`. The official patches are
 cumulative against that baseline and contain the work of many contributors.
 
-> **Disclosure / Pernyataan:** this patch was produced by an AI agent, **Claude Code** (models Sonnet and Opus),
-> which I (**@ardianreffa**) ran and supervised. The job's model label on the board is `claude-opus-5-5`; its title
-> does not name the agent.
+> **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code** (models Sonnet and Opus),
+> which I (**@ardianreffa**) ran and supervised. The jobs' model label on the board is `claude-opus-5-5`; their titles
+> do not name the agent.
 > Patch ini dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
 > dan awasi. Label model job di papan skor adalah `claude-opus-5-5`; judulnya tidak menyebut agent.
 
@@ -1854,6 +1945,39 @@ in **@nadai2010's** record `fk_15c54ef6`, whose `builds_on` on the board lists `
   Verified: the parent patch (downloaded with `pvfast remote falcon1024 patch`) on the baseline, plus this delta,
   gives a tree identical (`diff -r`) to the baseline plus the submitted patch. The delta applies cleanly.
 
+#### Contribution 32: transition Keccak round out of line on @rukafe0x's `fk_20c8300f` (job `fk_12c6048947344b7b8cd7dcab926961c0`)
+
+> **Credit.** The parent record `fk_20c8300f` (seven Keccak rounds per call, paid for by decoding one squeeze block per step) and its
+> 75% fit `fk_e13dd2c3` are **@rukafe0x**'s, as is the `mode1()` trick reused below.
+
+##### What I did
+`fk_20c8300f` runs rounds 1-14 and 16-22 in out-of-line calls (`rq` x2, `ra3` x2, `ra`) but kept the Q-to-A transition round 15
+inline in `bb`. In `bb`'s large frame an inline round costs more than a call (putting round 22 inline instead is +21,500).
+1. `fk.cairo`: round 15 moves to a new `inline(never)` `rt(st, rc, kb)`, like the other round calls: -24,300.
+2. With that round gone, `bb` became small enough for the compiler to specialise it for `last()`'s literal `bb(p, 2)` (+1,475 CASM
+   felts, over the cap). `hash_to_point.cairo`: `last()` now passes `crate::fk::mode1() + 1`, as the record already does for mode 1,
+   so there is one `bb` again; CASM ends 117 felts below the record.
+
+Local score (account validate minus baseline): 53,229,978 -> 53,205,678, -24,300; on the 15 crate verify/reject cases -22,800 to
+-25,700 (mean -23,813). Correctness: 21 crate tests and 7 local account tests pass.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Parent `fk_20c8300f` (by @rukafe0x, record at the time) | 49,457,895 |
+| **This job (accepted, record as of 11 Nov 2026)** | **49,434,087** |
+| Saved vs parent | 23,808 |
+
+16 blocks 47,869,728 (-22,975), 17 blocks 50,216,266 (-24,225). The evaluator reports CASM 60,215 of 61,440 felts and a class of
+2,981,897 bytes (73.5%). Lead: `rgr1_3e41406b2578b0ada801302fbae7b06e3a83cbcc0cc92dc825f61d53e7aaa7fa`.
+
+##### Files
+- `falcon-1024-fk_12c60489.patch`: the submitted patch (`git diff --full-index`), cumulative against baseline `bf7fd8785a18`. Its
+  SHA-256 (`b3e9f21c...b631`) equals the `patch_sha256` the scorer reported for the job.
+- `our-delta-on-fk_20c8300f.patch`: only my change on top of the parent (`fk.cairo`, `hash_to_point.cairo`). Verified: the parent
+  patch on the baseline plus this delta gives a tree identical (`diff -r`) to the baseline plus the submitted patch.
+
 ### Bahasa Indonesia (sederhana)
 
 #### Kontribusi 10: konstanta cell Keccak diangkat keluar dari loop squeeze (job `fk_40768326d05246c09567987a2660432f`)
@@ -1880,6 +2004,32 @@ Tes: semua tes paket lulus (109/109 di workspace); lokal -4.300 gas pada 17 blok
 - `our-delta-on-fk_7eee665f.patch`: hanya perubahan saya di atas parent (`fk.cairo`, `hash_to_point.cairo`).
   Terbukti: patch parent (diunduh dengan `pvfast remote falcon1024 patch`) + delta ini sama persis isinya
   (`diff -r`) dengan baseline + patch yang dikirim. Delta dapat diterapkan dengan bersih.
+
+#### Kontribusi 32: ronde transisi Keccak dipindah keluar baris, di atas `fk_20c8300f` milik @rukafe0x (job `fk_12c6048947344b7b8cd7dcab926961c0`)
+
+> **Kredit.** Rekor dasar `fk_20c8300f` (tujuh ronde Keccak per panggilan) dan `fk_e13dd2c3` di bawahnya milik **@rukafe0x**, begitu
+> juga trik `mode1()` yang dipakai ulang di sini.
+
+##### Yang saya lakukan
+`fk_20c8300f` menjalankan ronde 1-14 dan 16-22 lewat panggilan di luar baris, tetapi ronde transisi Q ke A (ronde 15) masih inline di
+`bb`. Di frame `bb` yang besar, ronde inline lebih mahal daripada panggilan (ronde 22 dibuat inline justru +21.500).
+1. `fk.cairo`: ronde 15 dipindah ke fungsi `inline(never)` baru `rt`: hemat 24.300.
+2. Karena `bb` jadi kecil, compiler membuat salinan khusus `bb` untuk `bb(p, 2)` (+1.475 felt CASM, lewat batas). `last()` sekarang
+   memanggil `bb(p, mode1() + 1)`, seperti yang sudah dilakukan rekor untuk mode 1, jadi `bb` kembali satu; CASM 117 felt di bawah rekor.
+
+Skor lokal (validate akun dikurangi baseline): 53.229.978 -> 53.205.678, hemat 24.300; di 15 kasus crate hemat 22.800 s.d. 25.700.
+21 tes crate dan 7 tes akun lokal lulus.
+
+##### Hasil resmi
+- Parent `fk_20c8300f` (oleh @rukafe0x, rekor pada waktunya): 49.457.895 gas.
+- **Job ini (diterima, rekor per 11 Nov 2026): 49.434.087 gas**, hemat 23.808 gas (16 blok -22.975, 17 blok -24.225).
+- CASM 60.215 dari 61.440 felt, class 2.981.897 byte (73,5%). Lead: `rgr1_3e41406b...a7fa`.
+
+##### Berkas
+- `falcon-1024-fk_12c60489.patch`: patch yang dikirim (`git diff --full-index`), kumulatif terhadap baseline `bf7fd8785a18`;
+  SHA-256 (`b3e9f21c...b631`) sama dengan `patch_sha256` dari penilai.
+- `our-delta-on-fk_20c8300f.patch`: hanya perubahan saya di atas parent (`fk.cairo`, `hash_to_point.cairo`). Patch parent + delta
+  ini sama persis (`diff -r`) dengan baseline + patch yang dikirim.
 
 ### Pernyataan jujur
 Patch Falcon-1024 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
