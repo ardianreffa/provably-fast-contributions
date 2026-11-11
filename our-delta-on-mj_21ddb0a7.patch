@@ -1,0 +1,67 @@
+--- crates/ml_dsa_44/src/k2.cairo
++++ crates/ml_dsa_44/src/k2.cairo
+@@ -248,7 +248,7 @@
+ let b4=rt(e24,mk.g4.m23,pw.g4.p23,0x200000000000004400000000000000000000000000000004000);
+ [b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24]
+ }
+-#[inline(never)]
++#[inline(always)]
+ fn jag(s:[u128;25],rc:u128,mk:MK)->[u128;25]{
+ let[b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24]=tp(s,mk);
+ let n3=jaa(b3,mk.al);
+@@ -283,7 +283,7 @@
+ let a24=b24^(b20|b21);
+ [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]
+ }
+-#[inline(never)]
++#[inline(always)]
+ fn kag(s:[u128;25],rc:u128,mk:MK)->[u128;25]{
+ let[b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24]=tp(s,mk);
+ let n1=jaa(b1,mk.al);
+@@ -318,7 +318,7 @@
+ let a24=b24^(b20|b21);
+ [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]
+ }
+-#[inline(never)]
++#[inline(always)]
+ fn lag(s:[u128;25],rc:u128,mk:MK)->[u128;25]{
+ let[b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24]=tp(s,mk);
+ let n4=jaa(b4,mk.al);
+@@ -353,7 +353,7 @@
+ let a24=b24^(b20|b21);
+ [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24]
+ }
+-#[inline(never)]
++#[inline(always)]
+ fn mag(s:[u128;25],rc:u128,mk:MK)->[u128;25]{
+ let[b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24]=tp(s,mk);
+ let n1=jaa(b1,mk.al);
+@@ -442,21 +442,16 @@
+ let a14=b14^(b10&b11);
+ [x0,x1,x2,x3,x4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,KG,0xffffffffffffffff,KG,KG,KG,KG,0,0,0,0]
+ }
++/// Four rounds with their round constants, the fourth skipped when its constant is 0 (the
++/// half-permutation's last group then ends after three rounds, as `zah` expects).
++#[inline(never)]
++fn q4(s:[u128;25],ra:u128,rb:u128,rc:u128,rd:u128,mk:MK)->[u128;25]{let s=jag(s,ra,mk);let s=kag(s,rb,mk);let s=lag(s,rc,mk);if rd==0{return s;}mag(s,rd,mk)}
+ fn zah(st:[u128;25],g:Box<[u128;13]>,mk:MK,h:Nullable<[u128;13]>)->[u128;25]{
+ let[r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,_]=g.unbox();
+-let mut st=jag(st,r0,mk);
+-st=kag(st,r1,mk);
+-st=lag(st,r2,mk);
+-st=mag(st,r3,mk);
+-st=jag(st,r4,mk);
+-st=kag(st,r5,mk);
+-st=lag(st,r6,mk);
+-st=mag(st,r7,mk);
+-st=jag(st,r8,mk);
+-st=kag(st,r9,mk);
+-st=lag(st,r10,mk);
++let mut st=q4(st,r0,r1,r2,r3,mk);
++st=q4(st,r4,r5,r6,r7,mk);
++st=q4(st,r8,r9,r10,r11,mk);
+ match Into::<u128,ZF>::into(r11){0=>{let[_,_,_,_,_,_,_,_,_,_,_,_,sel]=g.unbox();let sel:ZF=sel.into();if sel==1{return st;}return zai(st,sel);},_=>{},}
+-st=mag(st,r11,mk);
+ match core::nullable::match_nullable(h){core::nullable::FromNullableResult::Null=>st,core::nullable::FromNullableResult::NotNull(b)=>zah(st,b,mk,core::nullable::null()),}
+ }
+ #[inline(always)]
