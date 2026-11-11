@@ -1,0 +1,944 @@
+diff --git a/crates/slh_dsa_128s/src/lanes.cairo b/crates/slh_dsa_128s/src/lanes.cairo
+index d26dfd81d2aaeaf319041dc24789cb903abcf02c..4a3c06be4552b47f2de52b6a93dc9b04a79d4b3c 100644
+--- a/crates/slh_dsa_128s/src/lanes.cairo
++++ b/crates/slh_dsa_128s/src/lanes.cairo
+@@ -1225,820 +1225,122 @@ let a3:u64=upcast(ga::<_,_,0,0xffdf000000000000>(gm::<_,_,0,1080863910568919040>
+ let (n0,n1)=fo(s,a0,a1,a2,a3,k0,k1)?;
+ let mut x0=n0;
+ let mut x1=n1;
+-let (y0,y1)=match e16(d0) {
+-E16::V0=>{
+-let a3:u64=upcast(ga::<_,_,16777216,17901527043837788160>(e1,FR13));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w0,w1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,33554432,18173994821310480384>(e2,FR14));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w2,w3)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,50331648,18310228710055215104>(e3,FR15));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w4,w5)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w6,w7)?;
+-(y0,y1)
+-},
+-E16::V1=>{
+-let a3:u64=upcast(ga::<_,_,16777216,17901527043837788160>(e1,FR13));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w0,w1,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,33554432,18173994821310480384>(e2,FR14));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w2,w3)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,50331648,18310228710055215104>(e3,FR15));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w4,w5)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w6,w7)?;
+-(y0,y1)
+-},
+-E16::V2=>{
+-let a3:u64=upcast(ga::<_,_,72057594054705152,17973584637875716096>(e1,FR17));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w0,w1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,33554432,18173994821310480384>(e2,FR14));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w2,w3,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,50331648,18310228710055215104>(e3,FR15));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w4,w5)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w6,w7)?;
+-(y0,y1)
+-},
+-E16::V3=>{
+-let a3:u64=upcast(ga::<_,_,72057594054705152,17973584637875716096>(e1,FR17));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w0,w1,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,33554432,18173994821310480384>(e2,FR14));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w2,w3,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,50331648,18310228710055215104>(e3,FR15));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w4,w5)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w6,w7)?;
+-(y0,y1)
+-},
+-E16::V4=>{
+-let a3:u64=upcast(ga::<_,_,144115188092633088,18045642231913644032>(e1,FR18));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w0,w1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594071482368,18246052415348408320>(e2,FR19));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w2,w3)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,50331648,18310228710055215104>(e3,FR15));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w4,w5,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w6,w7)?;
+-(y0,y1)
+-},
+-E16::V5=>{
+-let a3:u64=upcast(ga::<_,_,144115188092633088,18045642231913644032>(e1,FR18));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w0,w1,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594071482368,18246052415348408320>(e2,FR19));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w2,w3)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,50331648,18310228710055215104>(e3,FR15));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w4,w5,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w6,w7)?;
+-(y0,y1)
+-},
+-E16::V6=>{
+-let a3:u64=upcast(ga::<_,_,216172782130561024,18117699825951571968>(e1,FR20));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w0,w1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594071482368,18246052415348408320>(e2,FR19));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w2,w3,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,50331648,18310228710055215104>(e3,FR15));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w4,w5,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w6,w7)?;
+-(y0,y1)
+-},
+-E16::V7=>{
+-let a3:u64=upcast(ga::<_,_,216172782130561024,18117699825951571968>(e1,FR20));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w0,w1,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594071482368,18246052415348408320>(e2,FR19));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w2,w3,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,50331648,18310228710055215104>(e3,FR15));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w4,w5,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w6,w7)?;
+-(y0,y1)
+-},
+-E16::V8=>{
+-let a3:u64=upcast(ga::<_,_,288230376168488960,18189757419989499904>(e1,FR21));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w0,w1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188109410304,18318110009386336256>(e2,FR22));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w2,w3)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594088259584,18382286304093143040>(e3,FR23));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w4,w5)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w6,w7,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V9=>{
+-let a3:u64=upcast(ga::<_,_,288230376168488960,18189757419989499904>(e1,FR21));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w0,w1,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188109410304,18318110009386336256>(e2,FR22));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w2,w3)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594088259584,18382286304093143040>(e3,FR23));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w4,w5)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w6,w7,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V10=>{
+-let a3:u64=upcast(ga::<_,_,360287970206416896,18261815014027427840>(e1,FR24));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w0,w1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188109410304,18318110009386336256>(e2,FR22));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w2,w3,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594088259584,18382286304093143040>(e3,FR23));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w4,w5)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w6,w7,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V11=>{
+-let a3:u64=upcast(ga::<_,_,360287970206416896,18261815014027427840>(e1,FR24));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w0,w1,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188109410304,18318110009386336256>(e2,FR22));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w2,w3,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594088259584,18382286304093143040>(e3,FR23));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w4,w5)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w6,w7,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V12=>{
+-let a3:u64=upcast(ga::<_,_,432345564244344832,18333872608065355776>(e1,FR25));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w0,w1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782147338240,18390167603424264192>(e2,FR26));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w2,w3)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594088259584,18382286304093143040>(e3,FR23));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w4,w5,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w6,w7,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V13=>{
+-let a3:u64=upcast(ga::<_,_,432345564244344832,18333872608065355776>(e1,FR25));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w0,w1,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782147338240,18390167603424264192>(e2,FR26));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w2,w3)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594088259584,18382286304093143040>(e3,FR23));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w4,w5,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w6,w7,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V14=>{
+-let a3:u64=upcast(ga::<_,_,504403158282272768,18405930202103283712>(e1,FR27));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w0,w1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782147338240,18390167603424264192>(e2,FR26));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w2,w3,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594088259584,18382286304093143040>(e3,FR23));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w4,w5,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w6,w7,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V15=>{
+-let a3:u64=upcast(ga::<_,_,504403158282272768,18405930202103283712>(e1,FR27));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w0,w1,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782147338240,18390167603424264192>(e2,FR26));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w2,w3,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594088259584,18382286304093143040>(e3,FR23));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w4,w5,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,67108864,18378345654435971072>(e4,FR16));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w6,w7,x0,x1)?;
+-(y0,y1)
+-},
++let (g0c0,g0c1,g0c2,g0c3,g0s0,g0s1,g0s2,g0s3):(BoundedInt<0,504403158282272768>,BoundedInt<0,216172782147338240>,BoundedInt<0,72057594088259584>,BoundedInt<0,67108864>,bool,bool,bool,bool)=match e16(d0) {
++E16::V0=>(upcast(FR13),upcast(FR14),upcast(FR15),upcast(FR16),false,false,false,false),
++E16::V1=>(upcast(FR13),upcast(FR14),upcast(FR15),upcast(FR16),true,false,false,false),
++E16::V2=>(upcast(FR17),upcast(FR14),upcast(FR15),upcast(FR16),false,true,false,false),
++E16::V3=>(upcast(FR17),upcast(FR14),upcast(FR15),upcast(FR16),true,true,false,false),
++E16::V4=>(upcast(FR18),upcast(FR19),upcast(FR15),upcast(FR16),false,false,true,false),
++E16::V5=>(upcast(FR18),upcast(FR19),upcast(FR15),upcast(FR16),true,false,true,false),
++E16::V6=>(upcast(FR20),upcast(FR19),upcast(FR15),upcast(FR16),false,true,true,false),
++E16::V7=>(upcast(FR20),upcast(FR19),upcast(FR15),upcast(FR16),true,true,true,false),
++E16::V8=>(upcast(FR21),upcast(FR22),upcast(FR23),upcast(FR16),false,false,false,true),
++E16::V9=>(upcast(FR21),upcast(FR22),upcast(FR23),upcast(FR16),true,false,false,true),
++E16::V10=>(upcast(FR24),upcast(FR22),upcast(FR23),upcast(FR16),false,true,false,true),
++E16::V11=>(upcast(FR24),upcast(FR22),upcast(FR23),upcast(FR16),true,true,false,true),
++E16::V12=>(upcast(FR25),upcast(FR26),upcast(FR23),upcast(FR16),false,false,true,true),
++E16::V13=>(upcast(FR25),upcast(FR26),upcast(FR23),upcast(FR16),true,false,true,true),
++E16::V14=>(upcast(FR27),upcast(FR26),upcast(FR23),upcast(FR16),false,true,true,true),
++E16::V15=>(upcast(FR27),upcast(FR26),upcast(FR23),upcast(FR16),true,true,true,true),
+ };
++let g0a0:u64=upcast(ga::<_,_,0,18405930202103283712>(e1,g0c0));
++let g0a1:u64=upcast(ga::<_,_,0,18390167603424264192>(e2,g0c1));
++let g0a2:u64=upcast(ga::<_,_,0,18382286304093143040>(e3,g0c2));
++let g0a3:u64=upcast(ga::<_,_,0,18378345654435971072>(e4,g0c3));
++let (l0,l1,r0,r1)=if g0s0 { (w0,w1,x0,x1) } else { (x0,x1,w0,w1) };
++let (y0,y1)=hlo(s,a0,a1,a2,g0a0,l0,l1,r0,r1)?;
++x0=y0;
++x1=y1;
++let (l0,l1,r0,r1)=if g0s1 { (w2,w3,x0,x1) } else { (x0,x1,w2,w3) };
++let (y0,y1)=hlo(s,a0,a1,a2,g0a1,l0,l1,r0,r1)?;
++x0=y0;
++x1=y1;
++let (l0,l1,r0,r1)=if g0s2 { (w4,w5,x0,x1) } else { (x0,x1,w4,w5) };
++let (y0,y1)=hlo(s,a0,a1,a2,g0a2,l0,l1,r0,r1)?;
++x0=y0;
++x1=y1;
++let (l0,l1,r0,r1)=if g0s3 { (w6,w7,x0,x1) } else { (x0,x1,w6,w7) };
++let (y0,y1)=hlo(s,a0,a1,a2,g0a3,l0,l1,r0,r1)?;
++x0=y0;
++x1=y1;
++let (g1c0,g1c1,g1c2,g1c3,g1s0,g1s1,g1s2,g1s3):(BoundedInt<0,504403158349381632>,BoundedInt<0,216172782214447104>,BoundedInt<0,72057594155368448>,BoundedInt<0,134217728>,bool,bool,bool,bool)=match e16(d1) {
++E16::V0=>(upcast(FR28),upcast(FR29),upcast(FR30),upcast(FR31),false,false,false,false),
++E16::V1=>(upcast(FR28),upcast(FR29),upcast(FR30),upcast(FR31),true,false,false,false),
++E16::V2=>(upcast(FR32),upcast(FR29),upcast(FR30),upcast(FR31),false,true,false,false),
++E16::V3=>(upcast(FR32),upcast(FR29),upcast(FR30),upcast(FR31),true,true,false,false),
++E16::V4=>(upcast(FR33),upcast(FR34),upcast(FR30),upcast(FR31),false,false,true,false),
++E16::V5=>(upcast(FR33),upcast(FR34),upcast(FR30),upcast(FR31),true,false,true,false),
++E16::V6=>(upcast(FR35),upcast(FR34),upcast(FR30),upcast(FR31),false,true,true,false),
++E16::V7=>(upcast(FR35),upcast(FR34),upcast(FR30),upcast(FR31),true,true,true,false),
++E16::V8=>(upcast(FR36),upcast(FR37),upcast(FR38),upcast(FR31),false,false,false,true),
++E16::V9=>(upcast(FR36),upcast(FR37),upcast(FR38),upcast(FR31),true,false,false,true),
++E16::V10=>(upcast(FR39),upcast(FR37),upcast(FR38),upcast(FR31),false,true,false,true),
++E16::V11=>(upcast(FR39),upcast(FR37),upcast(FR38),upcast(FR31),true,true,false,true),
++E16::V12=>(upcast(FR40),upcast(FR41),upcast(FR38),upcast(FR31),false,false,true,true),
++E16::V13=>(upcast(FR40),upcast(FR41),upcast(FR38),upcast(FR31),true,false,true,true),
++E16::V14=>(upcast(FR42),upcast(FR41),upcast(FR38),upcast(FR31),false,true,true,true),
++E16::V15=>(upcast(FR42),upcast(FR41),upcast(FR38),upcast(FR31),true,true,true,true),
++};
++let g1a0:u64=upcast(ga::<_,_,0,18376375329615773696>(e5,g1c0));
++let g1a1:u64=upcast(ga::<_,_,0,18375249429725708288>(e6,g1c1));
++let g1a2:u64=upcast(ga::<_,_,0,18374686479789064192>(e7,g1c2));
++let g1a3:u64=upcast(ga::<_,_,0,16068843470592147456>(e8,g1c3));
++let (l0,l1,r0,r1)=if g1s0 { (w8,w9,x0,x1) } else { (x0,x1,w8,w9) };
++let (y0,y1)=hlo(s,a0,a1,a2,g1a0,l0,l1,r0,r1)?;
+ x0=y0;
+ x1=y1;
+-let (y0,y1)=match e16(d1) {
+-E16::V0=>{
+-let a3:u64=upcast(ga::<_,_,83886080,17871972171350278144>(e5,FR28));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w8,w9)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,100663296,18159076647611924480>(e6,FR29));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w10,w11)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,117440512,18302628885751136256>(e7,FR30));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w12,w13)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w14,w15)?;
+-(y0,y1)
+-},
+-E16::V1=>{
+-let a3:u64=upcast(ga::<_,_,83886080,17871972171350278144>(e5,FR28));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w8,w9,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,100663296,18159076647611924480>(e6,FR29));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w10,w11)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,117440512,18302628885751136256>(e7,FR30));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w12,w13)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w14,w15)?;
+-(y0,y1)
+-},
+-E16::V2=>{
+-let a3:u64=upcast(ga::<_,_,72057594121814016,17944029765388206080>(e5,FR32));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w8,w9)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,100663296,18159076647611924480>(e6,FR29));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w10,w11,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,117440512,18302628885751136256>(e7,FR30));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w12,w13)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w14,w15)?;
+-(y0,y1)
+-},
+-E16::V3=>{
+-let a3:u64=upcast(ga::<_,_,72057594121814016,17944029765388206080>(e5,FR32));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w8,w9,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,100663296,18159076647611924480>(e6,FR29));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w10,w11,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,117440512,18302628885751136256>(e7,FR30));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w12,w13)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w14,w15)?;
+-(y0,y1)
+-},
+-E16::V4=>{
+-let a3:u64=upcast(ga::<_,_,144115188159741952,18016087359426134016>(e5,FR33));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w8,w9)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594138591232,18231134241649852416>(e6,FR34));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w10,w11)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,117440512,18302628885751136256>(e7,FR30));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w12,w13,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w14,w15)?;
+-(y0,y1)
+-},
+-E16::V5=>{
+-let a3:u64=upcast(ga::<_,_,144115188159741952,18016087359426134016>(e5,FR33));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w8,w9,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594138591232,18231134241649852416>(e6,FR34));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w10,w11)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,117440512,18302628885751136256>(e7,FR30));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w12,w13,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w14,w15)?;
+-(y0,y1)
+-},
+-E16::V6=>{
+-let a3:u64=upcast(ga::<_,_,216172782197669888,18088144953464061952>(e5,FR35));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w8,w9)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594138591232,18231134241649852416>(e6,FR34));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w10,w11,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,117440512,18302628885751136256>(e7,FR30));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w12,w13,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w14,w15)?;
+-(y0,y1)
+-},
+-E16::V7=>{
+-let a3:u64=upcast(ga::<_,_,216172782197669888,18088144953464061952>(e5,FR35));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w8,w9,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594138591232,18231134241649852416>(e6,FR34));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w10,w11,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,117440512,18302628885751136256>(e7,FR30));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w12,w13,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w14,w15)?;
+-(y0,y1)
+-},
+-E16::V8=>{
+-let a3:u64=upcast(ga::<_,_,288230376235597824,18160202547501989888>(e5,FR36));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w8,w9)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188176519168,18303191835687780352>(e6,FR37));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w10,w11)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594155368448,18374686479789064192>(e7,FR38));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w12,w13)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w14,w15,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V9=>{
+-let a3:u64=upcast(ga::<_,_,288230376235597824,18160202547501989888>(e5,FR36));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w8,w9,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188176519168,18303191835687780352>(e6,FR37));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w10,w11)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594155368448,18374686479789064192>(e7,FR38));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w12,w13)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w14,w15,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V10=>{
+-let a3:u64=upcast(ga::<_,_,360287970273525760,18232260141539917824>(e5,FR39));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w8,w9)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188176519168,18303191835687780352>(e6,FR37));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w10,w11,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594155368448,18374686479789064192>(e7,FR38));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w12,w13)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w14,w15,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V11=>{
+-let a3:u64=upcast(ga::<_,_,360287970273525760,18232260141539917824>(e5,FR39));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w8,w9,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188176519168,18303191835687780352>(e6,FR37));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w10,w11,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594155368448,18374686479789064192>(e7,FR38));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w12,w13)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w14,w15,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V12=>{
+-let a3:u64=upcast(ga::<_,_,432345564311453696,18304317735577845760>(e5,FR40));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w8,w9)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782214447104,18375249429725708288>(e6,FR41));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w10,w11)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594155368448,18374686479789064192>(e7,FR38));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w12,w13,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w14,w15,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V13=>{
+-let a3:u64=upcast(ga::<_,_,432345564311453696,18304317735577845760>(e5,FR40));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w8,w9,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782214447104,18375249429725708288>(e6,FR41));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w10,w11)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594155368448,18374686479789064192>(e7,FR38));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w12,w13,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w14,w15,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V14=>{
+-let a3:u64=upcast(ga::<_,_,504403158349381632,18376375329615773696>(e5,FR42));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w8,w9)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782214447104,18375249429725708288>(e6,FR41));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w10,w11,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594155368448,18374686479789064192>(e7,FR38));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w12,w13,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w14,w15,x0,x1)?;
+-(y0,y1)
+-},
+-E16::V15=>{
+-let a3:u64=upcast(ga::<_,_,504403158349381632,18376375329615773696>(e5,FR42));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w8,w9,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782214447104,18375249429725708288>(e6,FR41));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w10,w11,x0,x1)?;
++let (l0,l1,r0,r1)=if g1s1 { (w10,w11,x0,x1) } else { (x0,x1,w10,w11) };
++let (y0,y1)=hlo(s,a0,a1,a2,g1a1,l0,l1,r0,r1)?;
+ x0=y0;
+ x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594155368448,18374686479789064192>(e7,FR38));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w12,w13,x0,x1)?;
++let (l0,l1,r0,r1)=if g1s2 { (w12,w13,x0,x1) } else { (x0,x1,w12,w13) };
++let (y0,y1)=hlo(s,a0,a1,a2,g1a2,l0,l1,r0,r1)?;
+ x0=y0;
+ x1=y1;
+-let a3:u64=upcast(ga::<_,_,134217728,16068843470592147456>(e8,FR31));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w14,w15,x0,x1)?;
+-(y0,y1)
+-},
+-};
++let (l0,l1,r0,r1)=if g1s3 { (w14,w15,x0,x1) } else { (x0,x1,w14,w15) };
++let (y0,y1)=hlo(s,a0,a1,a2,g1a3,l0,l1,r0,r1)?;
+ x0=y0;
+ x1=y1;
+ let e9=gm::<_,_,0,7493989779944505344>(t,FR4);
+ let e10=gm::<_,_,0,3746994889972252672>(t,FR7);
+ let e11=gm::<_,_,0,1873497444986126336>(t,FR9);
+ let e12=gm::<_,_,0,936748722493063168>(t,FR11);
+-let r=match ed2 {
+-E16::V0=>{
+-let a3:u64=upcast(ga::<_,_,150994944,7493989780095500288>(e9,FR43));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w16,w17)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,167772160,3746994890140024832>(e10,FR44));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w18,w19)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,184549376,1873497445170675712>(e11,FR45));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w20,w21)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,x0,x1,w22,w23)?
+-},
+-E16::V1=>{
+-let a3:u64=upcast(ga::<_,_,150994944,7493989780095500288>(e9,FR43));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w16,w17,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,167772160,3746994890140024832>(e10,FR44));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w18,w19)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,184549376,1873497445170675712>(e11,FR45));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w20,w21)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,x0,x1,w22,w23)?
+-},
+-E16::V2=>{
+-let a3:u64=upcast(ga::<_,_,72057594188922880,7566047374133428224>(e9,FR47));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w16,w17)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,167772160,3746994890140024832>(e10,FR44));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w18,w19,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,184549376,1873497445170675712>(e11,FR45));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w20,w21)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,x0,x1,w22,w23)?
+-},
+-E16::V3=>{
+-let a3:u64=upcast(ga::<_,_,72057594188922880,7566047374133428224>(e9,FR47));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w16,w17,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,167772160,3746994890140024832>(e10,FR44));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w18,w19,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,184549376,1873497445170675712>(e11,FR45));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w20,w21)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,x0,x1,w22,w23)?
+-},
+-E16::V4=>{
+-let a3:u64=upcast(ga::<_,_,144115188226850816,7638104968171356160>(e9,FR48));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w16,w17)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594205700096,3819052484177952768>(e10,FR49));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w18,w19)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,184549376,1873497445170675712>(e11,FR45));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w20,w21,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,x0,x1,w22,w23)?
+-},
+-E16::V5=>{
+-let a3:u64=upcast(ga::<_,_,144115188226850816,7638104968171356160>(e9,FR48));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w16,w17,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594205700096,3819052484177952768>(e10,FR49));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w18,w19)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,184549376,1873497445170675712>(e11,FR45));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w20,w21,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,x0,x1,w22,w23)?
+-},
+-E16::V6=>{
+-let a3:u64=upcast(ga::<_,_,216172782264778752,7710162562209284096>(e9,FR50));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w16,w17)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594205700096,3819052484177952768>(e10,FR49));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w18,w19,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,184549376,1873497445170675712>(e11,FR45));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w20,w21,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,x0,x1,w22,w23)?
+-},
+-E16::V7=>{
+-let a3:u64=upcast(ga::<_,_,216172782264778752,7710162562209284096>(e9,FR50));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w16,w17,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594205700096,3819052484177952768>(e10,FR49));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w18,w19,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,184549376,1873497445170675712>(e11,FR45));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w20,w21,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,x0,x1,w22,w23)?
+-},
+-E16::V8=>{
+-let a3:u64=upcast(ga::<_,_,288230376302706688,7782220156247212032>(e9,FR51));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w16,w17)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188243628032,3891110078215880704>(e10,FR52));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w18,w19)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594222477312,1945555039208603648>(e11,FR53));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w20,w21)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,w22,w23,x0,x1)?
+-},
+-E16::V9=>{
+-let a3:u64=upcast(ga::<_,_,288230376302706688,7782220156247212032>(e9,FR51));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w16,w17,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188243628032,3891110078215880704>(e10,FR52));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w18,w19)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594222477312,1945555039208603648>(e11,FR53));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w20,w21)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,w22,w23,x0,x1)?
+-},
+-E16::V10=>{
+-let a3:u64=upcast(ga::<_,_,360287970340634624,7854277750285139968>(e9,FR54));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w16,w17)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188243628032,3891110078215880704>(e10,FR52));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w18,w19,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594222477312,1945555039208603648>(e11,FR53));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w20,w21)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,w22,w23,x0,x1)?
+-},
+-E16::V11=>{
+-let a3:u64=upcast(ga::<_,_,360287970340634624,7854277750285139968>(e9,FR54));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w16,w17,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,144115188243628032,3891110078215880704>(e10,FR52));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w18,w19,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594222477312,1945555039208603648>(e11,FR53));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w20,w21)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,w22,w23,x0,x1)?
+-},
+-E16::V12=>{
+-let a3:u64=upcast(ga::<_,_,432345564378562560,7926335344323067904>(e9,FR55));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w16,w17)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782281555968,3963167672253808640>(e10,FR56));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w18,w19)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594222477312,1945555039208603648>(e11,FR53));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w20,w21,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,w22,w23,x0,x1)?
+-},
+-E16::V13=>{
+-let a3:u64=upcast(ga::<_,_,432345564378562560,7926335344323067904>(e9,FR55));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w16,w17,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782281555968,3963167672253808640>(e10,FR56));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w18,w19)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594222477312,1945555039208603648>(e11,FR53));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w20,w21,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,w22,w23,x0,x1)?
+-},
+-E16::V14=>{
+-let a3:u64=upcast(ga::<_,_,504403158416490496,7998392938360995840>(e9,FR57));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,x0,x1,w16,w17)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782281555968,3963167672253808640>(e10,FR56));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w18,w19,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594222477312,1945555039208603648>(e11,FR53));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w20,w21,x0,x1)?;
+-x0=y0;
+-x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,w22,w23,x0,x1)?
+-},
+-E16::V15=>{
+-let a3:u64=upcast(ga::<_,_,504403158416490496,7998392938360995840>(e9,FR57));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w16,w17,x0,x1)?;
++let (g2c0,g2c1,g2c2,g2c3,g2s0,g2s1,g2s2,g2s3):(BoundedInt<0,504403158416490496>,BoundedInt<0,216172782281555968>,BoundedInt<0,72057594222477312>,BoundedInt<0,201326592>,bool,bool,bool,bool)=match ed2 {
++E16::V0=>(upcast(FR43),upcast(FR44),upcast(FR45),upcast(FR46),false,false,false,false),
++E16::V1=>(upcast(FR43),upcast(FR44),upcast(FR45),upcast(FR46),true,false,false,false),
++E16::V2=>(upcast(FR47),upcast(FR44),upcast(FR45),upcast(FR46),false,true,false,false),
++E16::V3=>(upcast(FR47),upcast(FR44),upcast(FR45),upcast(FR46),true,true,false,false),
++E16::V4=>(upcast(FR48),upcast(FR49),upcast(FR45),upcast(FR46),false,false,true,false),
++E16::V5=>(upcast(FR48),upcast(FR49),upcast(FR45),upcast(FR46),true,false,true,false),
++E16::V6=>(upcast(FR50),upcast(FR49),upcast(FR45),upcast(FR46),false,true,true,false),
++E16::V7=>(upcast(FR50),upcast(FR49),upcast(FR45),upcast(FR46),true,true,true,false),
++E16::V8=>(upcast(FR51),upcast(FR52),upcast(FR53),upcast(FR46),false,false,false,true),
++E16::V9=>(upcast(FR51),upcast(FR52),upcast(FR53),upcast(FR46),true,false,false,true),
++E16::V10=>(upcast(FR54),upcast(FR52),upcast(FR53),upcast(FR46),false,true,false,true),
++E16::V11=>(upcast(FR54),upcast(FR52),upcast(FR53),upcast(FR46),true,true,false,true),
++E16::V12=>(upcast(FR55),upcast(FR56),upcast(FR53),upcast(FR46),false,false,true,true),
++E16::V13=>(upcast(FR55),upcast(FR56),upcast(FR53),upcast(FR46),true,false,true,true),
++E16::V14=>(upcast(FR57),upcast(FR56),upcast(FR53),upcast(FR46),false,true,true,true),
++E16::V15=>(upcast(FR57),upcast(FR56),upcast(FR53),upcast(FR46),true,true,true,true),
++};
++let g2a0:u64=upcast(ga::<_,_,0,7998392938360995840>(e9,g2c0));
++let g2a1:u64=upcast(ga::<_,_,0,3963167672253808640>(e10,g2c1));
++let g2a2:u64=upcast(ga::<_,_,0,1945555039208603648>(e11,g2c2));
++let g2a3:u64=upcast(ga::<_,_,0,936748722694389760>(e12,g2c3));
++let (l0,l1,r0,r1)=if g2s0 { (w16,w17,x0,x1) } else { (x0,x1,w16,w17) };
++let (y0,y1)=hlo(s,a0,a1,a2,g2a0,l0,l1,r0,r1)?;
+ x0=y0;
+ x1=y1;
+-let a3:u64=upcast(ga::<_,_,216172782281555968,3963167672253808640>(e10,FR56));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w18,w19,x0,x1)?;
++let (l0,l1,r0,r1)=if g2s1 { (w18,w19,x0,x1) } else { (x0,x1,w18,w19) };
++let (y0,y1)=hlo(s,a0,a1,a2,g2a1,l0,l1,r0,r1)?;
+ x0=y0;
+ x1=y1;
+-let a3:u64=upcast(ga::<_,_,72057594222477312,1945555039208603648>(e11,FR53));
+-let (y0,y1)=hlo(s,a0,a1,a2,a3,w20,w21,x0,x1)?;
++let (l0,l1,r0,r1)=if g2s2 { (w20,w21,x0,x1) } else { (x0,x1,w20,w21) };
++let (y0,y1)=hlo(s,a0,a1,a2,g2a2,l0,l1,r0,r1)?;
+ x0=y0;
+ x1=y1;
+-let a3:u64=upcast(ga::<_,_,201326592,936748722694389760>(e12,FR46));
+-hlor(s,a0,a1,a2,a3,w22,w23,x0,x1)?
+-},
+-};
++let (l0,l1,r0,r1)=if g2s3 { (w22,w23,x0,x1) } else { (x0,x1,w22,w23) };
++let r=hlor(s,a0,a1,a2,g2a3,l0,l1,r0,r1)?;
+ Some(r)
+ }
+ const TL_0:UnitInt<0>=0;
+@@ -2585,10 +1887,8 @@ k4096:NonZero<UnitInt<4096>>,
+ )->bool {
+ let mut hs=sig;
+ core::internal::revoke_ap_tracking();
+-let rt=match ht_layer_i(ref hs,r0,leaf_idx,leaf_lane,tree_address_lane,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0,k8,k4096) {
+-Option::Some(v)=>v,
+-Option::None=>{ return false; },
+-};
++let bx0=match hs.multi_pop_front::<88>() { Option::Some(b)=>b, Option::None=>{ return false; } };
++let rt=ht_layer(r0,bx0,leaf_idx,tree_address_lane,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0,k8,k4096);
+ let (t1,l1)=bd::<_,0x200,0x1fffffffffff,0x1ff>(tree,k512);
+ let (t2,l2)=bd::<_,0x200,0xfffffffff,0x1ff>(t1,k512);
+ let (lane1b,lane2b)=bd::<_,0x10000000000000000,0xffffffffffffffff,0xffffffffffffffff>(u128_byte_reverse(upcast(ga::<_,_,0,1267650600209782692607365742591>(t1,gm::<_,_,0,1267650600209782657422993653760>(t2,BX64)))),s.d);
+@@ -2632,7 +1932,7 @@ let rt=ht_layer(rt,bx2,l2,lane2,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s
+ let rt=ht_layer(rt,bx3,l3,lane3,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x3000000,k8,k4096);
+ let rt=ht_layer(rt,bx4,l4,lane4,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x4000000,k8,k4096);
+ let rt=ht_layer(rt,bx5,l5,lane5,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x5000000,k8,k4096);
+-let rt=match ht_layer_o(bx6,rt,t5,upcast(lane5a1),s.z,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x6000000,k8,k4096) { Option::Some(v)=>v, Option::None=>{ return false; } };
++let rt=ht_layer(rt,bx6,t5,s.z,SL { s0:s.s0,s1:s.s1,d:s.d,c1f:s.c1f,z:s.z,pad:s.pad },s.k256,s.t2,0x6000000,k8,k4096);
+ rt == upcast(ga::<_,_,0,340282366920938463463374607431768211455>(pk2,gm::<_,_,0,340282366920938463444927863358058659840>(pk3,BX64)))
+ }
+ #[cfg(test)]

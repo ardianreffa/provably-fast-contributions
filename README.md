@@ -3,7 +3,7 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-512**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-512, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**32 contributions** in total: 28 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
+**33 contributions** in total: 29 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
 I now have contributions in all five signature schemes: ML-DSA-44, ML-DSA-87, SLH-DSA-128s, Falcon-512 and Falcon-1024.
 Sekarang sudah ada kontribusi saya di kelima jenis tanda tangan: ML-DSA-44, ML-DSA-87, SLH-DSA-128s, Falcon-512 dan Falcon-1024.
 
@@ -25,8 +25,9 @@ Sekarang sudah ada kontribusi saya di kelima jenis tanda tangan: ML-DSA-44, ML-D
   | ML-DSA-44 | `mj_50bc7f09` | 174,316,245 | 29 |
   | Falcon-512 | `fj_3a35fbca` | 24,470,451 | 31 |
   | Falcon-1024 | `fk_12c60489` | 49,434,087 | 32 |
+  | SLH-DSA-128s | `sj_431c175a` | 396,579,569 | 33 |
 
-- **Records I once set, since passed:** ML-DSA-87 `mk_96568c3f` (contribution 28, first record after the reset, passed by my own `mk_b2e61741`), ML-DSA-87 `mk_195e9e3e` (contribution 27, record at the time; its class, 97.6% of the limit, is over the new budget, so it no longer counts as a record after the 11 Nov reset), ML-DSA-87 `mk_0e77da11` (contribution 26, passed by @rukafe0x's `mk_a05fd935`, record retaken by my `mk_195e9e3e`), ML-DSA-87 `mk_790f1c30` (contribution 25, passed by @rukafe0x's line `mk_04b420bb`, `mk_295151d9`, `mk_711ea4cc`, record retaken by my `mk_0e77da11`), ML-DSA-44 `mj_eaf3b3db` (contribution 24, passed by @solanaqubits' `mj_51c7a1c9`, built on it, then @rukafe0x's `mj_6c044bee` and `mj_9663722c`, then @solanaqubits' `mj_36c63657`), ML-DSA-87 `mk_4ff5f9db` (contribution 22, passed by my own `mk_790f1c30`), ML-DSA-44 `mj_11c423be` (contribution 23, passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`), ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
+- **Records I once set, since passed:** ML-DSA-87 `mk_96568c3f` (contribution 28, first record after the reset, passed by my own `mk_b2e61741`), ML-DSA-87 `mk_195e9e3e` (contribution 27, record at the time; its class, 97.6% of the limit, is over the new budget, so it no longer counts as a record after the 11 Nov reset), ML-DSA-87 `mk_0e77da11` (contribution 26, passed by @rukafe0x's `mk_a05fd935`, record retaken by my `mk_195e9e3e`), ML-DSA-87 `mk_790f1c30` (contribution 25, passed by @rukafe0x's line `mk_04b420bb`, `mk_295151d9`, `mk_711ea4cc`, record retaken by my `mk_0e77da11`), ML-DSA-44 `mj_eaf3b3db` (contribution 24, passed by @solanaqubits' `mj_51c7a1c9`, built on it, then @rukafe0x's `mj_6c044bee` and `mj_9663722c`, then @solanaqubits' `mj_36c63657`), ML-DSA-87 `mk_4ff5f9db` (contribution 22, passed by my own `mk_790f1c30`), ML-DSA-44 `mj_11c423be` (contribution 23, passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`), ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`; that line, slimmed, is my current record `sj_431c175a`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: contribution 10 was accepted but not a record; contribution 32 is the current record.
 - STARK math challenge: **53 points** (M-0078 = 50 for contribution 19, review of M-0020 = 3 for contribution 13).
 
@@ -79,6 +80,7 @@ Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 SLH-DSA-128s (see the section [SLH-DSA-128s](#slh-dsa-128s)):
 
 15. `sj_0ab1739b`: new `ht_layer` call convention (396,508,400 gas, record at the time, since passed by @thangvmt's `sj_e3657213`, -5,900 vs @nadai2010's `sj_fe19b6f9`). My first SLH-DSA record.
+33. `sj_431c175a` (after the reset): @thangvmt's `sj_e3657213` (on @binharold's `sj_03a4d8f4`, on my `sj_0ab1739b`) slimmed to fit the 75% budget: layers 0 and 6 call the out-of-line `ht_layer`, and the FORS climb `climb8i` runs one set of four hashes with an operand swap instead of 16 inlined arms (396,579,569 gas, **current SLH-DSA-128s record (as of 11 Nov 2026)**, -1,504,884 vs @akashneelesh's `sj_14d3d510`). Credit: **@thangvmt**, **@binharold**, **@akashneelesh**, **@nadai2010**, **@odinfree**, **@realadii**, **@ryun1**.
 
 STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Three reviews and one result of my own (19):
 
@@ -2038,14 +2040,15 @@ Patch Falcon-1024 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) 
 
 ## SLH-DSA-128s
 
-One accepted contribution to the **SLH-DSA-SHAKE-128s** season on
-[postquantum.provably.fast](https://postquantum.provably.fast), baseline `7ab3ce3d`. The official patch is cumulative
-against that baseline and contains the work of many contributors.
+Two accepted contributions to the **SLH-DSA-SHAKE-128s** season on
+[postquantum.provably.fast](https://postquantum.provably.fast), baseline `7ab3ce3d`. The official patches are cumulative
+against that baseline and contain the work of many contributors.
 
-> **Disclosure / Pernyataan:** this patch was produced by an AI agent, **Claude Code** (models Sonnet and Opus),
-> which I (**@ardianreffa**) ran and supervised. The job title on the board says so.
-> Patch ini dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
-> dan awasi. Judul job di papan skor juga menyebutkannya.
+> **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code** (models Sonnet and Opus),
+> which I (**@ardianreffa**) ran and supervised. Contribution 15's job title says so; contribution 33's job records the agent
+> (`claude-code`) and model (`claude-opus-5-5`).
+> Patch-patch ini dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
+> dan awasi. Judul job kontribusi 15 menyebutkannya; job kontribusi 33 mencatat agent (`claude-code`) dan model (`claude-opus-5-5`).
 
 ### English
 
@@ -2077,7 +2080,7 @@ record (756/756).
 | | Gas |
 |---|---:|
 | Parent `sj_fe19b6f9` (by @nadai2010, record at the time) | 396,514,300 |
-| **This job (accepted, record at the time; since passed by @thangvmt's `sj_e3657213`, 396,448,062)** | **396,508,400** |
+| **This job (accepted, record at the time; since passed by @thangvmt's `sj_e3657213`, 396,448,062; after the 11 Nov reset see contribution 33)** | **396,508,400** |
 | Saved vs parent | 5,900 |
 
 My first SLH-DSA-128s record (since passed by @thangvmt's `sj_e3657213`). The season is far from any gas cap: the Keccak syscalls alone are about 400M.
@@ -2086,6 +2089,49 @@ My first SLH-DSA-128s record (since passed by @thangvmt's `sj_e3657213`). The se
 - `slh-dsa-128s-sj_0ab1739b.patch`: the submitted patch, cumulative against baseline `7ab3ce3d`. SHA-256
   `fdaae6f6...d013e`.
 - `our-delta-on-sj_fe19b6f9.patch`: only my change on top of the parent (`lanes.cairo`); apply with `git apply -p0`.
+
+#### Contribution 33: @thangvmt's line slimmed to the 75% budget (job `sj_431c175a9682478c8cc94c11901b9af2`)
+
+> **Credit.** Almost all of the gas work is other people's: **@thangvmt**'s `sj_e3657213` (E16/E8 enum dispatch in `climb8i`/`climbx`,
+> inlined top layer) is the parent, on **@binharold**'s `sj_03a4d8f4` (WOTS+ ladder dispatch enums), which sits on my
+> `sj_0ab1739b` (contribution 15), on the line of **@nadai2010** (`sj_fe19b6f9`), **@akashneelesh** (`sj_cbc7e977`, `sj_89d0939d`, and the
+> post-reset record `sj_14d3d510`), **@odinfree** (`957443d8`), **@realadii** (`sj_3d7782bd`) and **@ryun1** (`sj_84bb8058`, four-chain
+> ladders). **What is mine** is only the slimming below, in `lanes.cairo`.
+
+##### What I did
+After the 11 Nov 2026 reset, `sj_e3657213` (99.8% of the class limits) no longer counted as a record; the record became
+@akashneelesh's older `sj_14d3d510` (398,084,453). `sj_e3657213` was about 1.6M gas cheaper but needed about 17k CASM felts and
+1 MB of Sierra less to fit 75% (CASM ≤ 61,440, Sierra ≤ 3,067,084 bytes). The hash is SHAKE-256 through the Keccak syscall, so the
+Keccak round grouping from my other lanes does not apply here.
+1. `hypertree`: layer 0 (`ht_layer_i`) and the top layer (`ht_layer_o`) were inlined copies; both now call the out-of-line `ht_layer`
+   like layers 1 to 5: CASM -10,440, +5,320 gas.
+2. `climb8i` (FORS Merkle climb, three 16-arm matches of four inlined hashes each, 192 hashes): each match now only returns the four
+   address constants (one shared `BoundedInt<0, max>` type per level, so no new type per arm) and four swap flags; the four hashes then
+   run once, with the (node, auth path) operands swapped by an `if`. 12 inlined hashes instead of 192: CASM -9,088, Sierra -440 KB,
+   about +126k gas.
+
+Local `bench_verify`: 409,978,531 (`sj_14d3d510`) -> 408,480,442 = **-1,498,089 gas**; on 52 valid reference signatures -1,485,329 to
+-1,526,959. Correctness: 1,441/1,441 tests pass, the same verdicts as the record: 37 crate tests (with ACVP) and 1,404 reference vectors
+from `ref/slhdsa128s.py` (52 keys: valid, bit flips in every region, public-key flips, message, swaps, other key, non-canonical felts,
+wrong lengths). Note: rejecting a non-canonical felt costs up to about 34M gas more than in `sj_14d3d510`, inherited from
+`sj_e3657213`'s later decoding; still far below one valid verification.
+
+##### Official result
+
+| | Gas |
+|---|---:|
+| Record before, `sj_14d3d510` (by @akashneelesh) | 398,084,453 |
+| **This job (accepted, record as of 11 Nov 2026)** | **396,579,569** |
+| Saved vs that record | 1,504,884 |
+
+The evaluator reports CASM 59,130 of 61,440 felts and a class of 3,062,818 bytes (74.9%). Worst case of the 8 held-out signatures
+411,198,227. No lead: the SLH-DSA lane has no research graph.
+
+##### Files
+- `slh-dsa-128s-sj_431c175a.patch`: the submitted patch (`git diff --full-index`), cumulative against baseline `7ab3ce3d`. Its SHA-256
+  (`96452f2c...7b63`) equals the `patch_sha256` the scorer reported for the job.
+- `our-delta-on-sj_e3657213.patch`: only my change on top of the parent (`lanes.cairo`). Verified: the parent patch on the baseline plus
+  this delta gives a tree identical (`diff -r`) to the baseline plus the submitted patch.
 
 ### Bahasa Indonesia (sederhana)
 
@@ -2115,13 +2161,51 @@ tukar, kunci lain, felt tidak kanonik, panjang salah) dari `ref/slhdsa128s.py` m
 
 ##### Hasil resmi
 - Parent `sj_fe19b6f9` (oleh @nadai2010, rekor pada waktunya): 396.514.300 gas.
-- **Job ini (diterima, rekor pada waktunya; sudah dilewati `sj_e3657213` milik @thangvmt, 396.448.062): 396.508.400 gas**, hemat 5.900 gas.
+- **Job ini (diterima, rekor pada waktunya; sudah dilewati `sj_e3657213` milik @thangvmt, 396.448.062; setelah reset 11 Nov lihat kontribusi 33): 396.508.400 gas**, hemat 5.900 gas.
 - Rekor SLH-DSA-128s pertama saya (sudah dilewati @thangvmt).
 
 ##### Berkas
 - `slh-dsa-128s-sj_0ab1739b.patch`: patch yang dikirim, kumulatif terhadap baseline `7ab3ce3d`. SHA-256
   `fdaae6f6...d013e`.
 - `our-delta-on-sj_fe19b6f9.patch`: hanya perubahan saya di atas parent (`lanes.cairo`); terapkan dengan `git apply -p0`.
+
+#### Kontribusi 33: garis @thangvmt dirampingkan supaya muat batas 75% (job `sj_431c175a9682478c8cc94c11901b9af2`)
+
+> **Kredit.** Hampir semua penghematan gas adalah karya orang lain: `sj_e3657213` milik **@thangvmt** (dispatch enum E16/E8 di
+> `climb8i`/`climbx`, layer teratas di-inline) adalah parent-nya, di atas `sj_03a4d8f4` milik **@binharold** (enum dispatch tangga WOTS+),
+> yang dibangun di atas `sj_0ab1739b` saya (kontribusi 15), di garis **@nadai2010** (`sj_fe19b6f9`), **@akashneelesh** (`sj_cbc7e977`,
+> `sj_89d0939d`, dan rekor setelah reset `sj_14d3d510`), **@odinfree** (`957443d8`), **@realadii** (`sj_3d7782bd`) dan **@ryun1**
+> (`sj_84bb8058`, tangga empat rantai). **Bagian saya** hanya perampingan di bawah ini, di `lanes.cairo`.
+
+##### Yang saya lakukan
+Setelah reset 11 Nov 2026, `sj_e3657213` (99,8% dari batas class) tidak lagi dihitung sebagai rekor; rekornya menjadi `sj_14d3d510`
+milik @akashneelesh yang lebih lama (398.084.453). `sj_e3657213` sekitar 1,6 juta gas lebih murah, tetapi perlu sekitar 17 ribu felt CASM
+dan 1 MB Sierra lebih kecil supaya muat 75% (CASM ≤ 61.440, Sierra ≤ 3.067.084 byte). Hash-nya SHAKE-256 lewat syscall Keccak, jadi
+teknik pengelompokan ronde Keccak dari lane lain tidak berlaku di sini.
+1. `hypertree`: layer 0 (`ht_layer_i`) dan layer teratas (`ht_layer_o`) tadinya salinan inline; keduanya sekarang memanggil `ht_layer`
+   yang tidak di-inline, sama seperti layer 1 sampai 5: CASM -10.440, gas +5.320.
+2. `climb8i` (pendakian Merkle FORS, tiga match 16 cabang yang masing-masing berisi empat hash inline, total 192 hash): setiap match
+   sekarang hanya mengembalikan empat konstanta alamat (satu tipe `BoundedInt<0, max>` bersama per level, jadi tidak ada tipe baru per
+   cabang) dan empat penanda tukar; keempat hash lalu dijalankan sekali, dengan operan (node, jalur auth) ditukar lewat `if`. 12 hash inline,
+   bukan 192: CASM -9.088, Sierra -440 KB, gas sekitar +126 ribu.
+
+`bench_verify` lokal: 409.978.531 (`sj_14d3d510`) -> 408.480.442 = **hemat 1.498.089 gas**; pada 52 tanda tangan referensi yang valid hemat
+1.485.329 s.d. 1.526.959. Pengujian: 1.441/1.441 tes lulus, putusannya sama dengan rekor: 37 tes crate (termasuk ACVP) dan 1.404 vektor
+referensi dari `ref/slhdsa128s.py` (52 kunci: valid, bit dibalik di setiap bagian, kunci publik, pesan, tukar, kunci lain, felt tidak
+kanonik, panjang salah). Catatan: menolak felt tidak kanonik bisa sampai sekitar 34 juta gas lebih mahal daripada di `sj_14d3d510`, bawaan
+dari decoding `sj_e3657213` yang dilakukan belakangan; tetap jauh di bawah biaya satu verifikasi yang valid.
+
+##### Hasil resmi
+- Rekor sebelumnya, `sj_14d3d510` (oleh @akashneelesh): 398.084.453 gas.
+- **Job ini (diterima, rekor per 11 Nov 2026): 396.579.569 gas**, hemat 1.504.884 gas.
+- CASM 59.130 dari 61.440 felt, class 3.062.818 byte (74,9%). Kasus terburuk dari 8 tanda tangan tersembunyi 411.198.227. Tanpa lead:
+  lane SLH-DSA tidak punya research graph.
+
+##### Berkas
+- `slh-dsa-128s-sj_431c175a.patch`: patch yang dikirim (`git diff --full-index`), kumulatif terhadap baseline `7ab3ce3d`; SHA-256
+  (`96452f2c...7b63`) sama dengan `patch_sha256` dari penilai.
+- `our-delta-on-sj_e3657213.patch`: hanya perubahan saya di atas parent (`lanes.cairo`). Patch parent + delta ini sama persis (`diff -r`)
+  dengan baseline + patch yang dikirim.
 
 ### Pernyataan jujur
 Patch SLH-DSA-128s dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
