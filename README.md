@@ -3,7 +3,7 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-512**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-512, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**33 contributions** in total: 29 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
+**34 contributions** in total: 30 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
 I now have contributions in all five signature schemes: ML-DSA-44, ML-DSA-87, SLH-DSA-128s, Falcon-512 and Falcon-1024.
 Sekarang sudah ada kontribusi saya di kelima jenis tanda tangan: ML-DSA-44, ML-DSA-87, SLH-DSA-128s, Falcon-512 dan Falcon-1024.
 
@@ -17,18 +17,25 @@ Sekarang sudah ada kontribusi saya di kelima jenis tanda tangan: ML-DSA-44, ML-D
 > tetap diterima dan diberi skor, tetapi tidak menjadi rekor, jadi rekor dihitung ulang dan skor sebelum dan sesudah reset tidak bisa
 > dibandingkan langsung. Kontribusi lama saya tetap tercatat di bawah apa adanya.
 
-- **Records I hold (as of 11 Nov 2026, after the reset):**
+- **Records I hold (as of 12 Nov 2026, after the reset):**
 
   | Season | Record | Gas | Contribution |
   |---|---|---:|---|
-  | ML-DSA-87 | `mk_b2e61741` | 86,783,625 | 30 |
-  | ML-DSA-44 | `mj_50bc7f09` | 174,316,245 | 29 |
-  | Falcon-512 | `fj_3a35fbca` | 24,470,451 | 31 |
-  | Falcon-1024 | `fk_12c60489` | 49,434,087 | 32 |
-  | SLH-DSA-128s | `sj_431c175a` | 396,579,569 | 33 |
+  | ML-DSA-44 | `mj_89cac6a7` | 172,924,285 | 34 |
 
-- **Records I once set, since passed:** ML-DSA-87 `mk_96568c3f` (contribution 28, first record after the reset, passed by my own `mk_b2e61741`), ML-DSA-87 `mk_195e9e3e` (contribution 27, record at the time; its class, 97.6% of the limit, is over the new budget, so it no longer counts as a record after the 11 Nov reset), ML-DSA-87 `mk_0e77da11` (contribution 26, passed by @rukafe0x's `mk_a05fd935`, record retaken by my `mk_195e9e3e`), ML-DSA-87 `mk_790f1c30` (contribution 25, passed by @rukafe0x's line `mk_04b420bb`, `mk_295151d9`, `mk_711ea4cc`, record retaken by my `mk_0e77da11`), ML-DSA-44 `mj_eaf3b3db` (contribution 24, passed by @solanaqubits' `mj_51c7a1c9`, built on it, then @rukafe0x's `mj_6c044bee` and `mj_9663722c`, then @solanaqubits' `mj_36c63657`), ML-DSA-87 `mk_4ff5f9db` (contribution 22, passed by my own `mk_790f1c30`), ML-DSA-44 `mj_11c423be` (contribution 23, passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`), ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`; that line, slimmed, is my current record `sj_431c175a`), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
-- Falcon-1024: contribution 10 was accepted but not a record; contribution 32 is the current record.
+- **Records I held after the reset, record at the time:** ML-DSA-87 `mk_b2e61741` (86,783,625, contribution 30), Falcon-512 `fj_3a35fbca`
+  (24,470,451, contribution 31), Falcon-1024 `fk_12c60489` (49,434,087, contribution 32), SLH-DSA-128s `sj_431c175a` (396,579,569,
+  contribution 33) and ML-DSA-44 `mj_50bc7f09` (174,316,245, contribution 29). As of 12 Nov 2026 the ML-DSA-87, Falcon-512 and
+  SLH-DSA-128s records are held by @binharold (`mk_b5ec1cf3`, `fj_b45b506e`, `sj_2fdde8a4`) and the Falcon-1024 record by @rukafe0x
+  (`fk_b619640e`). Some of these build on my work; for example @binharold's `mk_b5ec1cf3` builds on his `mk_ff66a13f`, which is built on
+  my `mk_b2e61741`.
+- **Rekor yang saya pegang (per 12 Nov 2026, sesudah reset):** hanya ML-DSA-44 `mj_89cac6a7` (172.924.285 gas, kontribusi 34).
+  Rekor saya sesudah reset yang sekarang menjadi rekor pada waktunya: ML-DSA-87 `mk_b2e61741`, Falcon-512 `fj_3a35fbca`, Falcon-1024
+  `fk_12c60489`, SLH-DSA-128s `sj_431c175a`, dan ML-DSA-44 `mj_50bc7f09`. Per 12 Nov 2026 rekor ML-DSA-87, Falcon-512, dan SLH-DSA-128s
+  dipegang @binharold dan rekor Falcon-1024 dipegang @rukafe0x; sebagian rekor itu dibangun di atas karya saya.
+
+- **Records I once set, since passed:** ML-DSA-87 `mk_96568c3f` (contribution 28, first record after the reset, passed by my own `mk_b2e61741`), ML-DSA-87 `mk_195e9e3e` (contribution 27, record at the time; its class, 97.6% of the limit, is over the new budget, so it no longer counts as a record after the 11 Nov reset), ML-DSA-87 `mk_0e77da11` (contribution 26, passed by @rukafe0x's `mk_a05fd935`, record retaken by my `mk_195e9e3e`), ML-DSA-87 `mk_790f1c30` (contribution 25, passed by @rukafe0x's line `mk_04b420bb`, `mk_295151d9`, `mk_711ea4cc`, record retaken by my `mk_0e77da11`), ML-DSA-44 `mj_eaf3b3db` (contribution 24, passed by @solanaqubits' `mj_51c7a1c9`, built on it, then @rukafe0x's `mj_6c044bee` and `mj_9663722c`, then @solanaqubits' `mj_36c63657`), ML-DSA-87 `mk_4ff5f9db` (contribution 22, passed by my own `mk_790f1c30`), ML-DSA-44 `mj_11c423be` (contribution 23, passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`), ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`; that line, slimmed, became my record `sj_431c175a`, since passed), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
+- Falcon-1024: contribution 10 was accepted but not a record; contribution 32 was a record at the time (passed; the current record is @rukafe0x's `fk_b619640e`).
 - STARK math challenge: **53 points** (M-0078 = 50 for contribution 19, review of M-0020 = 3 for contribution 13).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
@@ -51,7 +58,8 @@ Sekarang sudah ada kontribusi saya di kelima jenis tanda tangan: ML-DSA-44, ML-D
 23. `mj_11c423be`: z NTT radix-16 blocks run two per call, the ML-DSA-87 `zf4a3`/`zf4a5` batching ported (168,453,282 gas, record at the time, since passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`; -6,400 vs @rukafe0x's `mj_8ec4b8da`). Credit: **@rukafe0x** (parent record), **@binharold** (`zf4a3` batching, ML-DSA-87 `mk_3c0224a5`), and my `zf4a5` (ML-DSA-87 `mk_14ba0499`, contribution 21).
 24. `mj_eaf3b3db`: my z NTT pairs from contribution 23 (`zf4a5`-style batching, grown from @binharold's `zf4a3`) merged onto @rukafe0x's record `mj_2c1f51cf`, with one of his inline `i2` sites moved back out of line to fit the CASM limit (168,441,260 gas, record at the time, since passed by @solanaqubits' `mj_51c7a1c9` and later records; @solanaqubits' later record `mj_36c63657` (9 Nov 2026) still contained these pairs; -4,400 vs @rukafe0x's `mj_2c1f51cf`). Credit: **@rukafe0x** (parent record and its line `mj_a2031102`, `mj_2c1f51cf`), **@binharold** (`zf4a3` batching, ML-DSA-87 `mk_3c0224a5`).
 
-29. `mj_50bc7f09` (after the reset): Keccak rounds grouped four per out-of-line call (`q4`) on @rukafe0x's 75%-budget record `mj_21ddb0a7`, which had put every round out of line; each half-permutation makes 3 calls instead of 12 (174,316,245 gas, **current ML-DSA-44 record (as of 11 Nov 2026)**, -2,523,680 vs @rukafe0x's `mj_21ddb0a7`). The line still contains my z NTT pairs (contributions 23 and 24). Credit: **@rukafe0x** (parent `mj_21ddb0a7` and its parent `mj_b5729847`, E76), **@solanaqubits** (`mj_36c63657` composition in this line), **@binharold** (`zf4a3` batching).
+29. `mj_50bc7f09` (after the reset): Keccak rounds grouped four per out-of-line call (`q4`) on @rukafe0x's 75%-budget record `mj_21ddb0a7`, which had put every round out of line; each half-permutation makes 3 calls instead of 12 (174,316,245 gas, record at the time (11 Nov 2026), since passed by @binharold's `mj_ae959f87` (built on it) and later records, record retaken by my `mj_89cac6a7`; -2,523,680 vs @rukafe0x's `mj_21ddb0a7`). The line still contains my z NTT pairs (contributions 23 and 24). Credit: **@rukafe0x** (parent `mj_21ddb0a7` and its parent `mj_b5729847`, E76), **@solanaqubits** (`mj_36c63657` composition in this line), **@binharold** (`zf4a3` batching).
+34. `mj_89cac6a7` (after the reset): @rukafe0x's E81 idea (`mj_fb7e70d2`, the radix-4 step `i4r` inline at `mab` sites) ported onto @solanaqubits' record `mj_0b25240c`: the first `i42` site in `mab` becomes two inline `i4r` calls, and the Sierra it adds is paid by splitting two 256-element box pops into 2x128 (172,924,285 gas, **current ML-DSA-44 record (as of 12 Nov 2026)**, -29,840 vs @solanaqubits' `mj_0b25240c`). Credit: **@solanaqubits** (parent `mj_0b25240c`), **@rukafe0x** (E81 `mj_fb7e70d2`), **@binharold** (`mj_4dc80f4c`, `j4d` inline), and my `q4` rounds (`mj_50bc7f09`, contribution 29).
 ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 
 8. `mk_3691ffe9`: UseHint HighBits by multiply-shift, pairs `(i, i+16)` per u128 (110,867,290 gas, record at the time).
@@ -67,20 +75,20 @@ ML-DSA-87 (see the section [ML-DSA-87](#ml-dsa-87)):
 27. `mk_195e9e3e`: the same techniques as contribution 26 (z felts split Wide-only in `zread`, the cold SampleInBall fallback, the setup-only `PT` window table with `take4` and `col_into`) put onto @rukafe0x's new record `mk_a05fd935`, which builds on `mk_711ea4cc` and so did not contain them; the delta applies unchanged (86,541,815 gas, record at the time, until the 11 Nov 2026 reset; -42,200 vs @rukafe0x's `mk_a05fd935`). Credit: **@rukafe0x** (parent `mk_a05fd935`: rowp `grp1` returning `Option` with 17 groups popped once, Keccak first block/theta on known-zero lanes; its parent `mk_711ea4cc` with seven cache windows; the Wide-only split from `mk_0ed9df51`) and **@binharold**'s `mk_3c0224a5` line.
 
 28. `mk_96568c3f` (after the reset): a slim version on @rukafe0x's 75%-budget record `mk_3ae3d577` with my techniques (setup-only `PT` cache table with `take4`/`col_into`, cold SampleInBall fallback), the z reader `g5` inlined again, paid for by shorter Sierra debug names (wide box pops split) (86,918,125 gas, record at the time, since passed by my own `mk_b2e61741`; -88,903 vs @rukafe0x's `mk_3ae3d577`). Credit: **@rukafe0x** (`mk_3ae3d577` and `mk_f7634154`), **@binharold**'s `mk_3c0224a5` line.
-30. `mk_b2e61741` (after the reset): the Keccak round grouping from contribution 29 put into ML-DSA-87, two rounds per out-of-line call (`r2`), with the Sierra paid by further box-pop splits (86,783,625 gas, **current ML-DSA-87 record (as of 11 Nov 2026)**, -134,500 vs my `mk_96568c3f`). Credit: as contribution 28, plus contribution 29.
+30. `mk_b2e61741` (after the reset): the Keccak round grouping from contribution 29 put into ML-DSA-87, two rounds per out-of-line call (`r2`), with the Sierra paid by further box-pop splits (86,783,625 gas, record at the time (11 Nov 2026), since passed by @binharold's `mk_ff66a13f` (built on it) and later records, now @binharold's `mk_b5ec1cf3`; -134,500 vs my `mk_96568c3f`). Credit: as contribution 28, plus contribution 29.
 Falcon-512 (see the section [Falcon-512](#falcon-512)):
 
-31. `fj_3a35fbca` (after the reset): Keccak rounds two per out-of-line call (`rQ`/`rA2`) on @rukafe0x's 70%-budget record `fj_1520d5dc`; 18 round calls per permutation become 11 (24,470,451 gas, **current Falcon-512 record (as of 11 Nov 2026)**, -168,000 vs @rukafe0x's `fj_1520d5dc`). My first Falcon-512 contribution. Credit: **@rukafe0x** (parent `fj_1520d5dc` and its 70% fit line), **@binharold** (`fj_8ad7595e`, the line underneath), and the round grouping from my contributions 29 and 30.
+31. `fj_3a35fbca` (after the reset): Keccak rounds two per out-of-line call (`rQ`/`rA2`) on @rukafe0x's 70%-budget record `fj_1520d5dc`; 18 round calls per permutation become 11 (24,470,451 gas, record at the time (11 Nov 2026), since passed; now @binharold's `fj_b45b506e`; -168,000 vs @rukafe0x's `fj_1520d5dc`). My first Falcon-512 contribution. Credit: **@rukafe0x** (parent `fj_1520d5dc` and its 70% fit line), **@binharold** (`fj_8ad7595e`, the line underneath), and the round grouping from my contributions 29 and 30.
 
 Falcon-1024 (see the section [Falcon-1024](#falcon-1024)):
 
 10. `fk_40768326`: Keccak cell constants hoisted out of the squeeze loop (49,339,523 gas, accepted, **not a record**: queue order).
-32. `fk_12c60489` (after the reset): the Q-to-A transition Keccak round (round 15) moved out of line on @rukafe0x's record `fk_20c8300f`, with `bb` kept unspecialised (49,434,087 gas, **current Falcon-1024 record (as of 11 Nov 2026)**, -23,808 vs @rukafe0x's `fk_20c8300f`). Credit: **@rukafe0x** (parent `fk_20c8300f`, seven rounds per call, and its `mode1()` trick).
+32. `fk_12c60489` (after the reset): the Q-to-A transition Keccak round (round 15) moved out of line on @rukafe0x's record `fk_20c8300f`, with `bb` kept unspecialised (49,434,087 gas, record at the time (11 Nov 2026), since passed; now @rukafe0x's `fk_b619640e`; -23,808 vs @rukafe0x's `fk_20c8300f`). Credit: **@rukafe0x** (parent `fk_20c8300f`, seven rounds per call, and its `mode1()` trick).
 
 SLH-DSA-128s (see the section [SLH-DSA-128s](#slh-dsa-128s)):
 
 15. `sj_0ab1739b`: new `ht_layer` call convention (396,508,400 gas, record at the time, since passed by @thangvmt's `sj_e3657213`, -5,900 vs @nadai2010's `sj_fe19b6f9`). My first SLH-DSA record.
-33. `sj_431c175a` (after the reset): @thangvmt's `sj_e3657213` (on @binharold's `sj_03a4d8f4`, on my `sj_0ab1739b`) slimmed to fit the 75% budget: layers 0 and 6 call the out-of-line `ht_layer`, and the FORS climb `climb8i` runs one set of four hashes with an operand swap instead of 16 inlined arms (396,579,569 gas, **current SLH-DSA-128s record (as of 11 Nov 2026)**, -1,504,884 vs @akashneelesh's `sj_14d3d510`). Credit: **@thangvmt**, **@binharold**, **@akashneelesh**, **@nadai2010**, **@odinfree**, **@realadii**, **@ryun1**.
+33. `sj_431c175a` (after the reset): @thangvmt's `sj_e3657213` (on @binharold's `sj_03a4d8f4`, on my `sj_0ab1739b`) slimmed to fit the 75% budget: layers 0 and 6 call the out-of-line `ht_layer`, and the FORS climb `climb8i` runs one set of four hashes with an operand swap instead of 16 inlined arms (396,579,569 gas, record at the time (11 Nov 2026), since passed; now @binharold's `sj_2fdde8a4`; -1,504,884 vs @akashneelesh's `sj_14d3d510`). Credit: **@thangvmt**, **@binharold**, **@akashneelesh**, **@nadai2010**, **@odinfree**, **@realadii**, **@ryun1**.
 
 STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Three reviews and one result of my own (19):
 
@@ -527,6 +535,50 @@ This patch was produced by the AI agent **Claude Code** (model **Opus**), which 
 
 ---
 
+## Contribution 34: one `mab` radix-4 site inline on @solanaqubits' `mj_0b25240c`, paid by shorter debug names (job `mj_89cac6a7b77643a18c9f4a223c1b1216`)
+
+> **After the 11 Nov 2026 reset** (class budget 75%: CASM ≤ 61,440 felts, Sierra ≤ 3,067,084 bytes).
+>
+> **Credit.** The parent record `mj_0b25240c` is **@solanaqubits'** (lead `rgr1_0ea56267...`: `q42`, paired `i4r` through the
+> out-of-line `i42`, recursive `lah`), on **@binharold's** `mj_4dc80f4c` (`j4d` inline, lead `rgr1_a19baaf5...`). The idea of
+> inlining the radix-4 step `i4r` at `mab` sites is **@rukafe0x's** E81 (`mj_fb7e70d2`, lead `rgr1_e3e8e470...`), accepted but
+> not a record. The line also holds my `q4` Keccak rounds (contribution 29). **What is mine** is porting E81 onto the record and
+> making it fit the class budget.
+
+### What I did
+The parent calls `i4r` in `mab` through eight out-of-line `i42` pairs. Inlining one pair saves 33,600 gas but adds 27.7 KB of
+Sierra, and the parent had only 328 bytes left.
+- `nttu.cairo`, `mab`: the first `i42(v0..v31)` call becomes two `inline(always)` `i4r` calls.
+- Most class bytes are debug names, and a 256-element tuple type is spelled out about 8 times at 5.6 KB each. `pac`'s
+  `multi_pop_front::<256>` of `Z` and `mab`'s `multi_pop_front::<256>` of `W` are each split into two `::<128>` pops (both still
+  `unwrap`, as before). This frees about 34 KB of Sierra for +3,760 gas.
+
+Measured locally: -29,840 gas on the bench and exactly -29,840 on all 348 signatures from two local FIPS 204 keys. Correctness: 117
+bench tests pass; 106 forged rejection vectors are still rejected. A second inline site (with 4x64 pops) would save -55,920 but is
+3.6 KB over the Sierra limit.
+
+### Official result
+
+| | Gas |
+|---|---:|
+| Parent `mj_0b25240c` (by @solanaqubits, record at the time) | 172,954,125 |
+| **This job (accepted, record as of 12 Nov 2026)** | **172,924,285** |
+| Saved vs parent | 29,840 |
+
+Still above Starknet's 100M validation gas cap. The evaluator reports CASM 61,206 of 61,440 felts and a class of 3,060,227 of 3,067,084
+bytes (74.8%). Lead: `rgr1_6180f031277479260ebee0b6aa0e3d00e10f9f955dc62641058d7fe025d5b5dd`.
+
+### Files
+- `mldsa-44-mj_89cac6a7.patch`: the submitted patch (`git diff --full-index`), cumulative against baseline `78c83599f57e`. SHA-256
+  `0548c0b4...4bed80`.
+- `our-delta-on-mj_0b25240c.patch`: only my change on top of the parent (`nttu.cairo`); apply with `git apply -p0`. Paths are relative
+  to the repository root.
+
+### Disclosure
+This patch was produced by the AI agent **Claude Code** (model **Opus**), which I (**@ardianreffa**) ran and supervised.
+
+---
+
 ## Bahasa Indonesia (sederhana)
 
 ### Apa challenge-nya?
@@ -872,6 +924,44 @@ Diukur lokal: -2.523.680 gas di bench, dan minimal sebesar itu di semua 348 tand
 - `mldsa-44-mj_50bc7f09.patch`: patch yang dikirim (`git diff --full-index`), kumulatif terhadap baseline `78c83599f57e`. SHA-256
   `2a2002d9...b12b54`.
 - `our-delta-on-mj_21ddb0a7.patch`: hanya perubahan saya di atas parent (`k2.cairo`); terapkan dengan `git apply -p0`.
+
+### Pernyataan jujur
+Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+
+---
+
+## Kontribusi 34: satu situs radix-4 `mab` dibuat inline di atas `mj_0b25240c` milik @solanaqubits, dibayar dengan nama debug yang lebih pendek (job `mj_89cac6a7b77643a18c9f4a223c1b1216`)
+
+> **Sesudah reset 11 Nov 2026** (batas class 75%: CASM ≤ 61.440 felt, Sierra ≤ 3.067.084 byte).
+>
+> **Kredit.** Rekor induk `mj_0b25240c` milik **@solanaqubits** (lead `rgr1_0ea56267...`: `q42`, `i4r` berpasangan lewat `i42` di
+> luar baris, `lah` rekursif), di atas `mj_4dc80f4c` milik **@binharold** (`j4d` inline, lead `rgr1_a19baaf5...`). Ide membuat langkah
+> radix-4 `i4r` inline di situs `mab` adalah E81 milik **@rukafe0x** (`mj_fb7e70d2`, lead `rgr1_e3e8e470...`), diterima tetapi bukan
+> rekor. Jalur ini juga memuat ronde Keccak `q4` saya (kontribusi 29). **Bagian saya** adalah memindahkan E81 ke rekor dan membuatnya
+> muat di batas class.
+
+### Yang saya kerjakan
+Induk memanggil `i4r` di `mab` lewat delapan pasangan `i42` di luar baris. Membuat satu pasangan inline hemat 33.600 gas tetapi menambah
+27,7 KB Sierra, padahal induk hanya punya sisa 328 byte.
+- `nttu.cairo`, `mab`: panggilan `i42(v0..v31)` pertama menjadi dua panggilan `i4r` yang `inline(always)`.
+- Sebagian besar byte class adalah nama debug, dan tipe tuple 256 elemen ditulis lengkap sekitar 8 kali, masing-masing 5,6 KB.
+  `multi_pop_front::<256>` untuk `Z` di `pac` dan untuk `W` di `mab` masing-masing dipecah menjadi dua pop `::<128>` (keduanya tetap
+  `unwrap` seperti sebelumnya). Ini membebaskan sekitar 34 KB Sierra dengan biaya +3.760 gas.
+
+Diukur lokal: -29.840 gas di bench dan tepat -29.840 di semua 348 tanda tangan dari dua kunci FIPS 204 lokal. Pengujian: 117 tes bench
+lulus; 106 vektor penolakan palsu tetap ditolak. Situs inline kedua (dengan pop 4x64) akan hemat -55.920 tetapi lewat 3,6 KB dari batas
+Sierra.
+
+### Hasil resmi
+- Parent `mj_0b25240c` (oleh @solanaqubits, rekor pada waktunya): 172.954.125 gas.
+- **Job ini (diterima, rekor per 12 Nov 2026): 172.924.285 gas**, hemat 29.840 gas.
+- Masih di atas batas gas validasi Starknet 100M. Evaluator mencatat CASM 61.206 dari 61.440 felt dan class 3.060.227 dari 3.067.084 byte (74,8%).
+- Lead: `rgr1_6180f031277479260ebee0b6aa0e3d00e10f9f955dc62641058d7fe025d5b5dd`.
+
+### Berkas
+- `mldsa-44-mj_89cac6a7.patch`: patch yang dikirim (`git diff --full-index`), kumulatif terhadap baseline `78c83599f57e`. SHA-256
+  `0548c0b4...4bed80`.
+- `our-delta-on-mj_0b25240c.patch`: hanya perubahan saya di atas parent (`nttu.cairo`); terapkan dengan `git apply -p0`.
 
 ### Pernyataan jujur
 Patch ini dikerjakan oleh agent **Claude Code** (model **Opus**) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
