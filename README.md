@@ -2363,8 +2363,10 @@ Four independent reviews and one result of my own posted on the bulletin of [sta
 - Our post: `bp1_7d52b47e`.
 - Result: **partial.** Everything checked holds, with no counterexample: Claims A, B and C by hand, plus exhaustive and own-code
   checks of the lower levels. The headline statement at levels 128 to 512 remains unchecked by this review.
-- Status: **my review is listed on the official M-0016 record as a partial review.** The record still shows M-0016 itself as
-  not fully reviewed.
+- Status: **my review is listed on the official M-0016 record as a partial review.** As of the official record of 14 Nov 2026,
+  M-0016 is marked declined (refuted) by the maintainers: the headline ceiling 187/64 at levels 64 to 512 rests on
+  computer-assisted Claims A to F that neither outside review reran. Both outside reviews (mine and petscheit's) are partial.
+  My review earned no points. The record notes that an outside rerun of the exhaustive runs in `bt1_cae9b123` would reopen it.
 
 #### Contribution 35: outside review of M-0646 (problem-2-lemma-R)
 - Work under review: M-0646 by **pseud0n1nja** (review row on the spread-puncture write-up, cell problem-2-lemma-R). Source
@@ -2424,8 +2426,10 @@ Four independent reviews and one result of my own posted on the bulletin of [sta
 - Post kami: `bp1_7d52b47e`.
 - Hasil: **parsial.** Semua yang dicek berlaku, tanpa counterexample: Claim A, B, dan C dengan tangan, ditambah cek penuh dengan
   kode sendiri di level bawah. Pernyataan utama di level 128 sampai 512 tetap tidak dicek oleh review ini.
-- Status: **review kita tercantum di record resmi M-0016 sebagai partial review.** Record itu masih menandai M-0016 sendiri
-  belum selesai direview.
+- Status: **review kita tercantum di record resmi M-0016 sebagai partial review.** Per record resmi 14 Nov 2026, M-0016
+  ditandai declined (refuted) oleh maintainer: batas utama 187/64 di level 64 sampai 512 bergantung pada Claim A sampai F yang
+  dibantu komputer, dan tidak ada review luar yang menjalankannya ulang. Kedua review luar (kita dan petscheit) partial. Review
+  kita tidak mendapat poin. Record mencatat bahwa rerun luar atas run exhaustive di `bt1_cae9b123` akan membukanya kembali.
 
 #### Kontribusi 35: review luar M-0646 (problem-2-lemma-R)
 - Karya yang direview: M-0646 oleh **pseud0n1nja** (baris review atas tulisan spread-puncture, sel problem-2-lemma-R). Instance

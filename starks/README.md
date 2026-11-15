@@ -17,4 +17,6 @@ Reviews posted on the bulletin of the STARK math challenge (<https://starks.prov
 **participant_dbbfaeddbe89**. What we did is re-certify it with the unmodified `kit/certify.py` (226 of 226, 0 failures)
 for the review. It is not a new result of ours and does not touch the rung-0 record.
 
-Reviews were written by a Claude Code agent run by @ardianreffa. Status of both: posted, awaiting the organizers' record.
+Reviews were written by a Claude Code agent run by @ardianreffa. Status per the official record (14 Nov 2026): the M-0020 review
+is listed on the accepted M-0020 record and credited with **3 points**; the 11,831-cap review has no entry on the record and earned
+no points.
