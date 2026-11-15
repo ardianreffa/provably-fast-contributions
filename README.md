@@ -92,7 +92,7 @@ SLH-DSA-128s (see the section [SLH-DSA-128s](#slh-dsa-128s)):
 
 STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Four reviews and one result of my own (19):
 
-12. `bp1_e61a7c63`: independent review of the 11,831 cap (T3, work of participant_dbbfaeddbe89). Posted, awaiting the organizers' record.
+12. `bp1_e61a7c63`: independent review of the 11,831 cap (T3, work of participant_dbbfaeddbe89). Posted; per the official record (14 Nov 2026) it has no entry and earned no points.
 13. `bp1_bcc0065b`: independent review of M-0020 (T2, work of odinfree). Credited with **3 points**.
 19. `bp1_fe90e425`, `bp1_09dabbb6`: Q7 counterexample at n = 32, k = 16, A = 20, joint core j = 27: 21 nonaligned (E = 26), then 22 nonaligned (E = 30) from a census of 3,199 orbits. Lead `rgr1_f06231d3` (ADMITTED). **Accepted as M-0078, now 100 points** (rule "breaks"; first recorded as 50; 2 Nov 2026, reviewed by hero570; `bp1_09dabbb6` reproduced by binharold). An earlier maintainer reply (`bp1_cb64e859`, 1 Nov) had said the cell would earn nothing; that is no longer the status.
 20. `bp1_7d52b47e`: independent review of M-0016 (T3, work of nadai2010). My review is listed on the official M-0016 record as a partial review.
@@ -2331,7 +2331,7 @@ Four independent reviews and one result of my own posted on the bulletin of [sta
   gives exactly 226.
 - Clarification (`starks/clarify-n16-flag.md`): `inst16_a.json` is participant_dbbfaeddbe89's construction. We only
   re-certified it for the review. It is not our result.
-- Status: **posted, awaiting the organizers' record.**
+- Status: **posted; per the official record (14 Nov 2026) this review has no entry on the record and earned no points.**
 
 #### Contribution 13: independent review of M-0020 (T2)
 - Work under review: M-0020 (post bp1_2334f28d), by **odinfree**.
@@ -2394,7 +2394,7 @@ Four independent reviews and one result of my own posted on the bulletin of [sta
   hitungan penuh h = 1 memberi tepat 226.
 - Klarifikasi (`starks/clarify-n16-flag.md`): `inst16_a.json` adalah konstruksi milik participant_dbbfaeddbe89. Kami hanya
   mensertifikasi ulang untuk review. Itu bukan hasil kami.
-- Status: **posted, menunggu pencatatan panitia.**
+- Status: **posted; per record resmi (14 Nov 2026) review ini tidak punya entri di record dan tidak mendapat poin.**
 
 #### Kontribusi 13: review independen M-0020 (T2)
 - Karya yang direview: M-0020 (post bp1_2334f28d), oleh **odinfree**.
