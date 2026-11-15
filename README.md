@@ -3,7 +3,7 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-512**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-512, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**34 contributions** in total: 30 scored jobs, 3 reviews (12, 13 and 20) and 1 STARK math result (19).
+**35 contributions** in total: 30 scored jobs, 4 reviews (12, 13, 20 and 35) and 1 STARK math result (19).
 I now have contributions in all five signature schemes: ML-DSA-44, ML-DSA-87, SLH-DSA-128s, Falcon-512 and Falcon-1024.
 Sekarang sudah ada kontribusi saya di kelima jenis tanda tangan: ML-DSA-44, ML-DSA-87, SLH-DSA-128s, Falcon-512 dan Falcon-1024.
 
@@ -36,7 +36,7 @@ Sekarang sudah ada kontribusi saya di kelima jenis tanda tangan: ML-DSA-44, ML-D
 
 - **Records I once set, since passed:** ML-DSA-87 `mk_96568c3f` (contribution 28, first record after the reset, passed by my own `mk_b2e61741`), ML-DSA-87 `mk_195e9e3e` (contribution 27, record at the time; its class, 97.6% of the limit, is over the new budget, so it no longer counts as a record after the 11 Nov reset), ML-DSA-87 `mk_0e77da11` (contribution 26, passed by @rukafe0x's `mk_a05fd935`, record retaken by my `mk_195e9e3e`), ML-DSA-87 `mk_790f1c30` (contribution 25, passed by @rukafe0x's line `mk_04b420bb`, `mk_295151d9`, `mk_711ea4cc`, record retaken by my `mk_0e77da11`), ML-DSA-44 `mj_eaf3b3db` (contribution 24, passed by @solanaqubits' `mj_51c7a1c9`, built on it, then @rukafe0x's `mj_6c044bee` and `mj_9663722c`, then @solanaqubits' `mj_36c63657`), ML-DSA-87 `mk_4ff5f9db` (contribution 22, passed by my own `mk_790f1c30`), ML-DSA-44 `mj_11c423be` (contribution 23, passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`), ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`; that line, slimmed, became my record `sj_431c175a`, since passed), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: contribution 10 was accepted but not a record; contribution 32 was a record at the time (passed; the current record is @rukafe0x's `fk_b619640e`).
-- STARK math challenge: **53 points** (M-0078 = 50 for contribution 19, review of M-0020 = 3 for contribution 13).
+- STARK math challenge: **108 points** (M-0078 "breaks" = 100 for contribution 19, review of M-0020 = 3 for contribution 13, review of M-0646 = 5 for contribution 35).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised.
@@ -90,12 +90,13 @@ SLH-DSA-128s (see the section [SLH-DSA-128s](#slh-dsa-128s)):
 15. `sj_0ab1739b`: new `ht_layer` call convention (396,508,400 gas, record at the time, since passed by @thangvmt's `sj_e3657213`, -5,900 vs @nadai2010's `sj_fe19b6f9`). My first SLH-DSA record.
 33. `sj_431c175a` (after the reset): @thangvmt's `sj_e3657213` (on @binharold's `sj_03a4d8f4`, on my `sj_0ab1739b`) slimmed to fit the 75% budget: layers 0 and 6 call the out-of-line `ht_layer`, and the FORS climb `climb8i` runs one set of four hashes with an operand swap instead of 16 inlined arms (396,579,569 gas, record at the time (11 Nov 2026), since passed; now @binharold's `sj_2fdde8a4`; -1,504,884 vs @akashneelesh's `sj_14d3d510`). Credit: **@thangvmt**, **@binharold**, **@akashneelesh**, **@nadai2010**, **@odinfree**, **@realadii**, **@ryun1**.
 
-STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Three reviews and one result of my own (19):
+STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Four reviews and one result of my own (19):
 
 12. `bp1_e61a7c63`: independent review of the 11,831 cap (T3, work of participant_dbbfaeddbe89). Posted, awaiting the organizers' record.
 13. `bp1_bcc0065b`: independent review of M-0020 (T2, work of odinfree). Credited with **3 points**.
-19. `bp1_fe90e425`, `bp1_09dabbb6`: Q7 counterexample at n = 32, k = 16, A = 20, joint core j = 27: 21 nonaligned (E = 26), then 22 nonaligned (E = 30) from a census of 3,199 orbits. Lead `rgr1_f06231d3` (ADMITTED). **Accepted as M-0078 with 50 points** (2 Nov 2026, reviewed by hero570; `bp1_09dabbb6` reproduced by binharold). An earlier maintainer reply (`bp1_cb64e859`, 1 Nov) had said the cell would earn nothing; that is no longer the status.
+19. `bp1_fe90e425`, `bp1_09dabbb6`: Q7 counterexample at n = 32, k = 16, A = 20, joint core j = 27: 21 nonaligned (E = 26), then 22 nonaligned (E = 30) from a census of 3,199 orbits. Lead `rgr1_f06231d3` (ADMITTED). **Accepted as M-0078, now 100 points** (rule "breaks"; first recorded as 50; 2 Nov 2026, reviewed by hero570; `bp1_09dabbb6` reproduced by binharold). An earlier maintainer reply (`bp1_cb64e859`, 1 Nov) had said the cell would earn nothing; that is no longer the status.
 20. `bp1_7d52b47e`: independent review of M-0016 (T3, work of nadai2010). My review is listed on the official M-0016 record as a partial review.
+35. `bp1_37011c02`: outside review of M-0646 (pseud0n1nja, problem-2-lemma-R), verdict REPRODUCED: 118 (n = 32, official grader), 1,011 (n = 128) and 7,310 (n = 1,024) with my own `z1check.py`, including correction (a). Counted as the second hold; **M-0646 accepted on 14 Nov 2026, +5 points**. Credit: **pseud0n1nja** (claim), **binharold** (first hold).
 
 ---
 
@@ -2304,18 +2305,18 @@ Patch SLH-DSA-128s dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus)
 
 ## starks.provably.fast (STARK math challenge)
 
-Three independent reviews and one result of my own posted on the bulletin of [starks.provably.fast](https://starks.provably.fast) (public record:
+Four independent reviews and one result of my own posted on the bulletin of [starks.provably.fast](https://starks.provably.fast) (public record:
 <https://starks.provably.fast/record>). Files for contributions 12 and 13 are in [`starks/`](starks/). Posts appear under my bulletin identity, participant_824029c29299.
 
-**Points on the STARK board: 53** (M-0078 = 50 for contribution 19, review of M-0020 = 3 for contribution 13). / **Poin di papan STARK: 53** (M-0078 = 50 untuk kontribusi 19, review M-0020 = 3 untuk kontribusi 13).
+**Points on the STARK board: 108** (M-0078 "breaks" = 100 for contribution 19, review of M-0020 = 3 for contribution 13, review of M-0646 = 5 for contribution 35). / **Poin di papan STARK: 108** (M-0078 "breaks" = 100 untuk kontribusi 19, review M-0020 = 3 untuk kontribusi 13, review M-0646 = 5 untuk kontribusi 35).
 
-> **Disclosure / Pernyataan:** these reviews and the Q7 result were produced by an AI agent, **Claude Code** (models Sonnet and Opus),
+> **Disclosure / Pernyataan:** these reviews (including the M-0646 review, contribution 35) and the Q7 result were produced by an AI agent, **Claude Code** (models Sonnet and Opus),
 > which I (**@ardianreffa**) ran and supervised. The posts name the agent (Claude Opus 5.5).
-> Review ini dan hasil Q7 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
+> Review ini (termasuk review M-0646, kontribusi 35) dan hasil Q7 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
 > dan awasi. Posting menyebut agent-nya (Claude Opus 5.5).
 
-> **Credit / Kredit:** in contributions 12, 13 and 20 the mathematics belongs to the original authors; our part is review
-> and re-checking only. Contribution 19 is our own lower-bound result, accepted as M-0078 after review by hero570. / Di kontribusi 12, 13, dan 20
+> **Credit / Kredit:** in contributions 12, 13, 20 and 35 the mathematics belongs to the original authors; our part is review
+> and re-checking only. Contribution 19 is our own lower-bound result, accepted as M-0078 after review by hero570. / Di kontribusi 12, 13, 20, dan 35
 > matematikanya milik penulis asli; bagian kita hanya review dan pengecekan ulang. Kontribusi 19 adalah hasil batas bawah
 > kita sendiri, diterima sebagai M-0078 setelah direview hero570.
 
@@ -2350,7 +2351,7 @@ Three independent reviews and one result of my own posted on the bulletin of [st
 - Limits: this is a lower bound at one length and, for the census, inside one family of lines. It gives no upper bound. The pairs are still two-core pairs in the sense of `bp1_37829737` (participant_a63065a08b50).
 - Checks: own code only, C and standard-library Python with byte-identical output; the panel's `grade.py` gave reward 1 and
   `kit/certify.py` certified 30 of 30 on both pairs with 22.
-- Status: **accepted as M-0078 with 50 points** (2 Nov 2026). The record was reviewed by hero570, and binharold reproduced the
+- Status: **accepted as M-0078** (2 Nov 2026), **now 100 points** on the board (rule "breaks"; first recorded as 50). The record was reviewed by hero570, and binharold reproduced the
   census result (`bp1_09dabbb6`). An earlier maintainer reply (`bp1_cb64e859`, 1 Nov) had said this cell pays only for a count
   above 16n under rules v2 and earns nothing; the accepted record replaces that. The result is also listed in the official thread
   summary (`bp1_9ec9eaa9`, 1 Nov 2026): "found 22 at joint core 27, n = 32".
@@ -2364,6 +2365,21 @@ Three independent reviews and one result of my own posted on the bulletin of [st
   checks of the lower levels. The headline statement at levels 128 to 512 remains unchecked by this review.
 - Status: **my review is listed on the official M-0016 record as a partial review.** The record still shows M-0016 itself as
   not fully reviewed.
+
+#### Contribution 35: outside review of M-0646 (problem-2-lemma-R)
+- Work under review: M-0646 by **pseud0n1nja** (review row on the spread-puncture write-up, cell problem-2-lemma-R). Source
+  instances from `bp1_77736f90` (thread `bt1_eb2ee6e8`).
+- Our post: `bp1_37011c02` (thread `bt1_f4a8d9ad`), verdict **REPRODUCED** (scoped to the counts below).
+- Checked: **118** challenges at n = 32 (1 aligned) with the unmodified official grader, exhaustive over all 225,792,840
+  twenty-subsets; **1,011** (= 5x111 + 4x114) at n = 128 and **7,310** at n = 1,024 with my own `z1check.py`, written from the
+  definition, including **correction (a)**: the sum is 7,311 because one z is reached from both x = 127 and x = 475. Cross-checks:
+  the official `certify.py` certified 1,011 and 7,310 with 0 failures, and my own scan on the official n = 32 witnesses gives
+  exactly the official 118. Code and outputs were attached as content-addressed blobs (SHA-256 = blob id).
+- Status: **counted as the second outside hold; M-0646 accepted on 14 Nov 2026; +5 points** on the STARK board.
+- Maintainer (dr-chihuahua, `bp1_c9aee4cc`, 14 Nov 2026): "ardianreffa's bp1_37011c02 reproduces 118 / 1,011 / 7,310 and
+  correction (a) with an own scan from the definition and the unmodified official grader. Welcome, and thank you for the
+  'not checked' list."
+- Credit: **pseud0n1nja** (the claim), **binharold** (first outside hold, `bp1_b985aa4b`). Our part is the re-check only.
 
 ### Bahasa Indonesia (sederhana)
 
@@ -2396,7 +2412,7 @@ Three independent reviews and one result of my own posted on the bulletin of [st
 - Batasan: ini batas bawah di satu panjang dan, untuk census, di dalam satu keluarga garis. Tidak memberi batas atas. Pair ini tetap pair dua-core menurut `bp1_37829737` (participant_a63065a08b50).
 - Pengujian: hanya kode sendiri, C dan Python stdlib dengan keluaran identik byte per byte; `grade.py` panel memberi reward 1
   dan `kit/certify.py` mensertifikasi 30 dari 30 pada kedua pair dengan 22.
-- Status: **diterima sebagai M-0078 dengan 50 poin** (2 Nov 2026). Record-nya direview oleh hero570, dan binharold mereproduksi
+- Status: **diterima sebagai M-0078** (2 Nov 2026), **sekarang 100 poin** di papan (aturan "breaks"; awalnya tercatat 50). Record-nya direview oleh hero570, dan binharold mereproduksi
   hasil census (`bp1_09dabbb6`). Balasan maintainer sebelumnya (`bp1_cb64e859`, 1 Nov) sempat menyatakan sel ini hanya dibayar untuk
   hitungan di atas 16n menurut rules v2 dan tidak mendapat apa-apa; record yang diterima menggantikan pernyataan itu. Hasilnya juga
   tercantum di ringkasan resmi thread (`bp1_9ec9eaa9`, 1 Nov 2026): "found 22 at joint core 27, n = 32".
@@ -2411,9 +2427,24 @@ Three independent reviews and one result of my own posted on the bulletin of [st
 - Status: **review kita tercantum di record resmi M-0016 sebagai partial review.** Record itu masih menandai M-0016 sendiri
   belum selesai direview.
 
+#### Kontribusi 35: review luar M-0646 (problem-2-lemma-R)
+- Karya yang direview: M-0646 oleh **pseud0n1nja** (baris review atas tulisan spread-puncture, sel problem-2-lemma-R). Instance
+  sumber dari `bp1_77736f90` (thread `bt1_eb2ee6e8`).
+- Post kami: `bp1_37011c02` (thread `bt1_f4a8d9ad`), verdict **REPRODUCED** (terbatas pada angka di bawah).
+- Yang dicek: **118** tantangan di n = 32 (1 aligned) dengan grader resmi tanpa diubah, penuh atas semua 225.792.840 subset
+  berukuran dua puluh; **1.011** (= 5x111 + 4x114) di n = 128 dan **7.310** di n = 1.024 dengan kode sendiri `z1check.py` yang
+  ditulis dari definisi, termasuk **koreksi (a)**: jumlahnya 7.311 karena satu z tercapai dari x = 127 dan x = 475. Cek silang:
+  `certify.py` resmi mensertifikasi 1.011 dan 7.310 dengan 0 kegagalan, dan scan kode sendiri pada witness resmi n = 32 memberi
+  tepat 118 seperti hasil resmi. Kode dan keluaran dilampirkan sebagai blob (SHA-256 = id blob).
+- Status: **dihitung sebagai hold luar kedua; M-0646 diterima 14 Nov 2026; +5 poin** di papan STARK.
+- Maintainer (dr-chihuahua, `bp1_c9aee4cc`, 14 Nov 2026): "ardianreffa's bp1_37011c02 reproduces 118 / 1,011 / 7,310 and
+  correction (a) with an own scan from the definition and the unmodified official grader. Welcome, and thank you for the
+  'not checked' list."
+- Kredit: **pseud0n1nja** (klaimnya), **binharold** (hold luar pertama, `bp1_b985aa4b`). Bagian kami hanya pengecekan ulang.
+
 ### Pernyataan jujur
-Review ini dan hasil Q7 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
-Di kontribusi 12, 13, dan 20 bagian kami hanya review dan pengecekan ulang, dan hasil matematikanya milik penulis asli. Kontribusi 19 adalah hasil kami sendiri, diterima sebagai M-0078 (50 poin) setelah direview hero570.
+Review ini (termasuk review M-0646, kontribusi 35) dan hasil Q7 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Di kontribusi 12, 13, 20, dan 35 bagian kami hanya review dan pengecekan ulang, dan hasil matematikanya milik penulis asli. Kontribusi 19 adalah hasil kami sendiri, diterima sebagai M-0078 (sekarang 100 poin) setelah direview hero570.
 
 ---
 
