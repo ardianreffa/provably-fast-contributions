@@ -3,7 +3,7 @@
 Documentation of my accepted contributions to the **ML-DSA-44**, **ML-DSA-87**, **Falcon-512**, **Falcon-1024** and **SLH-DSA-128s** seasons on
 [falcon.provably.fast](https://falcon.provably.fast/mldsa) (ML-DSA-87, Falcon-512, Falcon-1024 and SLH-DSA-128s each have their own section near the end).
 
-**37 contributions** in total: 30 scored jobs, 6 reviews (12, 13, 20, 35, 36 and 37) and 1 STARK math result (19).
+**65 contributions** in total: 30 scored jobs, 34 reviews (12, 13, 20 and 35 to 65) and 1 STARK math result (19).
 I now have contributions in all five signature schemes: ML-DSA-44, ML-DSA-87, SLH-DSA-128s, Falcon-512 and Falcon-1024.
 Sekarang sudah ada kontribusi saya di kelima jenis tanda tangan: ML-DSA-44, ML-DSA-87, SLH-DSA-128s, Falcon-512 dan Falcon-1024.
 
@@ -39,7 +39,7 @@ Sekarang sudah ada kontribusi saya di kelima jenis tanda tangan: ML-DSA-44, ML-D
 
 - **Records I once set, since passed:** ML-DSA-87 `mk_96568c3f` (contribution 28, first record after the reset, passed by my own `mk_b2e61741`), ML-DSA-87 `mk_195e9e3e` (contribution 27, record at the time; its class, 97.6% of the limit, is over the new budget, so it no longer counts as a record after the 11 Nov reset), ML-DSA-87 `mk_0e77da11` (contribution 26, passed by @rukafe0x's `mk_a05fd935`, record retaken by my `mk_195e9e3e`), ML-DSA-87 `mk_790f1c30` (contribution 25, passed by @rukafe0x's line `mk_04b420bb`, `mk_295151d9`, `mk_711ea4cc`, record retaken by my `mk_0e77da11`), ML-DSA-44 `mj_eaf3b3db` (contribution 24, passed by @solanaqubits' `mj_51c7a1c9`, built on it, then @rukafe0x's `mj_6c044bee` and `mj_9663722c`, then @solanaqubits' `mj_36c63657`), ML-DSA-87 `mk_4ff5f9db` (contribution 22, passed by my own `mk_790f1c30`), ML-DSA-44 `mj_11c423be` (contribution 23, passed by @rukafe0x's `mj_2c1f51cf`, record retaken by my `mj_eaf3b3db`), ML-DSA-87 `mk_14ba0499` (contribution 21, passed by @rukafe0x's line `mk_dc76edbc` ... `mk_0ed9df51` ... `mk_7c976a34`, record retaken by my `mk_4ff5f9db`), ML-DSA-44 `mj_59d79522` (contribution 17, passed by @rukafe0x's `mj_e898606c`, then his `mj_502dcc7a` and `mj_8ec4b8da`, record retaken by my `mj_11c423be`), ML-DSA-87 `mk_29251ad0` (contribution 18, passed by @binharold's `mk_3c0224a5`, record retaken by my `mk_14ba0499`), SLH-DSA-128s `sj_0ab1739b` (contribution 15, passed by @thangvmt's `sj_e3657213`; that line, slimmed, became my record `sj_431c175a`, since passed), ML-DSA-87 `mk_a7b5d29d` (contribution 16, passed by my own `mk_29251ad0`), ML-DSA-87 `mk_00f892fd` (contribution 14, passed by @binharold's `mk_5276df6b`), ML-DSA-44 `mj_7b791824` (contribution 7, passed by @mitchuski), plus earlier ML-DSA-44 and ML-DSA-87 records that later jobs passed.
 - Falcon-1024: contribution 10 was accepted but not a record; contribution 32 was a record at the time (passed; the record as of 16 Nov 2026 is @rukafe0x's `fk_9308a17e`).
-- STARK math challenge: **112 points** (M-0078 "breaks" = 100 for contribution 19, review of M-0020 = 3 for contribution 13, review of M-0646 = 5 for contribution 35, review of M-0643 = 3 for contribution 37, review of M-0955 = 1 for contribution 36).
+- STARK math challenge: **256 points** (M-0078 "breaks" = 100 for contribution 19; reviews = 156: M-0020 = 3 for 13, M-0646 = 5 for 35, M-0955 = 1 for 36, M-0643 = 3 for 37, M-0712 = 10 for 38, 19 Lean kernel replays = 59 for 39 to 57, eight exact LP reviews of nine rows = 75 for 58 to 65; 0 pending, record of 17 Nov 2026).
 
 > **Disclosure / Pernyataan:** these patches were produced by an AI agent, **Claude Code**
 > (models Sonnet and Opus), which I (**@ardianreffa**) ran and supervised.
@@ -93,7 +93,7 @@ SLH-DSA-128s (see the section [SLH-DSA-128s](#slh-dsa-128s)):
 15. `sj_0ab1739b`: new `ht_layer` call convention (396,508,400 gas, record at the time, since passed by @thangvmt's `sj_e3657213`, -5,900 vs @nadai2010's `sj_fe19b6f9`). My first SLH-DSA record.
 33. `sj_431c175a` (after the reset): @thangvmt's `sj_e3657213` (on @binharold's `sj_03a4d8f4`, on my `sj_0ab1739b`) slimmed to fit the 75% budget: layers 0 and 6 call the out-of-line `ht_layer`, and the FORS climb `climb8i` runs one set of four hashes with an operand swap instead of 16 inlined arms (396,579,569 gas, record at the time (11 Nov 2026), since passed; the record as of 16 Nov 2026 is @lyskey1's `sj_31c1ca47`; -1,504,884 vs @akashneelesh's `sj_14d3d510`). Credit: **@thangvmt**, **@binharold**, **@akashneelesh**, **@nadai2010**, **@odinfree**, **@realadii**, **@ryun1**.
 
-STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). Six reviews and one result of my own (19):
+STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast-stark-math-challenge)). 34 reviews and one result of my own (19). Contributions 38 to 65 are reviews of other people's rows, each accepted on the official record with my review as one of its two outside holds:
 
 12. `bp1_e61a7c63`: independent review of the 11,831 cap (T3, work of participant_dbbfaeddbe89). Posted; per the official record (14 Nov 2026) it has no entry and earned no points.
 13. `bp1_bcc0065b`: independent review of M-0020 (T2, work of odinfree). Credited with **3 points**.
@@ -102,6 +102,34 @@ STARK math challenge (see the section [starks.provably.fast](#starksprovablyfast
 35. `bp1_37011c02`: outside review of M-0646 (pseud0n1nja, problem-2-lemma-R), verdict REPRODUCED: 118 (n = 32, official grader), 1,011 (n = 128) and 7,310 (n = 1,024) with my own `z1check.py`, including correction (a). Counted as the second hold; **M-0646 accepted on 14 Nov 2026, +5 points**. Credit: **pseud0n1nja** (claim), **binharold** (first hold).
 36. `bp1_f590e4aa`: outside review of M-0955 (lyskey1, problem-3a-upper), verdict REPRODUCED (the claim holds): my own exhaustive search `search.c` over M31 at n = 64 for Δ = {1, δ1}, δ1 = 2..7, every D from 8 to 20 (67.5 min wall on 12 cores), 0 sets with D < 20; positive control at p = 127 (the post's 4,352 sets, identical) and my own n = 32 brute force (all 18 validation counts match). First outside hold; **M-0955 accepted on 15 Nov 2026, +1 point**. Credit: **lyskey1** (claim), **omarespejel** (second hold).
 37. `bp1_f86128b7`: outside review of M-0643 (pseud0n1nja, problem-2-lemma-R), verdict REPRODUCED: R_8 = 306 / 669 / 1,264 at n = 64 / 128 / 256 with my own `r8check.py` and `ncensus.py` and the unmodified official `certify.py`. **M-0643 accepted on 15 Nov 2026, +3 points**. Credit: **pseud0n1nja** (claim), **binharold** and **hero570** (the other holds).
+38. `bp1_b35882d9`: outside review of M-0712 (0xstoneystark, T3, review row: Delsarte/LP caps 19,227 / 340,678 / 8,030 and R(31) <= 60,694), verdict REPRODUCED with my own exact LP code; second hold, **accepted 16 Nov 2026, +10 points**. Credit: **0xstoneystark** (claim), **py2755** (`bp1_028da3c8`) (first hold).
+39. `bp1_7e41c16a`: kernel replay of M-0987 (omarespejel's Lean module, problem-2a-fibre: FibreM31 canonical reduction), ACCEPT; **accepted 16 Nov 2026, +4 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_394c6a7a`) (other replay).
+40. `bp1_76db7b74`: kernel replay of M-0988 (omarespejel's Lean module, problem-2a-fibre: FibreM31 coupled-list reduction), ACCEPT; **accepted 16 Nov 2026, +4 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_50f4a647`) (other replay).
+41. `bp1_95a4d735`: kernel replay of M-0989 (omarespejel's Lean module, problem-2a-fibre: FibreM31 marginal-projection reduction), ACCEPT; **accepted 16 Nov 2026, +4 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_a1fb03c3`) (other replay).
+42. `bp1_5cf44f2a`: kernel replay of M-0993 (omarespejel's Lean module, problem-6-smooth-fri: certificate-coupled stage equivalence (toward T1UniformSmooth)), ACCEPT; **accepted 16 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_fac34999`) (other replay).
+43. `bp1_9401b65b`: kernel replay of M-0995 (omarespejel's Lean module, problem-6-smooth-fri: continuous curve supply (toward T2Smooth)), ACCEPT; **accepted 16 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_57681fb5`) (other replay).
+44. `bp1_d464a917`: kernel replay of M-0977 (omarespejel's Lean module, problem-6-smooth-fri: linear bound toward T1UniformSmooth), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_9ce73bf6`) (other replay).
+45. `bp1_626f42a8`: kernel replay of M-0978 (omarespejel's Lean module, problem-6-smooth-fri: quadratic baseline toward T1Smooth), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_5c1e93c1`) (other replay).
+46. `bp1_bfd9020b`: kernel replay of M-0979 (omarespejel's Lean module, problem-6-smooth-fri: T3Exponent / T3 / T3Goal from one separant stage), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_1eab9a28`) (other replay).
+47. `bp1_cf969ed7`: kernel replay of M-0980 (omarespejel's Lean module, problem-6-smooth-fri: degree-1 jet stages are linear), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_bc18b4d8`) (other replay).
+48. `bp1_d278bf92`: kernel replay of M-0981 (omarespejel's Lean module, problem-6-smooth-fri: second-order certificate toward T2Smooth), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_d4737132`) (other replay).
+49. `bp1_698c0b98`: kernel replay of M-0983 (omarespejel's Lean module, problem-3a-upper: InteriorThree canonical reduction), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_f48fdb7a`) (other replay).
+50. `bp1_7ca43f09`: kernel replay of M-0984 (omarespejel's Lean module, problem-3a-upper: InteriorThree Theorem W), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_748ce372`) (other replay).
+51. `bp1_1fa6b04c`: kernel replay of M-0985 (omarespejel's Lean module, problem-3a-upper: InteriorThree boundary CW), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_1d02d603`) (other replay).
+52. `bp1_d8dd3a09`: kernel replay of M-0996 (omarespejel's Lean module, problem-3a-upper: Lemma Q'_l and the Kummer fibres), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_41171e7d`) (other replay).
+53. `bp1_58be2dd8`: kernel replay of M-0997 (omarespejel's Lean module, problem-3a-upper: multi-monomial gap reduction), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_bbf86c5c`) (other replay).
+54. `bp1_0f0ff4d2`: kernel replay of M-0998 (omarespejel's Lean module, problem-3a-upper: M31 orbit-size obstruction), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_d35622db`) (other replay).
+55. `bp1_134a4834`: kernel replay of M-1000 (omarespejel's Lean module, problem-6-smooth-fri: semilinear Riccati first-order stages), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_b2527fe2`) (other replay).
+56. `bp1_4063422b`: kernel replay of M-1001 (omarespejel's Lean module, problem-6-smooth-fri: second-order curve supply on 0 < rho < 1), ACCEPT; **accepted 17 Nov 2026, +3 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_e63d98e5`) (other replay).
+57. `bp1_31c9e495`: kernel replay of M-0976 (omarespejel's Lean module, problem-3a-upper: two-block locator toward Interior58 (quarter)), ACCEPT; **accepted 17 Nov 2026, +2 points**. Credit: **omarespejel** (module), **blacklight-1** (`bp1_bc9fa797`) (other replay).
+58. `bp1_3d065c1b`: outside review of M-0519 (nouman-wp, T3: n = 32 joint-core caps, eight exact Delsarte optima and 14 Q4 LPs), verdict REPRODUCED with my own exact LP code; second hold, **accepted 17 Nov 2026, +10 points**. Credit: **nouman-wp** (claim), **py2755** (`bp1_afaf42df`) (first hold).
+59. `bp1_e8193e81`: outside review of M-0526 (ishannaik, T3: four core caps and five label totals (138,492)), verdict REPRODUCED with my own exact LP code; second hold, **accepted 17 Nov 2026, +10 points**. Credit: **ishannaik** (claim), **py2755** (`bp1_7dd55d10`) (first hold).
+60. `bp1_1ed0dcf5`: outside review of M-0523 (ishannaik, T3: A(32, 10, 12) <= 11,541 and the Port C cover 207,220), verdict REPRODUCED with my own exact LP code; second hold, **accepted 17 Nov 2026, +10 points**. Credit: **ishannaik** (claim), **py2755** (`bp1_7dd75dea`) (first hold).
+61. `bp1_e1ba33b4`: outside review of M-0521 (ishannaik, T3: posted certificate and the cover 207,220; found the slack is about -5.5 (not -1/1,000,000) at d = 6 and 11, no bound changes), verdict REPRODUCED with my own exact LP code; second hold, **accepted 17 Nov 2026, +5 points**. Credit: **ishannaik** (claim), **py2755** (`bp1_6164a293`) (first hold).
+62. `bp1_b58e57a3`: outside review of M-0524 (ishannaik, T3: 520,841 and the cover 207,027), verdict REPRODUCED with my own exact LP code; second hold, **accepted 17 Nov 2026, +5 points**. Credit: **ishannaik** (claim), **py2755** (`bp1_bd99b99e`) (first hold).
+63. `bp1_556e9f1d`: outside review of M-0474 (nouman-wp, T1: Q4 core caps R(31) = 60,694 and maxima 60,695 / 7,641 for every m from 19 to 31), verdict REPRODUCED with my own exact LP code; second hold, **accepted 17 Nov 2026, +10 points**. Credit: **nouman-wp** (claim), **py2755** (`bp1_718a0bf5`) (first hold).
+64. `bp1_34c16873`: outside review of M-0458 + M-0461 (ishannaik, T3: cap 4,316 (optimum 202860/47) so 13 x 4,316 = 56,108, one post for both rows; the slack correction at d = 10 and 11 is now on the record), verdict REPRODUCED with my own exact LP code; second hold, **accepted 17 Nov 2026, +20 points**. Credit: **ishannaik** (claim), **py2755** (`bp1_1b54346a`) (first hold).
+65. `bp1_8f10757b`: outside review of M-0529 (nouman-wp, T3: 64,142 holds a fortiori, plus a kernel replay of the Lean file behind it), verdict REPRODUCED with my own exact LP code; second hold, **accepted 17 Nov 2026, +5 points**. Credit: **nouman-wp** (claim), **py2755** (`bp1_30a7e458`) (first hold).
 
 ---
 
@@ -2310,18 +2338,18 @@ Patch SLH-DSA-128s dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus)
 
 ## starks.provably.fast (STARK math challenge)
 
-Six independent reviews and one result of my own posted on the bulletin of [starks.provably.fast](https://starks.provably.fast) (public record:
+34 independent reviews and one result of my own posted on the bulletin of [starks.provably.fast](https://starks.provably.fast) (public record:
 <https://starks.provably.fast/record>). Files for contributions 12 and 13 are in [`starks/`](starks/). Posts appear under my bulletin identity, participant_824029c29299.
 
-**Points on the STARK board: 112** (M-0078 "breaks" = 100 for contribution 19, review of M-0020 = 3 for contribution 13, review of M-0646 = 5 for contribution 35, review of M-0643 = 3 for contribution 37, review of M-0955 = 1 for contribution 36). / **Poin di papan STARK: 112** (M-0078 "breaks" = 100 untuk kontribusi 19, review M-0020 = 3 untuk kontribusi 13, review M-0646 = 5 untuk kontribusi 35, review M-0643 = 3 untuk kontribusi 37, review M-0955 = 1 untuk kontribusi 36).
+**Points on the STARK board: 256** (M-0078 "breaks" = 100 for contribution 19; reviews = 156: M-0020 = 3 for 13, M-0646 = 5 for 35, M-0955 = 1 for 36, M-0643 = 3 for 37, M-0712 = 10 for 38, 19 Lean kernel replays = 59 for 39 to 57, eight exact LP reviews of nine rows = 75 for 58 to 65; 0 pending, record of 17 Nov 2026). / **Poin di papan STARK: 256** (M-0078 "breaks" = 100 untuk kontribusi 19; review = 156: M-0020 = 3 untuk 13, M-0646 = 5 untuk 35, M-0955 = 1 untuk 36, M-0643 = 3 untuk 37, M-0712 = 10 untuk 38, 19 replay kernel Lean = 59 untuk 39 sampai 57, delapan review LP eksak atas sembilan baris = 75 untuk 58 sampai 65; 0 pending, record 17 Nov 2026).
 
-> **Disclosure / Pernyataan:** these reviews (including the M-0646, M-0955 and M-0643 reviews, contributions 35 to 37) and the Q7 result were produced by an AI agent, **Claude Code** (models Sonnet and Opus),
-> which I (**@ardianreffa**) ran and supervised. The posts name the agent (Claude Opus 5.5).
-> Review ini (termasuk review M-0646, M-0955, dan M-0643, kontribusi 35 sampai 37) dan hasil Q7 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
-> dan awasi. Posting menyebut agent-nya (Claude Opus 5.5).
+> **Disclosure / Pernyataan:** these reviews (contributions 12, 13, 20 and 35 to 65, including the Lean kernel replays and the exact LP reviews) and the Q7 result were produced by an AI agent, **Claude Code** (models Sonnet and Opus),
+> which I (**@ardianreffa**) ran and supervised. The agent wrote the review programs and ran the replays; I approved every post before it went out. The posts name the agent (Claude Opus 5.5).
+> Review ini (kontribusi 12, 13, 20, dan 35 sampai 65, termasuk replay kernel Lean dan review LP eksak) dan hasil Q7 dikerjakan oleh agent AI **Claude Code** (model Sonnet dan Opus) yang saya (**@ardianreffa**) jalankan
+> dan awasi. Agent menulis program review dan menjalankan replay; setiap posting saya setujui dulu. Posting menyebut agent-nya (Claude Opus 5.5).
 
-> **Credit / Kredit:** in contributions 12, 13, 20, 35, 36 and 37 the mathematics belongs to the original authors; our part is review
-> and re-checking only. Contribution 19 is our own lower-bound result, accepted as M-0078 after review by hero570. / Di kontribusi 12, 13, 20, 35, 36, dan 37
+> **Credit / Kredit:** in contributions 12, 13, 20 and 35 to 65 the mathematics (and every Lean module) belongs to the original authors; our part is review
+> and re-checking only. Contribution 19 is our own lower-bound result, accepted as M-0078 after review by hero570. / Di kontribusi 12, 13, 20, dan 35 sampai 65
 > matematikanya milik penulis asli; bagian kita hanya review dan pengecekan ulang. Kontribusi 19 adalah hasil batas bawah
 > kita sendiri, diterima sebagai M-0078 setelah direview hero570.
 
@@ -2415,6 +2443,17 @@ Six independent reviews and one result of my own posted on the bulletin of [star
 - Credit: **pseud0n1nja** (the claim), **binharold** (`bp1_7e4b16e5`) and **hero570** (`bp1_0dfd611e`) (the other holds).
   Our part is the re-check only.
 
+#### Contributions 38 to 65: Lean kernel replays and exact LP reviews (16 and 17 Nov 2026)
+Each is listed in one line in the [Contributions](#contributions) list above, with the owner of the claim and the other hold.
+- **Lean kernel replays (39 to 57, 19 rows of omarespejel's modules for problem-2a-fibre, problem-3a-upper and problem-6-smooth-fri):**
+  each replay builds the posted module against the pinned package (Lean v4.34.0, ArkLib `35ddcaa8`, Mathlib `5ed29652`), runs the
+  house's own `check.py`, an independent `leanchecker` replay and `#print axioms` (only `propext`, `Classical.choice`, `Quot.sound`),
+  and posts the tool output. The house checked file hashes, declaration counts and sibling hashes against the record. A replay says the
+  kernel accepts the file; it does not say the proofs were read line by line, and these rows are from the organiser's root (not prize-eligible).
+- **Exact LP reviews (38 and 58 to 65):** a short program per row on my own exact Delsarte LP solver (rational arithmetic, exact dual
+  certificates); every output ends "0 line(s) differ". Two corrections beyond the rows (the dual slack in M-0521 and in M-0458/M-0461 is
+  not -1/1,000,000 at every d; no bound changes) are noted by the house.
+
 ### Bahasa Indonesia (sederhana)
 
 #### Kontribusi 12: review independen batas 11.831 (T3)
@@ -2506,9 +2545,44 @@ Six independent reviews and one result of my own posted on the bulletin of [star
 - Kredit: **pseud0n1nja** (klaimnya), **binharold** (`bp1_7e4b16e5`) dan **hero570** (`bp1_0dfd611e`) (hold lainnya). Bagian kami
   hanya pengecekan ulang.
 
+#### Kontribusi 38 sampai 65: replay kernel Lean dan review LP eksak (16 dan 17 Nov 2026)
+Replay Lean (39 sampai 57) mem-build modul yang diposting terhadap paket yang dipin (Lean v4.34.0, ArkLib `35ddcaa8`, Mathlib `5ed29652`),
+menjalankan `check.py` milik house, replay `leanchecker` sendiri dan `#print axioms`, lalu memposting output alatnya. Replay hanya
+menyatakan kernel menerima berkasnya, bukan bahwa buktinya dibaca baris per baris. Review LP (38 dan 58 sampai 65) menjalankan program
+pendek per baris di atas solver LP Delsarte eksak buatan sendiri; semua output berakhir "0 line(s) differ".
+
+38. `bp1_b35882d9`: review luar M-0712 (0xstoneystark, T3, review row: batas Delsarte/LP 19.227 / 340.678 / 8.030 dan R(31) <= 60.694), verdict REPRODUCED dengan kode LP eksak sendiri; hold kedua, **diterima 16 Nov 2026, +10 poin**. Kredit: **0xstoneystark** (klaim), **py2755** (`bp1_028da3c8`) (hold pertama).
+39. `bp1_7e41c16a`: replay kernel M-0987 (modul Lean omarespejel, problem-2a-fibre: reduksi kanonik FibreM31), ACCEPT; **diterima 16 Nov 2026, +4 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_394c6a7a`) (replay lain).
+40. `bp1_76db7b74`: replay kernel M-0988 (modul Lean omarespejel, problem-2a-fibre: reduksi list berpasangan FibreM31), ACCEPT; **diterima 16 Nov 2026, +4 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_50f4a647`) (replay lain).
+41. `bp1_95a4d735`: replay kernel M-0989 (modul Lean omarespejel, problem-2a-fibre: reduksi proyeksi marginal FibreM31), ACCEPT; **diterima 16 Nov 2026, +4 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_a1fb03c3`) (replay lain).
+42. `bp1_5cf44f2a`: replay kernel M-0993 (modul Lean omarespejel, problem-6-smooth-fri: ekuivalensi stage berpasangan sertifikat (menuju T1UniformSmooth)), ACCEPT; **diterima 16 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_fac34999`) (replay lain).
+43. `bp1_9401b65b`: replay kernel M-0995 (modul Lean omarespejel, problem-6-smooth-fri: pasokan kurva kontinu (menuju T2Smooth)), ACCEPT; **diterima 16 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_57681fb5`) (replay lain).
+44. `bp1_d464a917`: replay kernel M-0977 (modul Lean omarespejel, problem-6-smooth-fri: batas linear menuju T1UniformSmooth), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_9ce73bf6`) (replay lain).
+45. `bp1_626f42a8`: replay kernel M-0978 (modul Lean omarespejel, problem-6-smooth-fri: baseline kuadratik menuju T1Smooth), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_5c1e93c1`) (replay lain).
+46. `bp1_bfd9020b`: replay kernel M-0979 (modul Lean omarespejel, problem-6-smooth-fri: T3Exponent / T3 / T3Goal dari satu stage separant), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_1eab9a28`) (replay lain).
+47. `bp1_cf969ed7`: replay kernel M-0980 (modul Lean omarespejel, problem-6-smooth-fri: stage jet berderajat 1 linear), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_bc18b4d8`) (replay lain).
+48. `bp1_d278bf92`: replay kernel M-0981 (modul Lean omarespejel, problem-6-smooth-fri: sertifikat orde dua menuju T2Smooth), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_d4737132`) (replay lain).
+49. `bp1_698c0b98`: replay kernel M-0983 (modul Lean omarespejel, problem-3a-upper: reduksi kanonik InteriorThree), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_f48fdb7a`) (replay lain).
+50. `bp1_7ca43f09`: replay kernel M-0984 (modul Lean omarespejel, problem-3a-upper: Teorema W InteriorThree), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_748ce372`) (replay lain).
+51. `bp1_1fa6b04c`: replay kernel M-0985 (modul Lean omarespejel, problem-3a-upper: CW batas InteriorThree), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_1d02d603`) (replay lain).
+52. `bp1_d8dd3a09`: replay kernel M-0996 (modul Lean omarespejel, problem-3a-upper: Lemma Q'_l dan fiber Kummer), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_41171e7d`) (replay lain).
+53. `bp1_58be2dd8`: replay kernel M-0997 (modul Lean omarespejel, problem-3a-upper: reduksi celah multi-monomial), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_bbf86c5c`) (replay lain).
+54. `bp1_0f0ff4d2`: replay kernel M-0998 (modul Lean omarespejel, problem-3a-upper: obstruksi ukuran orbit M31), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_d35622db`) (replay lain).
+55. `bp1_134a4834`: replay kernel M-1000 (modul Lean omarespejel, problem-6-smooth-fri: stage orde satu Riccati semilinear), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_b2527fe2`) (replay lain).
+56. `bp1_4063422b`: replay kernel M-1001 (modul Lean omarespejel, problem-6-smooth-fri: pasokan kurva orde dua pada 0 < rho < 1), ACCEPT; **diterima 17 Nov 2026, +3 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_e63d98e5`) (replay lain).
+57. `bp1_31c9e495`: replay kernel M-0976 (modul Lean omarespejel, problem-3a-upper: locator dua blok menuju Interior58 (quarter)), ACCEPT; **diterima 17 Nov 2026, +2 poin**. Kredit: **omarespejel** (modul), **blacklight-1** (`bp1_bc9fa797`) (replay lain).
+58. `bp1_3d065c1b`: review luar M-0519 (nouman-wp, T3: batas joint-core n = 32, delapan optimum Delsarte eksak dan 14 LP Q4), verdict REPRODUCED dengan kode LP eksak sendiri; hold kedua, **diterima 17 Nov 2026, +10 poin**. Kredit: **nouman-wp** (klaim), **py2755** (`bp1_afaf42df`) (hold pertama).
+59. `bp1_e8193e81`: review luar M-0526 (ishannaik, T3: empat batas core dan lima total label (138.492)), verdict REPRODUCED dengan kode LP eksak sendiri; hold kedua, **diterima 17 Nov 2026, +10 poin**. Kredit: **ishannaik** (klaim), **py2755** (`bp1_7dd55d10`) (hold pertama).
+60. `bp1_1ed0dcf5`: review luar M-0523 (ishannaik, T3: A(32, 10, 12) <= 11.541 dan cover Port C 207.220), verdict REPRODUCED dengan kode LP eksak sendiri; hold kedua, **diterima 17 Nov 2026, +10 poin**. Kredit: **ishannaik** (klaim), **py2755** (`bp1_7dd75dea`) (hold pertama).
+61. `bp1_e1ba33b4`: review luar M-0521 (ishannaik, T3: sertifikat yang diposting dan cover 207.220; menemukan slack sekitar -5,5 (bukan -1/1.000.000) di d = 6 dan 11, tanpa bound berubah), verdict REPRODUCED dengan kode LP eksak sendiri; hold kedua, **diterima 17 Nov 2026, +5 poin**. Kredit: **ishannaik** (klaim), **py2755** (`bp1_6164a293`) (hold pertama).
+62. `bp1_b58e57a3`: review luar M-0524 (ishannaik, T3: 520.841 dan cover 207.027), verdict REPRODUCED dengan kode LP eksak sendiri; hold kedua, **diterima 17 Nov 2026, +5 poin**. Kredit: **ishannaik** (klaim), **py2755** (`bp1_bd99b99e`) (hold pertama).
+63. `bp1_556e9f1d`: review luar M-0474 (nouman-wp, T1: batas core Q4 R(31) = 60.694 dan maksimum 60.695 / 7.641 untuk setiap m dari 19 sampai 31), verdict REPRODUCED dengan kode LP eksak sendiri; hold kedua, **diterima 17 Nov 2026, +10 poin**. Kredit: **nouman-wp** (klaim), **py2755** (`bp1_718a0bf5`) (hold pertama).
+64. `bp1_34c16873`: review luar M-0458 + M-0461 (ishannaik, T3: batas 4.316 (optimum 202860/47) sehingga 13 x 4.316 = 56.108, satu post untuk dua baris; koreksi slack di d = 10 dan 11 kini tercatat di record), verdict REPRODUCED dengan kode LP eksak sendiri; hold kedua, **diterima 17 Nov 2026, +20 poin**. Kredit: **ishannaik** (klaim), **py2755** (`bp1_1b54346a`) (hold pertama).
+65. `bp1_8f10757b`: review luar M-0529 (nouman-wp, T3: 64.142 berlaku a fortiori, ditambah replay kernel atas berkas Lean di baliknya), verdict REPRODUCED dengan kode LP eksak sendiri; hold kedua, **diterima 17 Nov 2026, +5 poin**. Kredit: **nouman-wp** (klaim), **py2755** (`bp1_30a7e458`) (hold pertama).
+
 ### Pernyataan jujur
-Review ini (termasuk review M-0646, M-0955, dan M-0643, kontribusi 35 sampai 37) dan hasil Q7 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
-Di kontribusi 12, 13, 20, 35, 36, dan 37 bagian kami hanya review dan pengecekan ulang, dan hasil matematikanya milik penulis asli. Kontribusi 19 adalah hasil kami sendiri, diterima sebagai M-0078 (sekarang 100 poin) setelah direview hero570.
+Review ini (kontribusi 12, 13, 20, dan 35 sampai 65, termasuk 19 replay kernel Lean dan review LP eksak) dan hasil Q7 dikerjakan oleh agent **Claude Code** (model Sonnet dan Opus) yang saya jalankan dan awasi (akun GitHub: **@ardianreffa**).
+Di kontribusi 12, 13, 20, dan 35 sampai 65 bagian kami hanya review dan pengecekan ulang, dan hasil matematikanya milik penulis asli. Kontribusi 19 adalah hasil kami sendiri, diterima sebagai M-0078 (sekarang 100 poin) setelah direview hero570.
 
 ---
 
